@@ -1,0 +1,34 @@
+{
+  "itineraries": [
+    {
+      "id": "trip_001",
+      "destination": "Paris, France",
+      "duration": 5,
+      "budget": "medium",
+      "style": "balanced",
+      "totalCost": 2400,
+      "rating": 5,
+      "highlights": ["Eiffel Tower", "Louvre Museum", "Seine River Cruise"]
+    },
+    {
+      "id": "trip_002", 
+      "destination": "Tokyo, Japan",
+      "duration": 7,
+      "budget": "luxury",
+      "style": "cultural",
+      "totalCost": 4200,
+      "rating": 5,
+      "highlights": ["Senso-ji Temple", "Shibuya Crossing", "Mount Fuji Day Trip"]
+    },
+    {
+      "id": "trip_003",
+      "destination": "Bali, Indonesia", 
+      "duration": 6,
+      "budget": "budget",
+      "style": "relaxed",
+      "totalCost": 1200,
+      "rating": 4,
+      "highlights": ["Ubud Rice Terraces", "Tanah Lot Temple", "Beach Relaxation"]
+    }
+  ]
+}
