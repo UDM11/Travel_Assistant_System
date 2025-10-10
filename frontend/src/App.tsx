@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import PlanTrip from './pages/PlanTrip';
 import RecentTrips from './pages/RecentTrips';
 import About from './pages/About';
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/plan" element={<PlanTrip />} />
             <Route path="/recent" element={<RecentTrips />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />
