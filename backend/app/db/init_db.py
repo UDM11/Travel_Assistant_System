@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from app.db.session import create_tables, engine
 from app.models.trip import Base, Trip, UserFeedback, ConversationSession, APIUsage
-from app.memory.vectorstore import VectorStore
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,9 +15,14 @@ def init_db():
         create_tables()
         logger.info("✅ Database tables created successfully")
         
-        # Initialize vector store with sample data
-        vector_store = VectorStore()
-        vector_store.initialize_sample_data()
+        # Initialize vector store with sample data (skip for now due to dependencies)
+        try:
+            from app.memory.vectorstore import VectorStore
+            vector_store = VectorStore()
+            vector_store.initialize_sample_data()
+            logger.info("✅ Vector store initialized")
+        except Exception as ve:
+            logger.warning(f"⚠️ Vector store initialization skipped: {str(ve)}")
         
         logger.info("✅ Database initialization completed")
         
