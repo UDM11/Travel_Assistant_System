@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import TripPlanner from '../components/TripPlanner';
 import TripSummary from '../components/TripSummary';
-import { mockPlanTrip, saveTrip } from '../api/mockData';
+import { planTrip } from '../api/travelApi';
+import { saveTrip } from '../api/mockData';
 import { TripFormData, TripData } from '../types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -13,12 +14,17 @@ export default function PlanTrip() {
   const handlePlanTrip = async (formData: TripFormData) => {
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    const trip = mockPlanTrip(formData);
-    saveTrip(trip);
-    setCurrentTrip(trip);
-    setIsLoading(false);
+    try {
+      const trip = await planTrip(formData);
+      saveTrip(trip);
+      setCurrentTrip(trip);
+    } catch (error) {
+      console.error('Failed to plan trip:', error);
+      // You could add error handling UI here
+      alert('Failed to plan trip. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
 
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
