@@ -6,6 +6,9 @@ import PlanTrip from './pages/PlanTrip';
 import RecentTrips from './pages/RecentTrips';
 import About from './pages/About';
 import Contact from "./pages/Contact";
+import AdminMessages from "./pages/AdminMessages";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
             <Route path="/recent" element={<RecentTrips />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </main>
         <Footer />

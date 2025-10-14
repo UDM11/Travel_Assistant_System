@@ -79,6 +79,7 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
               value={formData.startDate}
               onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="Select start date"
             />
           </div>
 
@@ -93,6 +94,7 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
               value={formData.endDate}
               onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="Select end date"
             />
           </div>
         </div>

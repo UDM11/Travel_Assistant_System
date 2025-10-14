@@ -24,14 +24,31 @@ const Contact = () => {
     }
 
     try {
-      // Placeholder for backend API request
-      // Example: await fetch("/api/contact", { method: "POST", body: JSON.stringify(formData) });
-      console.log("Form submitted:", formData);
+      setStatus("Sending message...");
+      
+      const response = await fetch("http://127.0.0.1:8000/api/v1/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      setStatus("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setStatus("Message sent successfully! We'll get back to you soon.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Failed to send message. Please try again.");
+      }
     } catch (error) {
-      setStatus("Something went wrong. Please try again later.");
+      console.error("Error submitting form:", error);
+      setStatus("Something went wrong. Please check if the server is running and try again.");
     }
   };
 
@@ -102,8 +119,10 @@ const Contact = () => {
         {status && (
           <p
             className={`mt-6 text-center font-medium ${
-              status.includes("successfully")
+              status.includes("successfully") || status.includes("soon")
                 ? "text-green-600"
+                : status.includes("Sending")
+                ? "text-blue-600"
                 : "text-red-600"
             }`}
           >
