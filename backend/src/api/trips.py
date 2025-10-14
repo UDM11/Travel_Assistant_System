@@ -1,18 +1,21 @@
 from fastapi import APIRouter
 from typing import Dict, Any
 from datetime import datetime, timedelta
+from src.models.trip import TripRequest
+from src.storage.trip_storage import TripStorage
 
 router = APIRouter()
+storage = TripStorage()
 
 @router.post("/mock-plan/trip")
-async def mock_plan_trip(request: Dict[str, Any]):
+async def plan_trip(request: TripRequest):
     """Mock trip planning endpoint"""
     try:
-        destination = request.get("destination", "Unknown")
-        start_date = request.get("start_date", "2024-01-01")
-        end_date = request.get("end_date", "2024-01-07")
-        budget = request.get("budget", 1000)
-        travelers = request.get("travelers", 1)
+        destination = request.destination
+        start_date = request.start_date
+        end_date = request.end_date
+        budget = request.budget
+        travelers = request.travelers
         
         # Calculate trip duration
         start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -52,8 +55,7 @@ async def mock_plan_trip(request: Dict[str, Any]):
         Estimated daily cost: ${cost_per_day:.2f}
         """
         
-        return {
-            "id": 1,
+        trip_data = {
             "destination": destination,
             "start_date": start_date,
             "end_date": end_date,
@@ -61,12 +63,31 @@ async def mock_plan_trip(request: Dict[str, Any]):
             "travelers": travelers,
             "plan": plan_summary,
             "itinerary": itinerary,
-            "cost_breakdown": cost_breakdown,
-            "created_at": datetime.utcnow().isoformat()
+            "cost_breakdown": cost_breakdown
         }
+        
+        # Save trip to storage
+        saved_trip = storage.add_trip(trip_data)
+        return saved_trip
         
     except Exception as e:
         return {
-            "error": f"Mock trip planning failed: {str(e)}",
+            "error": f"Trip planning failed: {str(e)}",
             "status": "error"
         }
+
+@router.get("/trips")
+async def get_all_trips():
+    """Get all saved trips"""
+    return {
+        "trips": storage.get_all_trips(),
+        "total": len(storage.get_all_trips())
+    }
+
+@router.get("/trips/{trip_id}")
+async def get_trip(trip_id: int):
+    """Get specific trip by ID"""
+    trip = storage.get_trip_by_id(trip_id)
+    if not trip:
+        return {"error": "Trip not found"}
+    return trip

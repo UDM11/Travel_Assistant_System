@@ -20,7 +20,7 @@ const AdminMessages = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/v1/contact/messages");
+      const response = await fetch("http://127.0.0.1:8001/api/v1/contact/messages");
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

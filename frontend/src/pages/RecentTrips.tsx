@@ -1,21 +1,33 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getStoredTrips, clearTrips } from '../api/mockData';
+import { getAllTrips } from '../api/travelApi';
 import { TripData } from '../types';
 import { Calendar, MapPin, DollarSign, Trash2, Inbox } from 'lucide-react';
 
 export default function RecentTrips() {
   const [trips, setTrips] = useState<TripData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setTrips(getStoredTrips());
+    fetchTrips();
   }, []);
 
-  const handleClearHistory = () => {
-    if (window.confirm('Are you sure you want to clear all trip history?')) {
-      clearTrips();
-      setTrips([]);
+  const fetchTrips = async () => {
+    try {
+      setLoading(true);
+      const fetchedTrips = await getAllTrips();
+      setTrips(fetchedTrips);
+    } catch (err) {
+      setError('Failed to load trips. Make sure the backend server is running.');
+      console.error('Error fetching trips:', err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleRefresh = () => {
+    fetchTrips();
   };
 
   return (
@@ -35,21 +47,33 @@ export default function RecentTrips() {
           </p>
         </motion.div>
 
-        {trips.length > 0 && (
-          <div className="text-center mb-8">
-            <motion.button
-              onClick={handleClearHistory}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center bg-red-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-red-700 transition-all"
-            >
-              <Trash2 className="w-5 h-5 mr-2" />
-              Clear History
-            </motion.button>
-          </div>
-        )}
+        <div className="text-center mb-8">
+          <motion.button
+            onClick={handleRefresh}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-blue-700 transition-all"
+          >
+            Refresh Trips
+          </motion.button>
+        </div>
 
-        {trips.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading your trips...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <p className="text-red-600 mb-4">{error}</p>
+            <button
+              onClick={fetchTrips}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : trips.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

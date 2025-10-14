@@ -26,7 +26,7 @@ const Contact = () => {
     try {
       setStatus("Sending message...");
       
-      const response = await fetch("http://127.0.0.1:8000/api/v1/contact", {
+      const response = await fetch("http://127.0.0.1:8001/api/v1/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

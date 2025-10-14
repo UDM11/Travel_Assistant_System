@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import TripPlanner from '../components/TripPlanner';
 import TripSummary from '../components/TripSummary';
 import { planTrip } from '../api/travelApi';
-import { saveTrip } from '../api/mockData';
 import { TripFormData, TripData } from '../types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -16,12 +15,11 @@ export default function PlanTrip() {
 
     try {
       const trip = await planTrip(formData);
-      saveTrip(trip);
       setCurrentTrip(trip);
     } catch (error) {
       console.error('Failed to plan trip:', error);
-      // You could add error handling UI here
-      alert('Failed to plan trip. Please try again.');
+      // Show detailed error message
+      alert(`Failed to plan trip: ${error.message}. Check console for details.`);
     } finally {
       setIsLoading(false);
     }
