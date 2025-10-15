@@ -20,14 +20,19 @@ const AdminMessages = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8001/api/v1/contact/messages");
+      const response = await fetch("http://127.0.0.1:8000/api/v1/contact/messages");
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setMessages(data.messages || []);
+      console.log('API Response:', data); // Debug log
+      if (data.success && data.data) {
+        setMessages(data.data.messages || []);
+      } else {
+        setMessages(data.messages || []);
+      }
     } catch (err) {
       setError("Failed to fetch messages. Make sure the backend server is running.");
       console.error("Error fetching messages:", err);

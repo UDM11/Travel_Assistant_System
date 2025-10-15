@@ -1,248 +1,192 @@
-# Travel Assistant Agent Backend
+# Travel Assistant Agent - Backend
 
-A production-grade FastAPI backend for an AI-powered travel planning system with multi-agent architecture.
+A production-grade FastAPI backend for AI-powered travel planning with multi-agent architecture.
 
-## 🏗️ Architecture
+## Features
 
-The backend uses a multi-agent system with the following components:
+- **AI-Powered Trip Planning**: Multi-agent system using CrewAI for intelligent travel planning
+- **Weather Integration**: Real-time weather data and forecasts
+- **Flight Search**: Integration with flight APIs for booking options
+- **Hotel Search**: Comprehensive accommodation search and recommendations
+- **Cost Calculation**: Intelligent budget planning and optimization
+- **Contact Management**: Customer support and inquiry handling
+- **Structured Logging**: Comprehensive logging with Loguru
+- **API Documentation**: Auto-generated OpenAPI/Swagger documentation
 
-- **Researcher Agent**: Fetches data (destinations, weather, flights, hotels)
-- **Planner Agent**: Creates structured itineraries using AI logic  
-- **Summarizer Agent**: Formats final output with OpenAI or other LLM
-- **Orchestrator**: Coordinates the entire planning pipeline
+## Architecture
 
-## 🚀 Quick Start
+### Multi-Agent System
+- **Researcher Agent**: Gathers destination information, attractions, and travel data
+- **Planner Agent**: Creates personalized itineraries based on preferences
+- **Summarizer Agent**: Generates human-readable travel summaries
+
+### Core Components
+- **Tools**: Weather, Flight, Hotel, and Cost Calculation tools
+- **Memory**: Conversation and vector memory for personalized experiences
+- **RAG**: Retrieval-Augmented Generation for enhanced recommendations
+
+## Quick Start
 
 ### Prerequisites
-
-- Python 3.11+
-- Redis (for caching and sessions)
-- OpenAI API key
+- Python 3.10+
+- pip or conda
 
 ### Installation
 
-1. **Clone and navigate to backend directory:**
-   ```bash
-   cd backend
-   ```
-
-2. **Create virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configure environment:**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your API keys and configuration
-   ```
-
-5. **Start Redis (if not using Docker):**
-   ```bash
-   redis-server
-   ```
-
-6. **Run the application:**
-   ```bash
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-### Using Docker
-
-1. **Build and run with Docker Compose:**
-   ```bash
-   docker-compose up --build
-   ```
-
-2. **Or build Docker image manually:**
-   ```bash
-   docker build -t travel-assistant-backend .
-   docker run -p 8000:8000 travel-assistant-backend
-   ```
-
-## 📚 API Documentation
-
-Once running, visit:
-- **Interactive API Docs**: http://localhost:8000/docs
-- **ReDoc Documentation**: http://localhost:8000/redoc
-- **OpenAPI Schema**: http://localhost:8000/openapi.json
-
-## 🔗 API Endpoints
-
-### Core Endpoints
-
-- `POST /api/v1/plan/trip` - Generate trip plan using AI agents
-- `GET /api/v1/trips/` - Get all saved trips
-- `GET /api/v1/trips/{id}` - Get specific trip details
-- `GET /api/v1/health/` - Health check endpoint
-
-### Example Trip Planning Request
-
-```json
-{
-  "destination": "Paris",
-  "start_date": "2024-06-01",
-  "end_date": "2024-06-07",
-  "budget": 2500.0,
-  "travelers": 2,
-  "preferences": {
-    "interests": ["culture", "food", "art"],
-    "comfort_level": "mid_range",
-    "travel_style": "cultural"
-  }
-}
-```
-
-## 🧠 Agent System
-
-### Researcher Agent
-- Fetches weather data for destination
-- Searches flight options
-- Finds hotel recommendations
-- Gathers destination information
-- Identifies local attractions
-
-### Planner Agent
-- Creates day-by-day itinerary
-- Calculates costs and budget compliance
-- Optimizes activities based on preferences
-- Suggests transportation options
-
-### Summarizer Agent
-- Generates comprehensive trip summary
-- Creates personalized recommendations
-- Provides packing lists
-- Formats final output
-
-## 💾 Data Storage
-
-### Database Models
-- **Trip**: Complete trip information and plans
-- **UserFeedback**: User ratings and feedback
-- **ConversationSession**: Chat session tracking
-- **APIUsage**: API call monitoring
-
-### Memory Systems
-- **ConversationMemory**: Redis-based chat history
-- **VectorStore**: ChromaDB for travel knowledge
-
-## 🔧 Configuration
-
-Key environment variables:
-
+1. **Clone and navigate to backend directory**
 ```bash
-# Required
-OPENAI_API_KEY=your_api_key
-DATABASE_URL=sqlite:///./travel.db
-REDIS_URL=redis://localhost:6379/0
-
-# Optional
-WEATHER_API_KEY=your_weather_key
-FLIGHT_API_KEY=your_flight_key
-HOTEL_API_KEY=your_hotel_key
+cd backend
 ```
 
-## 🧪 Testing
-
-Run tests:
+2. **Install dependencies**
 ```bash
-pytest tests/
+pip install -r requirements.txt
 ```
 
-Run with coverage:
+3. **Set up environment variables**
 ```bash
-pytest --cov=app tests/
+cp .env.example .env
+# Edit .env with your API keys
 ```
 
-## 📊 Monitoring
-
-The backend includes:
-- Health check endpoints
-- API usage tracking
-- Performance metrics
-- Error logging
-- System resource monitoring
-
-## 🔒 Security
-
-- Input validation and sanitization
-- CORS configuration
-- Rate limiting (configurable)
-- SQL injection prevention
-- XSS protection
-
-## 🚀 Production Deployment
-
-### Using Docker Compose
+4. **Run the server**
 ```bash
-docker-compose -f docker-compose.prod.yml up -d
+python -m app.main
 ```
 
-### Manual Deployment
-1. Set production environment variables
-2. Use a production WSGI server (Gunicorn)
-3. Configure reverse proxy (Nginx)
-4. Set up SSL certificates
-5. Configure monitoring and logging
+The API will be available at:
+- **Server**: http://127.0.0.1:8001
+- **Documentation**: http://127.0.0.1:8001/docs
+- **Health Check**: http://127.0.0.1:8001/api/v1/health
 
-## 🤝 Frontend Integration
+## API Endpoints
 
-The backend is designed to work with the React + TypeScript frontend:
+### Trip Planning
+- `POST /api/v1/trip/plan` - Plan a complete trip
+- `GET /api/v1/trip/` - Get all trips
+- `GET /api/v1/trip/{id}` - Get specific trip
+- `PUT /api/v1/trip/{id}` - Update trip
+- `DELETE /api/v1/trip/{id}` - Delete trip
 
-- CORS configured for `http://localhost:5173`
-- RESTful API design
-- JSON request/response format
-- Error handling with proper HTTP status codes
+### Contact Management
+- `POST /api/v1/contact` - Submit contact message
+- `GET /api/v1/contact/messages` - Get all messages (admin)
 
-## 📈 Performance
+### System
+- `GET /` - API information
+- `GET /api/v1/health` - Health check
 
-- Async/await throughout for non-blocking operations
-- Database connection pooling
-- Redis caching for sessions
-- Vector database for fast similarity search
-- Parallel API calls for data gathering
+## Configuration
 
-## 🛠️ Development
+### Environment Variables (.env)
+```env
+# API Keys
+OPENAI_API_KEY=your_openai_key
+OPENWEATHER_API_KEY=your_weather_key
+AMADEUS_API_KEY=your_amadeus_key
+AMADEUS_API_SECRET=your_amadeus_secret
 
-### Code Structure
-```
-app/
-├── main.py              # FastAPI application entry point
-├── core/
-│   └── config.py        # Configuration management
-├── api/v1/
-│   ├── router.py        # API router
-│   └── endpoints/       # API endpoints
-├── agents/              # AI agent implementations
-├── services/            # External service integrations
-├── memory/              # Memory and storage systems
-├── models/              # Database models
-├── schemas/             # Pydantic schemas
-├── db/                  # Database configuration
-└── utils/               # Utility functions
+# Server Configuration
+HOST=127.0.0.1
+PORT=8001
+LOG_LEVEL=INFO
+
+# CORS Origins
+BACKEND_CORS_ORIGINS=["http://localhost:5173","http://127.0.0.1:5173"]
 ```
 
-### Adding New Features
-1. Create new endpoint in `api/v1/endpoints/`
-2. Add corresponding schema in `schemas/`
-3. Update database models if needed
-4. Add tests in `tests/`
-5. Update documentation
+## Project Structure
 
-## 📝 License
+```
+backend/
+├── app/
+│   ├── main.py                 # FastAPI application
+│   ├── config.py              # Configuration settings
+│   ├── dependencies.py        # Authentication dependencies
+│   │
+│   ├── api/routes/            # API route handlers
+│   │   └── trip_routes.py     # Trip planning endpoints
+│   │
+│   ├── core/                  # Core business logic
+│   │   ├── agents/            # AI agents
+│   │   ├── tools/             # External API tools
+│   │   ├── memory/            # Memory management
+│   │   ├── rag/               # RAG implementation
+│   │   └── utils/             # Utilities and helpers
+│   │
+│   ├── models/                # Data models
+│   │   └── schemas.py         # Pydantic schemas
+│   │
+│   ├── services/              # Business services
+│   │   └── trip_service.py    # Trip planning service
+│   │
+│   └── tests/                 # Test suite
+│
+├── requirements.txt           # Python dependencies
+├── .env                      # Environment variables
+└── README.md                 # This file
+```
 
-This project is part of the Travel Assistant System.
+## Development
 
-## 🆘 Support
+### Running Tests
+```bash
+pytest app/tests/
+```
+
+### Code Quality
+```bash
+# Format code
+black app/
+
+# Lint code
+flake8 app/
+
+# Type checking
+mypy app/
+```
+
+### Logging
+Logs are written to:
+- Console (formatted with colors)
+- File: `./logs/app.log` (rotated, compressed)
+
+## Deployment
+
+### Docker
+```bash
+docker build -t travel-assistant-backend .
+docker run -p 8001:8001 travel-assistant-backend
+```
+
+### Production Considerations
+- Use PostgreSQL or MongoDB for data persistence
+- Implement Redis for caching and session management
+- Set up proper authentication and authorization
+- Configure HTTPS with SSL certificates
+- Use environment-specific configuration files
+- Implement rate limiting and request validation
+- Set up monitoring and alerting
+
+## API Integration
+
+### Frontend Integration
+The backend is designed to work with the React + TypeScript frontend at `http://localhost:5173`.
+
+### External APIs
+- **OpenWeather API**: Weather data and forecasts
+- **Amadeus API**: Flight search and booking
+- **OpenAI API**: AI-powered content generation
+- **Custom Hotel APIs**: Accommodation search
+
+## Support
 
 For issues and questions:
 1. Check the API documentation at `/docs`
-2. Review the logs in `travel_assistant.log`
-3. Check the health endpoint at `/api/v1/health/`
-4. Verify environment configuration
+2. Review logs in `./logs/app.log`
+3. Ensure all environment variables are set correctly
+4. Verify API keys are valid and have proper permissions
+
+## License
+
+This project is part of the Travel Assistant Agent system.

@@ -1,6 +1,6 @@
 import { TripFormData, TripData } from '../types';
 
-const API_BASE_URL = 'http://127.0.0.1:8001/api/v1';
+const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 export interface TripRequest {
   destination: string;
@@ -44,7 +44,7 @@ export const planTrip = async (formData: TripFormData): Promise<TripData> => {
     console.log('Sending request to:', `${API_BASE_URL}/mock-plan/trip`);
     console.log('Request data:', requestData);
 
-    const response = await fetch(`${API_BASE_URL}/plan/trip`, {
+    const response = await fetch(`${API_BASE_URL}/trip/plan`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,10 @@ export const planTrip = async (formData: TripFormData): Promise<TripData> => {
     console.log('API Response:', result);
     
     // Transform backend response to frontend format
-    return transformTripResponse(result);
+    if (result.success && result.data) {
+      return transformTripResponse(result.data);
+    }
+    throw new Error('Invalid response format');
   } catch (error) {
     console.error('Error planning trip:', error);
     if (error.message.includes('fetch')) {
@@ -112,12 +115,15 @@ export const getTripStatus = async (taskId: string) => {
 
 export const getAllTrips = async (): Promise<TripData[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/trips`);
+    const response = await fetch(`${API_BASE_URL}/trip`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
-    return result.trips.map(transformTripResponse);
+    if (result.success && result.data) {
+      return result.data.trips.map(transformTripResponse);
+    }
+    return [];
   } catch (error) {
     console.error('Error fetching trips:', error);
     throw error;

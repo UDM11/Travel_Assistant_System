@@ -1,0 +1,184 @@
+[
+  {
+    "id": 1,
+    "destination": "Nepal ",
+    "start_date": "2025-10-15",
+    "end_date": "2025-10-18",
+    "budget": 10000.0,
+    "travelers": 1,
+    "plan": "Welcome to Nepal ! 4-day adventure awaits.",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-10-15",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-10-16",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-10-17",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-10-18",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      }
+    ],
+    "cost_breakdown": {
+      "accommodation": 4000.0,
+      "food": 3000.0,
+      "transportation": 2000.0,
+      "activities": 1000.0,
+      "total": 10000.0
+    },
+    "created_at": "2025-10-15T06:24:55.665362"
+  },
+  {
+    "id": 2,
+    "destination": "Nepal ",
+    "start_date": "2025-10-15",
+    "end_date": "2025-10-18",
+    "budget": 10000.0,
+    "travelers": 1,
+    "plan": "Welcome to Nepal ! 4-day adventure awaits.",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-10-15",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-10-16",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-10-17",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-10-18",
+        "activities": [
+          {
+            "time": "09:00-12:00",
+            "activity": "Explore Nepal  attractions"
+          },
+          {
+            "time": "14:00-17:00",
+            "activity": "Visit local markets"
+          },
+          {
+            "time": "19:00-21:00",
+            "activity": "Enjoy local cuisine"
+          }
+        ]
+      }
+    ],
+    "cost_breakdown": {
+      "accommodation": 4000.0,
+      "food": 3000.0,
+      "transportation": 2000.0,
+      "activities": 1000.0,
+      "total": 10000.0
+    },
+    "created_at": "2025-10-15T06:25:07.859358"
+  }
+]
