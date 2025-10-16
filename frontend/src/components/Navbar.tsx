@@ -25,7 +25,7 @@ export default function Navbar() {
             <span className="text-xl font-bold text-gray-800">Travel Assistant</span>
           </Link>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
               <Link
                 key={link.to}
@@ -39,6 +39,12 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              to="/login"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              Login
+            </Link>
           </div>
 
           <button
