@@ -1,34 +1,28 @@
-from loguru import logger
-import sys
-import os
-from app.config import settings
+import logging
+from datetime import datetime
+from typing import Any
 
-def setup_logging():
-    """Configure logging for the application"""
+class Logger:
+    def __init__(self, name: str = "travel_assist"):
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(logging.INFO)
+        
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
     
-    # Remove default handler
-    logger.remove()
+    def info(self, message: str, **kwargs: Any) -> None:
+        self.logger.info(f"{message} {kwargs if kwargs else ''}")
     
-    # Console handler
-    logger.add(
-        sys.stdout,
-        level=settings.LOG_LEVEL,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
-        colorize=True
-    )
+    def error(self, message: str, **kwargs: Any) -> None:
+        self.logger.error(f"{message} {kwargs if kwargs else ''}")
     
-    # File handler
-    os.makedirs(os.path.dirname(settings.LOG_FILE), exist_ok=True)
-    logger.add(
-        settings.LOG_FILE,
-        level=settings.LOG_LEVEL,
-        format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
-        rotation="10 MB",
-        retention="30 days",
-        compression="zip"
-    )
+    def warning(self, message: str, **kwargs: Any) -> None:
+        self.logger.warning(f"{message} {kwargs if kwargs else ''}")
     
-    return logger
-
-# Initialize logger
-app_logger = setup_logging()
+    def debug(self, message: str, **kwargs: Any) -> None:
+        self.logger.debug(f"{message} {kwargs if kwargs else ''}")

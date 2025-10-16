@@ -1,48 +1,42 @@
-from datetime import datetime, timedelta
 from typing import Dict, Any, List
+from datetime import datetime, timedelta
 import json
-import hashlib
-
-def calculate_trip_days(start_date: str, end_date: str) -> int:
-    """Calculate number of days between two dates"""
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-    end = datetime.strptime(end_date, "%Y-%m-%d")
-    return (end - start).days + 1
-
-def generate_trip_id(destination: str, start_date: str, user_id: str = "anonymous") -> str:
-    """Generate unique trip ID"""
-    data = f"{destination}_{start_date}_{user_id}_{datetime.utcnow().isoformat()}"
-    return hashlib.md5(data.encode()).hexdigest()[:12]
 
 def format_currency(amount: float, currency: str = "USD") -> str:
-    """Format currency amount"""
-    return f"{currency} {amount:,.2f}"
+    return f"${amount:,.2f} {currency}"
 
-def validate_date_range(start_date: str, end_date: str) -> bool:
-    """Validate that end date is after start date"""
+def parse_date(date_string: str) -> datetime:
     try:
-        start = datetime.strptime(start_date, "%Y-%m-%d")
-        end = datetime.strptime(end_date, "%Y-%m-%d")
-        return end >= start
+        return datetime.fromisoformat(date_string)
     except ValueError:
-        return False
+        return datetime.now()
+
+def calculate_trip_duration(start_date: str, end_date: str) -> int:
+    start = parse_date(start_date)
+    end = parse_date(end_date)
+    return (end - start).days
+
+def validate_trip_data(trip_data: Dict[str, Any]) -> bool:
+    required_fields = ["destination", "start_date", "end_date"]
+    return all(field in trip_data for field in required_fields)
 
 def sanitize_input(text: str) -> str:
-    """Basic input sanitization"""
     return text.strip().replace("<", "&lt;").replace(">", "&gt;")
 
-def create_response(success: bool, data: Any = None, message: str = "", error: str = "") -> Dict[str, Any]:
-    """Create standardized API response"""
-    response = {
-        "success": success,
-        "timestamp": datetime.utcnow().isoformat()
-    }
-    
-    if data is not None:
-        response["data"] = data
-    if message:
-        response["message"] = message
-    if error:
-        response["error"] = error
-        
-    return response
+def generate_trip_id() -> str:
+    return f"trip_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
+def load_json_file(file_path: str) -> Dict[str, Any]:
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+def save_json_file(data: Dict[str, Any], file_path: str) -> bool:
+    try:
+        with open(file_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        return True
+    except Exception:
+        return False
