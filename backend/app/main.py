@@ -5,8 +5,9 @@ from datetime import datetime
 
 from app.config import settings
 from app.models.schemas import ContactMessage, LoginRequest, RegisterRequest
-from app.services.database import load_data, save_contact_messages, save_users
+from app.services.database import load_data, save_contact_messages, save_users, save_trips
 from app.services.travel_service import TravelService
+from app.core.utils.helpers import generate_trip_id, calculate_trip_duration
 from app.api.routes.trip_routes import router as trip_router
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
@@ -111,7 +112,33 @@ async def register(request: RegisterRequest):
 @app.post("/api/v1/plan-trip")
 async def plan_trip(trip_request: dict):
     try:
+        # Plan the trip using travel service
         result = await travel_service.plan_trip(trip_request)
+        
+        # Save trip to database
+        trips, _, _ = load_data()
+        trip_data = {
+            "id": len(trips) + 1,
+            "destination": trip_request.get("destination"),
+            "start_date": trip_request.get("start_date"),
+            "end_date": trip_request.get("end_date"),
+            "budget": trip_request.get("budget"),
+            "travelers": trip_request.get("travelers", 1),
+            "plan": f"Welcome to {trip_request.get('destination')}! {calculate_trip_duration(trip_request.get('start_date', ''), trip_request.get('end_date', ''))}-day adventure awaits.",
+            "itinerary": result.get("itinerary", {}),
+            "cost_breakdown": {
+                "accommodation": result.get("itinerary", {}).get("estimated_cost", 0) * 0.4,
+                "food": result.get("itinerary", {}).get("estimated_cost", 0) * 0.3,
+                "transportation": result.get("itinerary", {}).get("estimated_cost", 0) * 0.2,
+                "activities": result.get("itinerary", {}).get("estimated_cost", 0) * 0.1,
+                "total": result.get("itinerary", {}).get("estimated_cost", 0)
+            },
+            "created_at": datetime.utcnow().isoformat()
+        }
+        
+        trips.append(trip_data)
+        save_trips(trips)
+        
         return {"success": True, "data": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
