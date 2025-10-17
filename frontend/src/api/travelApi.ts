@@ -44,7 +44,7 @@ export const planTrip = async (formData: TripFormData): Promise<TripData> => {
     console.log('Sending request to:', `${API_BASE_URL}/mock-plan/trip`);
     console.log('Request data:', requestData);
 
-    const response = await fetch(`${API_BASE_URL}/trip/plan`, {
+    const response = await fetch(`${API_BASE_URL}/plan-trip`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,24 +79,31 @@ export const planTrip = async (formData: TripFormData): Promise<TripData> => {
 
 const transformTripResponse = (response: any): TripData => {
   // Transform the backend response to match frontend TripData interface
-  const itinerary = response.itinerary || [];
-  const costBreakdown = response.cost_breakdown || {};
+  const research = response.research || {};
+  const weather = research.weather || {};
+  const itinerary = response.itinerary || {};
+  const summary = response.summary || {};
+  
+  // Format weather data from real API
+  const weatherInfo = weather.temperature && weather.condition 
+    ? `${weather.condition}, ${weather.temperature}` 
+    : 'Weather data unavailable';
   
   return {
-    id: response.id.toString(),
-    destination: response.destination,
-    startDate: response.start_date,
-    endDate: response.end_date,
-    budget: response.budget,
-    interests: [], // Will be populated from preferences
-    weather: 'Sunny, 25°C', // Default weather - could be enhanced
-    costEstimate: costBreakdown.total || response.budget,
-    itinerary: itinerary.map((item: any, index: number) => ({
-      day: item.day || index + 1,
-      activity: `Day ${item.day || index + 1}`,
-      description: `${item.morning || ''} ${item.afternoon || ''} ${item.evening || ''}`.trim() || `Enjoy your time in ${response.destination}`,
+    id: response.trip_id || Date.now().toString(),
+    destination: research.destination || 'Unknown',
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date(Date.now() + 3*24*60*60*1000).toISOString().split('T')[0],
+    budget: itinerary.estimated_cost || 1000,
+    interests: itinerary.activities || [],
+    weather: weatherInfo,
+    costEstimate: itinerary.estimated_cost || 1000,
+    itinerary: (itinerary.activities || []).map((activity: string, index: number) => ({
+      day: index + 1,
+      activity: activity,
+      description: `Enjoy ${activity.toLowerCase()} in ${research.destination}`,
     })),
-    createdAt: response.created_at,
+    createdAt: new Date().toISOString(),
   };
 };
 

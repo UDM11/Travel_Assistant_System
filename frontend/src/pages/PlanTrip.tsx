@@ -18,8 +18,8 @@ export default function PlanTrip() {
       setCurrentTrip(trip);
     } catch (error) {
       console.error('Failed to plan trip:', error);
-      // Show detailed error message
-      alert(`Failed to plan trip: ${error.message}. Check console for details.`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to plan trip: ${errorMessage}. Please check your internet connection and try again.`);
     } finally {
       setIsLoading(false);
     }
