@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, DollarSign, Cloud, CheckCircle } from 'lucide-react';
 import { TripData } from '../types';
+import ApiSourcesDisplay from './ApiSourcesDisplay';
 
 interface TripSummaryProps {
   trip: TripData;
@@ -119,6 +120,8 @@ export default function TripSummary({ trip }: TripSummaryProps) {
           </ul>
         </div>
       </div>
+      
+      <ApiSourcesDisplay tripData={trip} />
     </motion.div>
   );
 }

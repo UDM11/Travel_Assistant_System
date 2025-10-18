@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import os
 from datetime import datetime
 
 from app.config import settings
@@ -115,7 +116,11 @@ async def plan_trip(trip_request: dict):
         # Plan the trip using travel service
         result = await travel_service.plan_trip(trip_request)
         
-        # Save trip to database
+        # Extract API sources information
+        itinerary = result.get("itinerary", {})
+        summary = result.get("summary", {})
+        
+        # Save trip to database with enhanced information
         trips, _, _ = load_data()
         trip_data = {
             "id": len(trips) + 1,
@@ -124,22 +129,44 @@ async def plan_trip(trip_request: dict):
             "end_date": trip_request.get("end_date"),
             "budget": trip_request.get("budget"),
             "travelers": trip_request.get("travelers", 1),
-            "plan": f"Welcome to {trip_request.get('destination')}! {calculate_trip_duration(trip_request.get('start_date', ''), trip_request.get('end_date', ''))}-day adventure awaits.",
-            "itinerary": result.get("itinerary", {}),
-            "cost_breakdown": {
-                "accommodation": result.get("itinerary", {}).get("estimated_cost", 0) * 0.4,
-                "food": result.get("itinerary", {}).get("estimated_cost", 0) * 0.3,
-                "transportation": result.get("itinerary", {}).get("estimated_cost", 0) * 0.2,
-                "activities": result.get("itinerary", {}).get("estimated_cost", 0) * 0.1,
-                "total": result.get("itinerary", {}).get("estimated_cost", 0)
+            "plan": summary.get("trip_overview", f"Welcome to {trip_request.get('destination')}!"),
+            "itinerary": itinerary,
+            "summary": summary,
+            "cost_breakdown": summary.get("budget_summary", {
+                "accommodation": itinerary.get("estimated_cost", 0) * 0.4,
+                "food": itinerary.get("estimated_cost", 0) * 0.3,
+                "transportation": itinerary.get("estimated_cost", 0) * 0.2,
+                "activities": itinerary.get("estimated_cost", 0) * 0.1,
+                "total": itinerary.get("estimated_cost", 0)
+            }),
+            "api_sources": {
+                "weather": "OpenWeatherMap API",
+                "flights": "Amadeus API", 
+                "hotels": "Amadeus API",
+                "ai_content": "OpenAI GPT",
+                "itinerary_generation": itinerary.get("api_sources", {}),
+                "summary_generation": summary.get("api_sources_used", {})
             },
+            "ai_enhanced": True,
             "created_at": datetime.utcnow().isoformat()
         }
         
         trips.append(trip_data)
         save_trips(trips)
         
-        return {"success": True, "data": result}
+        # Enhanced response with API source information
+        enhanced_result = {
+            **result,
+            "api_keys_used": {
+                "openai": bool(os.getenv("OPENAI_API_KEY")),
+                "weather": bool(os.getenv("WEATHER_API_KEY")),
+                "flights": bool(os.getenv("FLIGHTS_API_KEY")),
+                "hotels": bool(os.getenv("HOTELS_API_KEY"))
+            },
+            "data_sources": trip_data["api_sources"]
+        }
+        
+        return {"success": True, "data": enhanced_result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -147,6 +174,37 @@ async def plan_trip(trip_request: dict):
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
+@app.get("/api/v1/api-status")
+async def api_status():
+    """Check the status of all API keys and services"""
+    api_keys = {
+        "openai": bool(os.getenv("OPENAI_API_KEY")),
+        "weather": bool(os.getenv("WEATHER_API_KEY")),
+        "flights": bool(os.getenv("FLIGHTS_API_KEY")),
+        "hotels": bool(os.getenv("HOTELS_API_KEY"))
+    }
+    
+    services = {
+        "OpenAI GPT": "AI-powered itinerary generation" if api_keys["openai"] else "Mock itinerary generation",
+        "OpenWeatherMap": "Real-time weather data" if api_keys["weather"] else "Mock weather data",
+        "Amadeus Flights": "Live flight pricing" if api_keys["flights"] else "Sample flight data",
+        "Amadeus Hotels": "Real hotel availability" if api_keys["hotels"] else "Demo hotel data"
+    }
+    
+    return {
+        "success": True,
+        "api_keys_configured": api_keys,
+        "services_status": services,
+        "total_apis_active": sum(api_keys.values()),
+        "data_quality": "Enhanced" if sum(api_keys.values()) >= 3 else "Standard",
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
 if __name__ == "__main__":
     print(f"Travel Assistant API starting on http://{settings.HOST}:{settings.PORT}")
+    print(f"API Keys Status:")
+    print(f"  - OpenAI: {'✓' if os.getenv('OPENAI_API_KEY') else '✗'}")
+    print(f"  - Weather: {'✓' if os.getenv('WEATHER_API_KEY') else '✗'}")
+    print(f"  - Flights: {'✓' if os.getenv('FLIGHTS_API_KEY') else '✗'}")
+    print(f"  - Hotels: {'✓' if os.getenv('HOTELS_API_KEY') else '✗'}")
     uvicorn.run(app, host=settings.HOST, port=settings.PORT)

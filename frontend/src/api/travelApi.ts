@@ -23,6 +23,10 @@ export interface TripResponse {
   itinerary: any[];
   cost_breakdown: any;
   created_at: string;
+  api_sources?: Record<string, string>;
+  api_keys_used?: Record<string, boolean>;
+  ai_generated?: boolean;
+  data_sources?: Record<string, any>;
 }
 
 export const planTrip = async (formData: TripFormData): Promise<TripData> => {
@@ -89,6 +93,10 @@ const transformTripResponse = (response: any): TripData => {
     ? `${weather.condition}, ${weather.temperature}` 
     : 'Weather data unavailable';
   
+  // Extract API sources information
+  const apiSources = response.data_sources || response.api_sources || {};
+  const apiKeysUsed = response.api_keys_used || {};
+  
   return {
     id: response.trip_id || Date.now().toString(),
     destination: research.destination || 'Unknown',
@@ -104,6 +112,16 @@ const transformTripResponse = (response: any): TripData => {
       description: `Enjoy ${activity.toLowerCase()} in ${research.destination}`,
     })),
     createdAt: new Date().toISOString(),
+    // Add API source information
+    apiSources: apiSources,
+    apiKeysUsed: apiKeysUsed,
+    aiGenerated: itinerary.ai_generated || false,
+    dataQuality: {
+      weather: apiKeysUsed.weather ? 'Real-time data' : 'Mock data',
+      flights: apiKeysUsed.flights ? 'Live pricing' : 'Sample data',
+      hotels: apiKeysUsed.hotels ? 'Real availability' : 'Demo data',
+      itinerary: apiKeysUsed.openai ? 'AI-generated' : 'Template-based'
+    }
   };
 };
 

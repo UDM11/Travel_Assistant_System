@@ -9,6 +9,15 @@ export interface TripData {
   costEstimate: number;
   itinerary: DailyActivity[];
   createdAt: string;
+  apiSources?: Record<string, string>;
+  apiKeysUsed?: Record<string, boolean>;
+  aiGenerated?: boolean;
+  dataQuality?: {
+    weather: string;
+    flights: string;
+    hotels: string;
+    itinerary: string;
+  };
 }
 
 export interface DailyActivity {
