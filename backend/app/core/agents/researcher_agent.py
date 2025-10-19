@@ -18,5 +18,6 @@ class ResearcherAgent:
             "destination": destination,
             "weather": weather,
             "flights": flights,
-            "hotels": hotels
+            "hotels": hotels,
+            "research_completed": True
         }

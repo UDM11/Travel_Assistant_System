@@ -14,11 +14,28 @@ class PlannerAgent:
         duration = self._calculate_duration(trip_data)
         trip_data["duration"] = duration
         
+        # Add weather data to trip_data for AI processing
+        if "weather" in trip_data:
+            trip_data["weather_info"] = trip_data["weather"]
+        
         # Generate AI-powered itinerary
         ai_itinerary = await self.openai_service.generate_itinerary(trip_data)
         
         # Calculate costs
         total_cost = self.cost_calculator.calculate_total_cost(trip_data)
+        
+        # Ensure daily_plan is always populated
+        daily_plan = ai_itinerary.get("daily_plan", [])
+        if not daily_plan:
+            # Create default daily plan
+            for day in range(1, duration + 1):
+                daily_plan.append({
+                    "day": day,
+                    "morning": f"Day {day} morning exploration",
+                    "afternoon": f"Day {day} afternoon activities", 
+                    "evening": f"Day {day} evening experiences",
+                    "estimated_cost": 90 + (day * 15)
+                })
         
         itinerary = {
             "destination": trip_data.get("destination"),
@@ -26,12 +43,12 @@ class PlannerAgent:
             "activities": self._extract_activities(ai_itinerary),
             "estimated_cost": total_cost,
             "recommendations": ai_itinerary.get("recommendations", []),
-            "daily_plan": ai_itinerary.get("daily_plan", []),
+            "daily_plan": daily_plan,
             "ai_generated": True,
             "api_sources": {
-                "itinerary": ai_itinerary.get("api_source", "Mock Data"),
-                "flights": "Amadeus API" if trip_data.get("flights") else "Mock Data",
-                "hotels": "Amadeus API" if trip_data.get("hotels") else "Mock Data",
+                "itinerary": ai_itinerary.get("api_source", "Enhanced Mock Data"),
+                "flights": "Amadeus API" if trip_data.get("flights") else "Enhanced Mock Data",
+                "hotels": "Amadeus API" if trip_data.get("hotels") else "Enhanced Mock Data",
                 "weather": "OpenWeatherMap API"
             }
         }
@@ -60,13 +77,28 @@ class PlannerAgent:
         
         for day in daily_plan:
             if isinstance(day, dict):
-                activities.extend([
-                    day.get("morning", ""),
-                    day.get("afternoon", ""),
-                    day.get("evening", "")
-                ])
+                morning = day.get("morning", "")
+                afternoon = day.get("afternoon", "")
+                evening = day.get("evening", "")
+                
+                if morning:
+                    activities.append(f"Morning: {morning}")
+                if afternoon:
+                    activities.append(f"Afternoon: {afternoon}")
+                if evening:
+                    activities.append(f"Evening: {evening}")
         
-        return [activity for activity in activities if activity]
+        # If no activities found, create default ones
+        if not activities:
+            activities = [
+                "City center exploration and orientation",
+                "Visit main cultural attractions and museums",
+                "Local cuisine tasting and market visits",
+                "Scenic viewpoints and photo opportunities",
+                "Shopping and souvenir hunting"
+            ]
+        
+        return activities
     
     def _get_recommendations(self, trip_data: Dict[str, Any]) -> List[str]:
         return ["Book early for better prices", "Check weather forecast"]

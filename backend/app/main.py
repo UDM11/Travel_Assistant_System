@@ -154,16 +154,29 @@ async def plan_trip(trip_request: dict):
         trips.append(trip_data)
         save_trips(trips)
         
+        # Get weather data directly
+        from app.core.tools.weather_tool import WeatherTool
+        weather_tool = WeatherTool()
+        weather_data = await weather_tool.get_weather(trip_request.get("destination", ""))
+        
         # Enhanced response with API source information
         enhanced_result = {
             **result,
+            "trip_request": {
+                "destination": trip_request.get("destination"),
+                "start_date": trip_request.get("start_date"),
+                "end_date": trip_request.get("end_date"),
+                "budget": trip_request.get("budget"),
+                "interests": trip_request.get("interests", [])
+            },
             "api_keys_used": {
                 "openai": bool(os.getenv("OPENAI_API_KEY")),
                 "weather": bool(os.getenv("WEATHER_API_KEY")),
                 "flights": bool(os.getenv("FLIGHTS_API_KEY")),
                 "hotels": bool(os.getenv("HOTELS_API_KEY"))
             },
-            "data_sources": trip_data["api_sources"]
+            "data_sources": trip_data["api_sources"],
+            "weather_data": weather_data
         }
         
         return {"success": True, "data": enhanced_result}
@@ -173,6 +186,16 @@ async def plan_trip(trip_request: dict):
 @app.get("/api/v1/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
+
+@app.delete("/api/v1/trip/{trip_id}")
+async def delete_trip(trip_id: int):
+    try:
+        trips, _, _ = load_data()
+        trips = [trip for trip in trips if trip["id"] != trip_id]
+        save_trips(trips)
+        return {"success": True, "message": "Trip deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/v1/api-status")
 async def api_status():
