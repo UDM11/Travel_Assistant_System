@@ -1,1 +1,236 @@
-[]
+[
+  {
+    "id": 1,
+    "from": "Korea",
+    "destination": "Nepal",
+    "start_date": "2025-10-21",
+    "end_date": "2025-10-30",
+    "budget": 49950,
+    "travelers": 8,
+    "travel_style": "luxury",
+    "accommodation": "hotel",
+    "transportation": "flight",
+    "meal_preference": "all",
+    "activity_level": "moderate",
+    "special_requests": "",
+    "interests": [
+      "adventure",
+      "culture",
+      "relaxation",
+      "food",
+      "nature",
+      "wellness",
+      "nightlife",
+      "history",
+      "photography",
+      "shopping"
+    ],
+    "plan": "Soar into the heart of the Himalayas! Nepal beckons with crystal-clear skies and a perfect 26\u00b0C warmth, inviting you to explore its majestic peaks and vibrant culture. For just $49,950, immerse yourself in a land where ancient temples whisper secrets and trekking trails lead to breathtaking vistas. What makes Nepal truly special is its soul-stirring blend of spiritual serenity and raw natural beauty\u2014from the bustling streets of Kathmandu to the serene heights of Everest. This is more than a trip; it\u2019s a journey to the roof of the world.",
+    "itinerary": {
+      "destination": "Nepal",
+      "duration": 9,
+      "activities": [
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal",
+        "Morning: Explore city highlights of Nepal",
+        "Afternoon: Enjoy local market experience in Nepal",
+        "Evening: Relax with local cuisine in Nepal"
+      ],
+      "estimated_cost": 20845.0,
+      "recommendations": [
+        "Try local street food.",
+        "Visit during cooler months.",
+        "Engage with local culture.",
+        "Use local transport options.",
+        "Book activities early."
+      ],
+      "daily_plan": [
+        {
+          "day": 1,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 120
+        },
+        {
+          "day": 2,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 140
+        },
+        {
+          "day": 3,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 160
+        },
+        {
+          "day": 4,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 180
+        },
+        {
+          "day": 5,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 200
+        },
+        {
+          "day": 6,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 220
+        },
+        {
+          "day": 7,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 240
+        },
+        {
+          "day": 8,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 260
+        },
+        {
+          "day": 9,
+          "morning": "Explore city highlights of Nepal",
+          "afternoon": "Enjoy local market experience in Nepal",
+          "evening": "Relax with local cuisine in Nepal",
+          "estimated_cost": 280
+        }
+      ],
+      "ai_generated": true,
+      "api_sources": {
+        "itinerary": "Mock (Offline Fallback)",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "weather": "OpenWeatherMap API"
+      },
+      "timestamp": "2025-10-20T13:27:14.943063"
+    },
+    "summary": {
+      "trip_overview": "Soar into the heart of the Himalayas! Nepal beckons with crystal-clear skies and a perfect 26\u00b0C warmth, inviting you to explore its majestic peaks and vibrant culture. For just $49,950, immerse yourself in a land where ancient temples whisper secrets and trekking trails lead to breathtaking vistas. What makes Nepal truly special is its soul-stirring blend of spiritual serenity and raw natural beauty\u2014from the bustling streets of Kathmandu to the serene heights of Everest. This is more than a trip; it\u2019s a journey to the roof of the world.",
+      "key_highlights": [
+        "Best flight deal: Delta Airlines - $485",
+        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
+        "Weather forecast: Clear 26\u00b0C"
+      ],
+      "budget_summary": {
+        "total_estimated": 20845.0,
+        "breakdown": {
+          "flights": 8338,
+          "hotels": 6254,
+          "activities": 4169,
+          "food": 2084
+        },
+        "currency": "USD"
+      },
+      "recommendations": [
+        "Explore premium experiences and fine dining",
+        "Book accommodations early for better rates",
+        "Check visa requirements",
+        "Get travel insurance",
+        "Download offline maps"
+      ],
+      "api_sources_used": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      },
+      "ai_generated": true,
+      "timestamp": "2025-10-20T13:27:26.330908"
+    },
+    "trip_request": {
+      "destination": "Nepal",
+      "start_date": "2025-10-21",
+      "end_date": "2025-10-30",
+      "budget": 49950,
+      "travelers": 8,
+      "interests": [
+        "adventure",
+        "culture",
+        "relaxation",
+        "food",
+        "nature",
+        "wellness",
+        "nightlife",
+        "history",
+        "photography",
+        "shopping"
+      ],
+      "from": "Korea",
+      "travel_style": "luxury",
+      "accommodation": "hotel",
+      "transportation": "flight",
+      "meal_preference": "all",
+      "activity_level": "moderate",
+      "special_requests": "",
+      "timestamp": "2025-10-20T07:42:10.034580"
+    },
+    "cost_breakdown": {
+      "total_estimated": 20845.0,
+      "breakdown": {
+        "flights": 8338,
+        "hotels": 6254,
+        "activities": 4169,
+        "food": 2084
+      },
+      "currency": "USD"
+    },
+    "api_sources": {
+      "weather": "OpenWeatherMap API",
+      "flights": "Amadeus API",
+      "hotels": "Amadeus API",
+      "ai_content": "OpenAI GPT",
+      "itinerary_generation": {
+        "itinerary": "Mock (Offline Fallback)",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "weather": "OpenWeatherMap API"
+      },
+      "summary_generation": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      }
+    },
+    "ai_enhanced": true,
+    "created_at": "2025-10-20T07:42:26.332676"
+  }
+]

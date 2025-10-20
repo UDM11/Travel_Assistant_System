@@ -17,7 +17,8 @@ class SummarizerAgent:
             "budget_summary": self._summarize_budget(trip_data),
             "recommendations": self._final_recommendations(trip_data),
             "api_sources_used": self._get_api_sources(trip_data),
-            "ai_generated": True
+            "ai_generated": True,
+            "timestamp": trip_data.get("timestamp", "")
         }
         
         await self.memory.store_summary(summary)

@@ -57,7 +57,8 @@ async def get_contact_messages():
 @app.post("/api/v1/plan-trip")
 async def plan_trip(trip_request: dict):
     try:
-        # Convert frontend field names to backend format
+        # Convert frontend field names to backend format with timestamp
+        from datetime import datetime
         backend_request = {
             "destination": trip_request.get("destination"),
             "start_date": trip_request.get("startDate"),
@@ -71,7 +72,8 @@ async def plan_trip(trip_request: dict):
             "transportation": trip_request.get("transportation", "flight"),
             "meal_preference": trip_request.get("mealPreference", "all"),
             "activity_level": trip_request.get("activityLevel", "moderate"),
-            "special_requests": trip_request.get("specialRequests", "")
+            "special_requests": trip_request.get("specialRequests", ""),
+            "timestamp": datetime.utcnow().isoformat()
         }
         
         # Plan the trip using travel service
@@ -97,15 +99,17 @@ async def plan_trip(trip_request: dict):
             "meal_preference": backend_request.get("meal_preference", "all"),
             "activity_level": backend_request.get("activity_level", "moderate"),
             "special_requests": backend_request.get("special_requests", ""),
+            "interests": backend_request.get("interests", []),
             "plan": summary.get("trip_overview", f"Welcome to {trip_request.get('destination')}!"),
             "itinerary": itinerary,
             "summary": summary,
+            "trip_request": backend_request,  # Store original request for reference
             "cost_breakdown": summary.get("budget_summary", {
-                "accommodation": itinerary.get("estimated_cost", 0) * 0.4,
-                "food": itinerary.get("estimated_cost", 0) * 0.3,
-                "transportation": itinerary.get("estimated_cost", 0) * 0.2,
-                "activities": itinerary.get("estimated_cost", 0) * 0.1,
-                "total": itinerary.get("estimated_cost", 0)
+                "flights": itinerary.get("estimated_cost", backend_request.get("budget", 1000)) * 0.3,
+                "hotels": itinerary.get("estimated_cost", backend_request.get("budget", 1000)) * 0.4,
+                "activities": itinerary.get("estimated_cost", backend_request.get("budget", 1000)) * 0.2,
+                "food": itinerary.get("estimated_cost", backend_request.get("budget", 1000)) * 0.1,
+                "total": itinerary.get("estimated_cost", backend_request.get("budget", 1000))
             }),
             "api_sources": {
                 "weather": "OpenWeatherMap API",

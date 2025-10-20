@@ -42,7 +42,7 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                   transition={{ delay: 0.2 }}
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4"
                 >
-                  {trip.from} → {trip.destination}
+                  {trip.from ? `${trip.from} → ${trip.destination}` : trip.destination}
                 </motion.h1>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:gap-6 text-blue-100 mb-3 sm:mb-4">
                   <span className="flex items-center text-sm sm:text-base lg:text-lg">
@@ -180,7 +180,43 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                           {day.activity}
                         </h3>
                         {day.description && (
-                          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{day.description}</p>
+                          <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-3">{day.description}</p>
+                        )}
+                        
+                        {day.morning && (
+                          <div className="space-y-3">
+                            <div className="p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border-l-4 border-orange-400">
+                              <div className="flex items-center mb-1">
+                                <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
+                                <span className="font-semibold text-orange-700 text-sm">Morning (9:00 AM - 12:00 PM)</span>
+                              </div>
+                              <p className="text-gray-700 ml-5 text-sm">{day.morning}</p>
+                            </div>
+                            
+                            <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-400">
+                              <div className="flex items-center mb-1">
+                                <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                                <span className="font-semibold text-blue-700 text-sm">Afternoon (1:00 PM - 5:00 PM)</span>
+                              </div>
+                              <p className="text-gray-700 ml-5 text-sm">{day.afternoon}</p>
+                            </div>
+                            
+                            <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-400">
+                              <div className="flex items-center mb-1">
+                                <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                                <span className="font-semibold text-purple-700 text-sm">Evening (6:00 PM - 9:00 PM)</span>
+                              </div>
+                              <p className="text-gray-700 ml-5 text-sm">{day.evening}</p>
+                            </div>
+                            
+                            {day.estimated_cost && (
+                              <div className="p-2 bg-green-50 rounded-lg border border-green-200">
+                                <div className="flex items-center justify-center">
+                                  <span className="text-green-700 font-semibold text-sm">Daily Budget: ${day.estimated_cost}</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         )}
                       </div>
                     </div>

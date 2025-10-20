@@ -155,7 +155,7 @@ export default function RecentTrips() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center text-blue-100">
                           <Users className="w-4 h-4 mr-1" />
-                          <span className="text-sm">Solo Trip</span>
+                          <span className="text-sm">{trip.travelers === 1 ? 'Solo Trip' : `${trip.travelers} Travelers`}</span>
                         </div>
                         <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                           budgetStatus === 'within' 
@@ -375,19 +375,36 @@ export default function RecentTrips() {
                               <p className="text-gray-600 leading-relaxed">{day.description}</p>
                             )}
                             {day.morning && (
-                              <div className="mt-3 space-y-2">
-                                <div className="text-sm">
-                                  <span className="font-medium text-orange-600">Morning:</span> {day.morning}
+                              <div className="mt-4 space-y-3">
+                                <div className="p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border-l-4 border-orange-400">
+                                  <div className="flex items-center mb-1">
+                                    <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
+                                    <span className="font-semibold text-orange-700">Morning (9:00 AM - 12:00 PM)</span>
+                                  </div>
+                                  <p className="text-gray-700 ml-5">{day.morning}</p>
                                 </div>
-                                <div className="text-sm">
-                                  <span className="font-medium text-blue-600">Afternoon:</span> {day.afternoon}
+                                
+                                <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-400">
+                                  <div className="flex items-center mb-1">
+                                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                                    <span className="font-semibold text-blue-700">Afternoon (1:00 PM - 5:00 PM)</span>
+                                  </div>
+                                  <p className="text-gray-700 ml-5">{day.afternoon}</p>
                                 </div>
-                                <div className="text-sm">
-                                  <span className="font-medium text-purple-600">Evening:</span> {day.evening}
+                                
+                                <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-400">
+                                  <div className="flex items-center mb-1">
+                                    <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                                    <span className="font-semibold text-purple-700">Evening (6:00 PM - 9:00 PM)</span>
+                                  </div>
+                                  <p className="text-gray-700 ml-5">{day.evening}</p>
                                 </div>
+                                
                                 {day.estimated_cost && (
-                                  <div className="text-sm text-green-600 font-medium">
-                                    Estimated cost: ${day.estimated_cost}
+                                  <div className="p-2 bg-green-50 rounded-lg border border-green-200">
+                                    <div className="flex items-center justify-center">
+                                      <span className="text-green-700 font-semibold">Daily Budget: ${day.estimated_cost}</span>
+                                    </div>
                                   </div>
                                 )}
                               </div>
