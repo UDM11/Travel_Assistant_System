@@ -1,5 +1,6 @@
 export interface TripData {
   id: string;
+  from: string;
   destination: string;
   startDate: string;
   endDate: string;
@@ -9,6 +10,13 @@ export interface TripData {
   costEstimate: number;
   itinerary: DailyActivity[];
   createdAt: string;
+  travelers: number;
+  travelStyle: string;
+  accommodation: string;
+  transportation: string;
+  mealPreference: string;
+  activityLevel: string;
+  specialRequests?: string;
   apiSources?: Record<string, string>;
   apiKeysUsed?: Record<string, boolean>;
   aiGenerated?: boolean;
@@ -22,6 +30,12 @@ export interface TripData {
   hotels?: AccommodationSuggestion[];
   weatherDetails?: WeatherDetails;
   research?: ResearchData;
+  costBreakdown?: {
+    flights: number;
+    hotels: number;
+    activities: number;
+    food: number;
+  };
 }
 
 export interface DailyActivity {
@@ -48,11 +62,19 @@ export interface WeatherDetails {
 }
 
 export interface TripFormData {
+  from: string;
   destination: string;
   startDate: string;
   endDate: string;
   budget: number;
   interests: string[];
+  travelers: number;
+  travelStyle: string;
+  accommodation: string;
+  transportation: string;
+  mealPreference: string;
+  activityLevel: string;
+  specialRequests?: string;
 }
 
 export interface AccommodationSuggestion {

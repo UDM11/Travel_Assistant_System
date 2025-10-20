@@ -42,7 +42,7 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                   transition={{ delay: 0.2 }}
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4"
                 >
-                  {trip.destination}
+                  {trip.from} → {trip.destination}
                 </motion.h1>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:gap-6 text-blue-100 mb-3 sm:mb-4">
                   <span className="flex items-center text-sm sm:text-base lg:text-lg">
@@ -55,7 +55,7 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                   </span>
                   <span className="flex items-center text-sm sm:text-base lg:text-lg">
                     <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                    Solo Adventure
+                    {trip.travelers === 1 ? 'Solo Adventure' : `${trip.travelers} Travelers`}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-1 sm:gap-2">
@@ -355,6 +355,56 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                   </div>
                 )}
               </div>
+            </div>
+
+            {/* Trip Preferences */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                <Users className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-blue-600" />
+                Trip Details
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Route:</span>
+                    <span className="font-bold">{trip.from} → {trip.destination}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Travelers:</span>
+                    <span className="font-bold">{trip.travelers} {trip.travelers === 1 ? 'Person' : 'People'}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Travel Style:</span>
+                    <span className="font-bold capitalize">{trip.travelStyle?.replace('-', ' ')}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Accommodation:</span>
+                    <span className="font-bold capitalize">{trip.accommodation}</span>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Transportation:</span>
+                    <span className="font-bold capitalize">{trip.transportation}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Meal Preference:</span>
+                    <span className="font-bold capitalize">{trip.mealPreference?.replace('-', ' ')}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">Activity Level:</span>
+                    <span className="font-bold capitalize">{trip.activityLevel}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {trip.specialRequests && (
+                <div className="mt-4 sm:mt-6">
+                  <h3 className="font-semibold text-gray-900 mb-2">Special Requests:</h3>
+                  <p className="text-gray-700 bg-blue-50 p-3 rounded-lg">{trip.specialRequests}</p>
+                </div>
+              )}
             </div>
 
             {/* Destination Highlights */}

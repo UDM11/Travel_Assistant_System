@@ -99,7 +99,7 @@ class OpenAIService:
             }
         ]
         
-        for day in range(1, min(duration + 1, 4)):
+        for day in range(1, duration + 1):
             template = activity_templates[min(day - 1, len(activity_templates) - 1)]
             activities.append({
                 "day": day,
@@ -120,6 +120,39 @@ class OpenAIService:
             "Learn basic local phrases for better interactions",
             "Book accommodations in advance for better rates"
         ]
+    
+    def _generate_daily_activities(self, destination: str, duration: int, interests: List[str]) -> List[Dict[str, Any]]:
+        """Generate daily activities for the itinerary"""
+        activities = []
+        
+        activity_templates = [
+            {
+                "morning": f"Arrival and explore {destination} city center",
+                "afternoon": f"Visit main attractions in {destination}",
+                "evening": "Welcome dinner at local restaurant"
+            },
+            {
+                "morning": f"Cultural sites and museums in {destination}",
+                "afternoon": "Local markets and shopping districts",
+                "evening": "Traditional cultural experience"
+            },
+            {
+                "morning": f"Scenic spots and outdoor activities in {destination}",
+                "afternoon": "Final sightseeing and souvenir shopping",
+                "evening": "Farewell dinner and departure prep"
+            }
+        ]
+        
+        for day in range(1, duration + 1):
+            template = activity_templates[min(day - 1, len(activity_templates) - 1)]
+            activities.append({
+                "day": day,
+                "morning": template["morning"],
+                "afternoon": template["afternoon"],
+                "evening": template["evening"],
+                "estimated_cost": 80 + (day * 20)
+            })
+        return activities
     
     def _get_mock_itinerary(self, trip_data: Dict[str, Any]) -> Dict[str, Any]:
         destination = trip_data.get("destination", "Unknown")

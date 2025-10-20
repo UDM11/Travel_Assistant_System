@@ -57,8 +57,25 @@ async def get_contact_messages():
 @app.post("/api/v1/plan-trip")
 async def plan_trip(trip_request: dict):
     try:
+        # Convert frontend field names to backend format
+        backend_request = {
+            "destination": trip_request.get("destination"),
+            "start_date": trip_request.get("startDate"),
+            "end_date": trip_request.get("endDate"),
+            "budget": trip_request.get("budget"),
+            "travelers": trip_request.get("travelers", 1),
+            "interests": trip_request.get("interests", []),
+            "from": trip_request.get("from", ""),
+            "travel_style": trip_request.get("travelStyle", "mid-range"),
+            "accommodation": trip_request.get("accommodation", "hotel"),
+            "transportation": trip_request.get("transportation", "flight"),
+            "meal_preference": trip_request.get("mealPreference", "all"),
+            "activity_level": trip_request.get("activityLevel", "moderate"),
+            "special_requests": trip_request.get("specialRequests", "")
+        }
+        
         # Plan the trip using travel service
-        result = await travel_service.plan_trip(trip_request)
+        result = await travel_service.plan_trip(backend_request)
         
         # Extract API sources information
         itinerary = result.get("itinerary", {})
@@ -68,11 +85,18 @@ async def plan_trip(trip_request: dict):
         trips, _, _ = load_data()
         trip_data = {
             "id": len(trips) + 1,
-            "destination": trip_request.get("destination"),
-            "start_date": trip_request.get("start_date"),
-            "end_date": trip_request.get("end_date"),
-            "budget": trip_request.get("budget"),
-            "travelers": trip_request.get("travelers", 1),
+            "from": backend_request.get("from", ""),
+            "destination": backend_request.get("destination"),
+            "start_date": backend_request.get("start_date"),
+            "end_date": backend_request.get("end_date"),
+            "budget": backend_request.get("budget"),
+            "travelers": backend_request.get("travelers", 1),
+            "travel_style": backend_request.get("travel_style", "mid-range"),
+            "accommodation": backend_request.get("accommodation", "hotel"),
+            "transportation": backend_request.get("transportation", "flight"),
+            "meal_preference": backend_request.get("meal_preference", "all"),
+            "activity_level": backend_request.get("activity_level", "moderate"),
+            "special_requests": backend_request.get("special_requests", ""),
             "plan": summary.get("trip_overview", f"Welcome to {trip_request.get('destination')}!"),
             "itinerary": itinerary,
             "summary": summary,
@@ -107,11 +131,11 @@ async def plan_trip(trip_request: dict):
         enhanced_result = {
             **result,
             "trip_request": {
-                "destination": trip_request.get("destination"),
-                "start_date": trip_request.get("start_date"),
-                "end_date": trip_request.get("end_date"),
-                "budget": trip_request.get("budget"),
-                "interests": trip_request.get("interests", [])
+                "destination": backend_request.get("destination"),
+                "start_date": backend_request.get("start_date"),
+                "end_date": backend_request.get("end_date"),
+                "budget": backend_request.get("budget"),
+                "interests": backend_request.get("interests", [])
             },
             "api_keys_used": {
                 "openai": bool(os.getenv("OPENAI_API_KEY")),

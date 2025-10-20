@@ -131,7 +131,7 @@ export default function RecentTrips() {
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
                     <div className="relative z-10">
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-2xl font-bold leading-tight">{trip.destination}</h3>
+                        <h3 className="text-2xl font-bold leading-tight">{trip.from ? `${trip.from} → ${trip.destination}` : trip.destination}</h3>
                         <div className="flex items-center bg-white/20 rounded-full px-3 py-1">
                           <Clock className="w-4 h-4 mr-1" />
                           <span className="text-sm font-medium">{duration}d</span>
@@ -283,7 +283,7 @@ export default function RecentTrips() {
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-6 rounded-t-2xl">
                   <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold mb-2">{selectedTrip.destination}</h2>
+                    <h2 className="text-3xl font-bold mb-2">{selectedTrip.from ? `${selectedTrip.from} → ${selectedTrip.destination}` : selectedTrip.destination}</h2>
                     <div className="flex items-center text-blue-100">
                       <Calendar className="w-4 h-4 mr-2" />
                       {new Date(selectedTrip.startDate).toLocaleDateString('en-US', {
@@ -312,7 +312,7 @@ export default function RecentTrips() {
               </div>
               
               {/* Modal Content */}
-              <div className="p-6">
+              <div className="p-6 max-h-[80vh] overflow-y-auto">
                 {/* Trip Overview */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
@@ -362,22 +362,237 @@ export default function RecentTrips() {
                   </h3>
                   <div className="space-y-4">
                     {selectedTrip.itinerary.map((day) => (
-                      <div key={day.day} className="bg-gray-50 rounded-xl p-6">
+                      <div key={day.day} className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6">
                         <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-lg">
                             {day.day}
                           </div>
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                            <h4 className="text-lg font-bold text-gray-900 mb-2">
                               {day.activity}
                             </h4>
-                            <p className="text-gray-600">{day.description}</p>
+                            {day.description && (
+                              <p className="text-gray-600 leading-relaxed">{day.description}</p>
+                            )}
+                            {day.morning && (
+                              <div className="mt-3 space-y-2">
+                                <div className="text-sm">
+                                  <span className="font-medium text-orange-600">Morning:</span> {day.morning}
+                                </div>
+                                <div className="text-sm">
+                                  <span className="font-medium text-blue-600">Afternoon:</span> {day.afternoon}
+                                </div>
+                                <div className="text-sm">
+                                  <span className="font-medium text-purple-600">Evening:</span> {day.evening}
+                                </div>
+                                {day.estimated_cost && (
+                                  <div className="text-sm text-green-600 font-medium">
+                                    Estimated cost: ${day.estimated_cost}
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
+
+                {/* Flight & Hotel Details */}
+                {selectedTrip.flights && selectedTrip.flights.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <Plane className="w-6 h-6 mr-2 text-blue-600" />
+                      Flight Options
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {selectedTrip.flights.slice(0, 4).map((flight: any, index: number) => (
+                        <div key={index} className="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="font-bold text-gray-900">{flight.airline}</div>
+                            <div className="text-xl font-bold text-blue-600">${flight.price}</div>
+                          </div>
+                          <div className="space-y-1 text-sm text-gray-600">
+                            <div>{flight.flight_number} • {flight.aircraft}</div>
+                            <div>{flight.departure} → {flight.arrival} • {flight.duration}</div>
+                            <div>{flight.stops === 0 ? 'Direct Flight' : `${flight.stops} Stop(s)`}</div>
+                            {flight.baggage && <div className="text-green-600">✓ {flight.baggage}</div>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedTrip.hotels && selectedTrip.hotels.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <Building className="w-6 h-6 mr-2 text-purple-600" />
+                      Accommodation Options
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {selectedTrip.hotels.slice(0, 4).map((hotel: any, index: number) => (
+                        <div key={index} className="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all">
+                          <div className="flex items-start justify-between mb-3">
+                            <div>
+                              <div className="font-bold text-gray-900">{hotel.name}</div>
+                              <div className="text-sm text-gray-600 flex items-center mt-1">
+                                <Star className="w-4 h-4 text-yellow-500 mr-1" />
+                                {hotel.rating} {hotel.reviews_count && `(${hotel.reviews_count.toLocaleString()} reviews)`}
+                              </div>
+                            </div>
+                            <div className="text-xl font-bold text-purple-600">${hotel.price_per_night}/night</div>
+                          </div>
+                          <div className="space-y-1 text-sm text-gray-600">
+                            <div>{hotel.location} • {hotel.room_type}</div>
+                            {hotel.room_size && <div>Room Size: {hotel.room_size}</div>}
+                            {hotel.amenities && hotel.amenities.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {hotel.amenities.slice(0, 3).map((amenity: string, i: number) => (
+                                  <span key={i} className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">
+                                    {amenity}
+                                  </span>
+                                ))}
+                                {hotel.amenities.length > 3 && (
+                                  <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">
+                                    +{hotel.amenities.length - 3} more
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Trip Preferences */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <Users className="w-6 h-6 mr-2 text-blue-600" />
+                    Trip Preferences
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Route:</span>
+                        <span className="font-bold">{selectedTrip.from ? `${selectedTrip.from} → ${selectedTrip.destination}` : selectedTrip.destination}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Travelers:</span>
+                        <span className="font-bold">{selectedTrip.travelers} {selectedTrip.travelers === 1 ? 'Person' : 'People'}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Travel Style:</span>
+                        <span className="font-bold capitalize">{selectedTrip.travelStyle?.replace('-', ' ')}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Accommodation:</span>
+                        <span className="font-bold capitalize">{selectedTrip.accommodation}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Transportation:</span>
+                        <span className="font-bold capitalize">{selectedTrip.transportation}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Meal Preference:</span>
+                        <span className="font-bold capitalize">{selectedTrip.mealPreference?.replace('-', ' ')}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 font-medium">Activity Level:</span>
+                        <span className="font-bold capitalize">{selectedTrip.activityLevel}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {selectedTrip.specialRequests && (
+                    <div className="mt-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Special Requests:</h4>
+                      <p className="text-gray-700 bg-blue-50 p-3 rounded-lg">{selectedTrip.specialRequests}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Cost Breakdown */}
+                {selectedTrip.costBreakdown && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <DollarSign className="w-6 h-6 mr-2 text-green-600" />
+                      Cost Breakdown
+                    </h3>
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-gray-600 text-sm">Flights</div>
+                          <div className="font-bold text-lg text-blue-600">${selectedTrip.costBreakdown.flights}</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-gray-600 text-sm">Hotels</div>
+                          <div className="font-bold text-lg text-purple-600">${selectedTrip.costBreakdown.hotels}</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-gray-600 text-sm">Activities</div>
+                          <div className="font-bold text-lg text-orange-600">${selectedTrip.costBreakdown.activities}</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-gray-600 text-sm">Food</div>
+                          <div className="font-bold text-lg text-red-600">${selectedTrip.costBreakdown.food}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Weather Details */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <Cloud className="w-6 h-6 mr-2 text-green-600" />
+                    Weather Information
+                  </h3>
+                  <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div className="text-center">
+                        <div className="text-gray-600">Temperature</div>
+                        <div className="font-bold text-lg">{selectedTrip.weatherDetails?.temperature || '22°C'}</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-gray-600">Condition</div>
+                        <div className="font-bold">{selectedTrip.weatherDetails?.condition || 'Clear Sky'}</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-gray-600">Humidity</div>
+                        <div className="font-bold">{selectedTrip.weatherDetails?.humidity || '65%'}</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-gray-600">Wind</div>
+                        <div className="font-bold">{selectedTrip.weatherDetails?.wind_speed || '3.2 m/s'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recommendations */}
+                {selectedTrip.research?.recommendations && selectedTrip.research.recommendations.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <CheckCircle className="w-6 h-6 mr-2 text-blue-600" />
+                      Travel Recommendations
+                    </h3>
+                    <div className="bg-blue-50 rounded-xl p-6">
+                      <ul className="space-y-2">
+                        {selectedTrip.research.recommendations.map((rec: string, index: number) => (
+                          <li key={index} className="flex items-start">
+                            <CheckCircle className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{rec}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Interests & Services */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

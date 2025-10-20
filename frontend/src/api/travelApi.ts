@@ -31,17 +31,19 @@ export interface TripResponse {
 
 export const planTrip = async (formData: TripFormData): Promise<TripData> => {
   try {
-    const requestData: TripRequest = {
+    const requestData = {
+      from: formData.from,
       destination: formData.destination,
-      start_date: formData.startDate,
-      end_date: formData.endDate,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
       budget: formData.budget,
-      travelers: 1, // Default to 1 traveler
-      preferences: {
-        interests: formData.interests,
-        budget_range: formData.budget,
-        travel_style: 'cultural'
-      },
+      travelers: formData.travelers,
+      travelStyle: formData.travelStyle,
+      accommodation: formData.accommodation,
+      transportation: formData.transportation,
+      mealPreference: formData.mealPreference,
+      activityLevel: formData.activityLevel,
+      specialRequests: formData.specialRequests,
       interests: formData.interests,
     };
 
@@ -101,11 +103,19 @@ const transformTripResponse = (response: any, formData?: TripFormData): TripData
   
   return {
     id: response.trip_id || Date.now().toString(),
+    from: response.from || formData?.from || '',
     destination: tripRequest.destination || research.destination || formData?.destination || response.destination || 'Paris',
     startDate: tripRequest.start_date || formData?.startDate || new Date().toISOString().split('T')[0],
     endDate: tripRequest.end_date || formData?.endDate || new Date(Date.now() + 3*24*60*60*1000).toISOString().split('T')[0],
     budget: tripRequest.budget || formData?.budget || itinerary.estimated_cost || 1000,
     interests: tripRequest.interests || formData?.interests || itinerary.activities || [],
+    travelers: response.travelers || formData?.travelers || 1,
+    travelStyle: response.travel_style || formData?.travelStyle || 'mid-range',
+    accommodation: response.accommodation || formData?.accommodation || 'hotel',
+    transportation: response.transportation || formData?.transportation || 'flight',
+    mealPreference: response.meal_preference || formData?.mealPreference || 'all',
+    activityLevel: response.activity_level || formData?.activityLevel || 'moderate',
+    specialRequests: response.special_requests || formData?.specialRequests || '',
     weather: weatherInfo,
     costEstimate: itinerary.estimated_cost || formData?.budget || 1000,
     itinerary: (() => {
@@ -182,25 +192,63 @@ export const getAllTrips = async (): Promise<TripData[]> => {
     if (result.success && result.data) {
       return result.data.trips.map((trip: any) => {
         console.log('Raw trip data:', trip);
+        // Calculate actual trip duration
+        const startDate = new Date(trip.start_date || new Date());
+        const endDate = new Date(trip.end_date || new Date(Date.now() + 3*24*60*60*1000));
+        const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        // Extract itinerary data from the comprehensive trip object
+        const itineraryData = trip.itinerary || {};
+        const summaryData = trip.summary || {};
+        const dailyPlan = itineraryData.daily_plan || [];
+        
         return {
           id: trip.id?.toString() || Date.now().toString(),
+          from: trip.from || '',
           destination: trip.destination || 'Paris',
           startDate: trip.start_date || new Date().toISOString().split('T')[0],
           endDate: trip.end_date || new Date(Date.now() + 3*24*60*60*1000).toISOString().split('T')[0],
           budget: trip.budget || 1000,
           interests: trip.interests || ['culture', 'food'],
-          weather: 'Pleasant weather expected',
-          costEstimate: trip.cost_breakdown?.total || trip.budget || 1000,
-          itinerary: Array.from({length: 3}, (_, i) => ({
-            day: i + 1,
-            activity: `Day ${i + 1}: Explore ${trip.destination || 'Paris'}`,
-            description: `Discover amazing experiences on day ${i + 1}`
-          })),
+          travelers: trip.travelers || 1,
+          travelStyle: trip.travel_style || 'mid-range',
+          accommodation: trip.accommodation || 'hotel',
+          transportation: trip.transportation || 'flight',
+          mealPreference: trip.meal_preference || 'all',
+          activityLevel: trip.activity_level || 'moderate',
+          specialRequests: trip.special_requests || '',
+          weather: summaryData.key_highlights?.[2] || 'Pleasant weather expected',
+          costEstimate: summaryData.budget_summary?.total_estimated || trip.cost_breakdown?.total_estimated || trip.budget || 1000,
+          itinerary: dailyPlan.length > 0 
+            ? dailyPlan.map((day: any) => ({
+                day: day.day,
+                activity: `Day ${day.day} Activities`,
+                description: day.description || `Explore ${trip.destination} on day ${day.day}`,
+                morning: day.morning,
+                afternoon: day.afternoon,
+                evening: day.evening,
+                estimated_cost: day.estimated_cost
+              }))
+            : Array.from({length: duration}, (_, i) => ({
+                day: i + 1,
+                activity: `Day ${i + 1}: Explore ${trip.destination || 'Paris'}`,
+                description: `Discover amazing experiences on day ${i + 1}`
+              })),
           createdAt: trip.created_at || new Date().toISOString(),
-          flights: [],
-          hotels: [],
-          weatherDetails: null,
-          research: null
+          flights: summaryData.key_highlights?.filter((h: string) => h.includes('flight')) || [],
+          hotels: summaryData.key_highlights?.filter((h: string) => h.includes('hotel')) || [],
+          weatherDetails: {
+            temperature: summaryData.key_highlights?.[2]?.match(/\d+°C/)?.[0] || '22°C',
+            condition: summaryData.key_highlights?.[2]?.split(' ')[2] || 'Clear',
+            humidity: '65%',
+            wind_speed: '3.2 m/s'
+          },
+          research: {
+            summary: summaryData.trip_overview || trip.plan,
+            recommendations: summaryData.recommendations || itineraryData.recommendations || []
+          },
+          apiSources: trip.api_sources,
+          costBreakdown: summaryData.budget_summary?.breakdown || trip.cost_breakdown?.breakdown
         };
       });
     }
