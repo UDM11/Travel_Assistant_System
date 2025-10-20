@@ -10,6 +10,7 @@ from app.services.database import load_data, save_contact_messages, save_users, 
 from app.services.travel_service import TravelService
 from app.core.utils.helpers import generate_trip_id, calculate_trip_duration
 from app.api.routes.trip_routes import router as trip_router
+from app.api.routes.auth_routes import router as auth_router
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
@@ -25,6 +26,7 @@ app.add_middleware(
 )
 
 app.include_router(trip_router, prefix=settings.API_V1_STR)
+app.include_router(auth_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():
@@ -50,65 +52,7 @@ async def get_contact_messages():
     _, contact_messages, _ = load_data()
     return {"success": True, "data": {"messages": contact_messages, "total": len(contact_messages)}}
 
-@app.post("/api/v1/auth/login")
-async def login(request: LoginRequest):
-    try:
-        _, _, users = load_data()
-        user = next((u for u in users if u["email"] == request.email), None)
-        
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid email or password")
-        
-        if user["password"] != request.password:
-            raise HTTPException(status_code=401, detail="Invalid email or password")
-        
-        return {
-            "success": True,
-            "message": "Login successful",
-            "user": {
-                "id": user["id"],
-                "email": user["email"],
-                "name": user["name"]
-            }
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Login failed")
-
-@app.post("/api/v1/auth/register")
-async def register(request: RegisterRequest):
-    try:
-        _, _, users = load_data()
-        if any(u["email"] == request.email for u in users):
-            raise HTTPException(status_code=400, detail="Email already registered")
-        
-        new_user = {
-            "id": len(users) + 1,
-            "email": request.email,
-            "password": request.password,
-            "name": request.name,
-            "created_at": datetime.utcnow().isoformat()
-        }
-        
-        users.append(new_user)
-        save_users(users)
-        
-        return {
-            "success": True,
-            "message": "Registration successful",
-            "user": {
-                "id": new_user["id"],
-                "email": new_user["email"],
-                "name": new_user["name"]
-            }
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Registration failed")
+# Authentication endpoints are now handled by auth_routes.py
 
 @app.post("/api/v1/plan-trip")
 async def plan_trip(trip_request: dict):
