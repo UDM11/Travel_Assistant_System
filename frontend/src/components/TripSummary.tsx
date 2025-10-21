@@ -258,7 +258,7 @@ export default function TripSummary({ trip }: TripSummaryProps) {
             )}
 
             {trip.hotels && trip.hotels.length > 0 && (
-              <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8">
+              <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
                   <Building className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-purple-600" />
                   Accommodation Options
@@ -299,6 +299,34 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                 </div>
               </div>
             )}
+
+            {/* Cost Breakdown */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                <DollarSign className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-green-600" />
+                Cost Breakdown
+              </h2>
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-3 bg-white rounded-lg">
+                    <div className="text-gray-600 text-sm">Flights</div>
+                    <div className="font-bold text-lg text-blue-600">${trip.costBreakdown?.flights || Math.round(trip.costEstimate * 0.3)}</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg">
+                    <div className="text-gray-600 text-sm">Hotels</div>
+                    <div className="font-bold text-lg text-purple-600">${trip.costBreakdown?.hotels || Math.round(trip.costEstimate * 0.4)}</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg">
+                    <div className="text-gray-600 text-sm">Activities</div>
+                    <div className="font-bold text-lg text-orange-600">${trip.costBreakdown?.activities || Math.round(trip.costEstimate * 0.2)}</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg">
+                    <div className="text-gray-600 text-sm">Food</div>
+                    <div className="font-bold text-lg text-red-600">${trip.costBreakdown?.food || Math.round(trip.costEstimate * 0.1)}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Column - Weather & Insights */}

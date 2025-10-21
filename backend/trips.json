@@ -620,5 +620,210 @@
     },
     "ai_enhanced": true,
     "created_at": "2025-10-21T05:53:46.312289"
+  },
+  {
+    "id": 4,
+    "from": "Kathmandu",
+    "destination": "Tokyo",
+    "start_date": "2025-10-22",
+    "end_date": "2025-10-28",
+    "budget": 10000,
+    "travelers": 2,
+    "travel_style": "luxury",
+    "accommodation": "hotel",
+    "transportation": "flight",
+    "meal_preference": "all",
+    "activity_level": "moderate",
+    "special_requests": "",
+    "interests": [
+      "adventure",
+      "culture",
+      "relaxation",
+      "food",
+      "nature",
+      "wellness",
+      "nightlife",
+      "history",
+      "photography",
+      "shopping"
+    ],
+    "plan": "\n            Welcome to Tokyo - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 16\u00b0C, \n            this is an ideal time to explore everything Tokyo has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Tokyo truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+    "itinerary": {
+      "destination": "Tokyo",
+      "duration": 6,
+      "activities": [
+        "Morning: Private guided tour of Senso-ji Temple and Asakusa district including Nakamise shopping street with photography opportunities (Cost: $200 for private guide)",
+        "Afternoon: Traditional multi-course kaiseki lunch at Kikunoi (3 Michelin stars) followed by Sumida River cruise (Cost: $400 lunch, $60 cruise)",
+        "Evening: Exclusive omakase dinner at Sukiyabashi Jiro (sushi experience) followed by cocktails at The Bellustar Tokyo sky bar with panoramic city views (Cost: $600 dinner, $100 drinks)",
+        "Morning: Private helicopter tour over Tokyo skyline and Mount Fuji (1.5 hours) with professional photography service (Cost: $1500 for two)",
+        "Afternoon: Luxury shopping experience in Ginza at flagship stores (Chanet, Louis Vuitton, Mikimoto) with personal shopper (Cost: $200 shopping service fee, shopping expenses separate)",
+        "Evening: Michelin-starred tempura experience at Tempura Kondo followed by exclusive members-only jazz club in Roppongi (Cost: $300 dinner, $150 club access)",
+        "Morning: Private guided tour of Meiji Shrine and Imperial Palace East Gardens with cultural insights into Shinto traditions (Cost: $250 for guide)",
+        "Afternoon: Traditional tea ceremony experience at Happo-en Garden followed by luxury kaiseki lunch (Cost: $150 ceremony, $300 lunch)",
+        "Evening: Robot Restaurant premium show with VIP seating and dinner package in Shinjuku (Cost: $300 for two)",
+        "Morning: Private car transfer to Mount Fuji (2 hours) with stop at Oshino Hakkai springs (Cost: $400 transfer)",
+        "Afternoon: Luxury ryokan experience at Hoshinoya Fuji with forest bathing and glamping activities, including private gourmet lunch (Cost: $800 experience)",
+        "Evening: Private onsen experience with kaiseki dinner at ryokan featuring views of Mount Fuji (included in ryokan stay)",
+        "Morning: Private photography tour of teamLab Borderless digital art museum with early access (Cost: $300 for guide and tickets)",
+        "Afternoon: Wagyu beef teppanyaki lunch at Ukai Tei (Michelin star) in Ginza followed by traditional Japanese garden visit (Cost: $400 lunch)",
+        "Evening: Exclusive members-only cocktail experience at Bar Benfiddich followed by late-night ramen at Ichiran (private booth) (Cost: $120 drinks, $50 ramen)",
+        "Morning: Private sushi-making class with master chef in Tsukiji outer market followed by market exploration (Cost: $350 for class)",
+        "Afternoon: Luxury spa treatment at Aman Tokyo with traditional Japanese therapies (2 hours) (Cost: $500 for two)",
+        "Evening: Farewell omakase experience at Sushi Saito (3 Michelin stars) with champagne celebration (Cost: $800 dinner)"
+      ],
+      "estimated_cost": 4180.0,
+      "recommendations": [
+        "Book all Michelin restaurants 2-3 months in advance",
+        "Private car service recommended for luxury transportation (approx $200-400/day)",
+        "Carry cash for traditional establishments and temples",
+        "Learn basic Japanese greetings for cultural respect",
+        "Reserve ryokan stays well in advance for best availability",
+        "Consider hiring a professional photographer for special moments"
+      ],
+      "daily_plan": [
+        {
+          "day": 1,
+          "morning": "Private guided tour of Senso-ji Temple and Asakusa district including Nakamise shopping street with photography opportunities (Cost: $200 for private guide)",
+          "afternoon": "Traditional multi-course kaiseki lunch at Kikunoi (3 Michelin stars) followed by Sumida River cruise (Cost: $400 lunch, $60 cruise)",
+          "evening": "Exclusive omakase dinner at Sukiyabashi Jiro (sushi experience) followed by cocktails at The Bellustar Tokyo sky bar with panoramic city views (Cost: $600 dinner, $100 drinks)",
+          "estimated_cost": 1360
+        },
+        {
+          "day": 2,
+          "morning": "Private helicopter tour over Tokyo skyline and Mount Fuji (1.5 hours) with professional photography service (Cost: $1500 for two)",
+          "afternoon": "Luxury shopping experience in Ginza at flagship stores (Chanet, Louis Vuitton, Mikimoto) with personal shopper (Cost: $200 shopping service fee, shopping expenses separate)",
+          "evening": "Michelin-starred tempura experience at Tempura Kondo followed by exclusive members-only jazz club in Roppongi (Cost: $300 dinner, $150 club access)",
+          "estimated_cost": 2150
+        },
+        {
+          "day": 3,
+          "morning": "Private guided tour of Meiji Shrine and Imperial Palace East Gardens with cultural insights into Shinto traditions (Cost: $250 for guide)",
+          "afternoon": "Traditional tea ceremony experience at Happo-en Garden followed by luxury kaiseki lunch (Cost: $150 ceremony, $300 lunch)",
+          "evening": "Robot Restaurant premium show with VIP seating and dinner package in Shinjuku (Cost: $300 for two)",
+          "estimated_cost": 1000
+        },
+        {
+          "day": 4,
+          "morning": "Private car transfer to Mount Fuji (2 hours) with stop at Oshino Hakkai springs (Cost: $400 transfer)",
+          "afternoon": "Luxury ryokan experience at Hoshinoya Fuji with forest bathing and glamping activities, including private gourmet lunch (Cost: $800 experience)",
+          "evening": "Private onsen experience with kaiseki dinner at ryokan featuring views of Mount Fuji (included in ryokan stay)",
+          "estimated_cost": 1200
+        },
+        {
+          "day": 5,
+          "morning": "Private photography tour of teamLab Borderless digital art museum with early access (Cost: $300 for guide and tickets)",
+          "afternoon": "Wagyu beef teppanyaki lunch at Ukai Tei (Michelin star) in Ginza followed by traditional Japanese garden visit (Cost: $400 lunch)",
+          "evening": "Exclusive members-only cocktail experience at Bar Benfiddich followed by late-night ramen at Ichiran (private booth) (Cost: $120 drinks, $50 ramen)",
+          "estimated_cost": 870
+        },
+        {
+          "day": 6,
+          "morning": "Private sushi-making class with master chef in Tsukiji outer market followed by market exploration (Cost: $350 for class)",
+          "afternoon": "Luxury spa treatment at Aman Tokyo with traditional Japanese therapies (2 hours) (Cost: $500 for two)",
+          "evening": "Farewell omakase experience at Sushi Saito (3 Michelin stars) with champagne celebration (Cost: $800 dinner)",
+          "estimated_cost": 1650
+        }
+      ],
+      "ai_generated": true,
+      "api_sources": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "weather": "OpenWeatherMap API"
+      },
+      "timestamp": "2025-10-21T11:45:10.219382"
+    },
+    "summary": {
+      "trip_overview": "\n            Welcome to Tokyo - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 16\u00b0C, \n            this is an ideal time to explore everything Tokyo has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Tokyo truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+      "key_highlights": [
+        "Best flight deal: Delta Airlines - $485",
+        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
+        "Weather forecast: Clouds 16\u00b0C"
+      ],
+      "budget_summary": {
+        "total_estimated": 4180.0,
+        "breakdown": {
+          "flights": 1672,
+          "hotels": 1254,
+          "activities": 836,
+          "food": 418
+        },
+        "currency": "USD"
+      },
+      "recommendations": [
+        "Explore premium experiences and fine dining",
+        "Book accommodations early for better rates",
+        "Check visa requirements",
+        "Get travel insurance",
+        "Download offline maps"
+      ],
+      "api_sources_used": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      },
+      "ai_generated": true,
+      "timestamp": "2025-10-21T11:45:10.219852"
+    },
+    "trip_request": {
+      "destination": "Tokyo",
+      "start_date": "2025-10-22",
+      "end_date": "2025-10-28",
+      "budget": 10000,
+      "travelers": 2,
+      "interests": [
+        "adventure",
+        "culture",
+        "relaxation",
+        "food",
+        "nature",
+        "wellness",
+        "nightlife",
+        "history",
+        "photography",
+        "shopping"
+      ],
+      "from": "Kathmandu",
+      "travel_style": "luxury",
+      "accommodation": "hotel",
+      "transportation": "flight",
+      "meal_preference": "all",
+      "activity_level": "moderate",
+      "special_requests": "",
+      "timestamp": "2025-10-21T05:59:46.710632"
+    },
+    "cost_breakdown": {
+      "total_estimated": 4180.0,
+      "breakdown": {
+        "flights": 1672,
+        "hotels": 1254,
+        "activities": 836,
+        "food": 418
+      },
+      "currency": "USD"
+    },
+    "api_sources": {
+      "weather": "OpenWeatherMap API",
+      "flights": "Amadeus API",
+      "hotels": "Amadeus API",
+      "ai_content": "OpenAI GPT",
+      "itinerary_generation": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "weather": "OpenWeatherMap API"
+      },
+      "summary_generation": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "Amadeus API",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      }
+    },
+    "ai_enhanced": true,
+    "created_at": "2025-10-21T06:00:10.221967"
   }
 ]

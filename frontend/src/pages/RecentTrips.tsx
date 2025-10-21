@@ -534,34 +534,32 @@ export default function RecentTrips() {
                 </div>
 
                 {/* Cost Breakdown */}
-                {selectedTrip.costBreakdown && (
-                  <div className="mb-8">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                      <DollarSign className="w-6 h-6 mr-2 text-green-600" />
-                      Cost Breakdown
-                    </h3>
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="text-center p-3 bg-white rounded-lg">
-                          <div className="text-gray-600 text-sm">Flights</div>
-                          <div className="font-bold text-lg text-blue-600">${selectedTrip.costBreakdown.flights}</div>
-                        </div>
-                        <div className="text-center p-3 bg-white rounded-lg">
-                          <div className="text-gray-600 text-sm">Hotels</div>
-                          <div className="font-bold text-lg text-purple-600">${selectedTrip.costBreakdown.hotels}</div>
-                        </div>
-                        <div className="text-center p-3 bg-white rounded-lg">
-                          <div className="text-gray-600 text-sm">Activities</div>
-                          <div className="font-bold text-lg text-orange-600">${selectedTrip.costBreakdown.activities}</div>
-                        </div>
-                        <div className="text-center p-3 bg-white rounded-lg">
-                          <div className="text-gray-600 text-sm">Food</div>
-                          <div className="font-bold text-lg text-red-600">${selectedTrip.costBreakdown.food}</div>
-                        </div>
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <DollarSign className="w-6 h-6 mr-2 text-green-600" />
+                    Cost Breakdown
+                  </h3>
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-white rounded-lg">
+                        <div className="text-gray-600 text-sm">Flights</div>
+                        <div className="font-bold text-lg text-blue-600">${selectedTrip.costBreakdown?.flights || Math.round(selectedTrip.costEstimate * 0.3)}</div>
+                      </div>
+                      <div className="text-center p-3 bg-white rounded-lg">
+                        <div className="text-gray-600 text-sm">Hotels</div>
+                        <div className="font-bold text-lg text-purple-600">${selectedTrip.costBreakdown?.hotels || Math.round(selectedTrip.costEstimate * 0.4)}</div>
+                      </div>
+                      <div className="text-center p-3 bg-white rounded-lg">
+                        <div className="text-gray-600 text-sm">Activities</div>
+                        <div className="font-bold text-lg text-orange-600">${selectedTrip.costBreakdown?.activities || Math.round(selectedTrip.costEstimate * 0.2)}</div>
+                      </div>
+                      <div className="text-center p-3 bg-white rounded-lg">
+                        <div className="text-gray-600 text-sm">Food</div>
+                        <div className="font-bold text-lg text-red-600">${selectedTrip.costBreakdown?.food || Math.round(selectedTrip.costEstimate * 0.1)}</div>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
 
                 {/* Weather Details */}
                 <div className="mb-8">
