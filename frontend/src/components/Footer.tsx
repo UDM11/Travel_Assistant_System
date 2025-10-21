@@ -120,16 +120,6 @@ export default function Footer() {
                   );
                 })}
               </div>
-
-              {/* Back to Top */}
-              <motion.button
-                onClick={scrollToTop}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="group p-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg"
-              >
-                <ArrowUp className="w-5 h-5 text-white" />
-              </motion.button>
             </div>
           </div>
         </div>
