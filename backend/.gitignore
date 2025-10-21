@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+
+users.json
+trips.json
+contact_messages.json

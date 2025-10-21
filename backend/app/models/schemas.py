@@ -15,7 +15,11 @@ class TripRequest(BaseModel):
 class ContactMessage(BaseModel):
     name: str
     email: str
+    phone: Optional[str] = None
+    category: str
+    subject: str
     message: str
+    priority: str = "normal"
 
 class LoginRequest(BaseModel):
     email: str

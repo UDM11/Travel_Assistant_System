@@ -39,7 +39,11 @@ async def submit_contact_message(message: ContactMessage):
         "id": len(contact_messages) + 1,
         "name": message.name,
         "email": message.email,
+        "phone": message.phone,
+        "category": message.category,
+        "subject": message.subject,
         "message": message.message,
+        "priority": message.priority,
         "created_at": datetime.utcnow().isoformat(),
         "status": "new"
     }
