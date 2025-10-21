@@ -42,6 +42,10 @@ export interface DailyActivity {
   day: number;
   activity: string;
   description?: string;
+  morning?: string;
+  afternoon?: string;
+  evening?: string;
+  estimated_cost?: number;
 }
 
 export interface WeatherData {

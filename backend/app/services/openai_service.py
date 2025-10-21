@@ -1,5 +1,5 @@
+from openai import OpenAI
 import os
-import aiohttp
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
@@ -8,7 +8,10 @@ load_dotenv()
 class OpenAIService:
     def __init__(self):
         self.api_key = os.getenv("OPENAI_API_KEY")
-        self.client = None
+        self.client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=self.api_key,
+        ) if self.api_key else None
     
     async def generate_itinerary(self, trip_data: Dict[str, Any]) -> Dict[str, Any]:
         """Generate detailed itinerary using OpenAI"""
@@ -78,75 +81,68 @@ class OpenAIService:
             Generate {duration} days exactly. Be specific with locations, costs, and activities.
             """
             
-            # Use OpenAI API to generate dynamic content
-            import requests
-            
-            headers = {
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
-            }
-            
-            data = {
-                "model": "gpt-3.5-turbo",
-                "messages": [
-                    {"role": "system", "content": "You are an expert travel planner who creates detailed, personalized itineraries with specific locations, activities, and realistic costs."},
-                    {"role": "user", "content": prompt}
-                ],
-                "max_tokens": 2000,
-                "temperature": 0.7
-            }
-            
-            print("Making OpenAI API request...")
+            # Use OpenRouter API with DeepSeek model
+            print("Making OpenRouter API request...")
             try:
-                response = requests.post("https://api.openai.com/v1/chat/completions", 
-                                       headers=headers, json=data, timeout=30)
+                completion = self.client.chat.completions.create(
+                    extra_headers={
+                        "HTTP-Referer": "https://travel-assistant.com",
+                        "X-Title": "Travel Assistant System",
+                    },
+                    model="deepseek/deepseek-chat-v3.1",
+                    messages=[
+                        {"role": "system", "content": "You are an expert travel planner who creates detailed, personalized itineraries with specific locations, activities, and realistic costs."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=2000,
+                    temperature=0.7
+                )
                 
-                print(f"OpenAI API Response Status: {response.status_code}")
+                ai_response = completion.choices[0].message.content
+                print(f"OpenRouter Response received: {len(ai_response)} characters")
+                print(f"First 200 chars: {ai_response[:200]}...")
                 
-                if response.status_code == 200:
-                    response_data = response.json()
-                    ai_response = response_data["choices"][0]["message"]["content"]
+                # Try to parse JSON first
+                import json
+                try:
+                    # Clean the response by removing markdown code blocks
+                    clean_response = ai_response.strip()
+                    if clean_response.startswith('```json'):
+                        clean_response = clean_response[7:]
+                    if clean_response.endswith('```'):
+                        clean_response = clean_response[:-3]
+                    clean_response = clean_response.strip()
                     
-                    print(f"OpenAI Response received: {len(ai_response)} characters")
-                    print(f"First 200 chars: {ai_response[:200]}...")
-                    
-                    # Try to parse JSON first
-                    import json
-                    try:
-                        parsed_json = json.loads(ai_response)
-                        daily_plan = parsed_json.get("daily_plan", [])
-                        recommendations = parsed_json.get("recommendations", [])
-                        print("Successfully parsed JSON response")
-                    except json.JSONDecodeError:
-                        print("JSON parsing failed, using text parsing")
-                        daily_plan = self._parse_text_response(ai_response, duration, destination, interests)
-                        recommendations = self._extract_recommendations_from_text(ai_response)
-                    
-                    print(f"Generated {len(daily_plan)} days of activities")
-                    
-                    return {
-                        "itinerary_generated": True,
-                        "api_source": "OpenAI GPT-3.5-Turbo",
-                        "destination": destination,
-                        "duration": duration,
-                        "ai_content": ai_response,
-                        "daily_plan": daily_plan,
-                        "total_estimated_cost": sum(day.get("estimated_cost", 100) for day in daily_plan),
-                        "recommendations": recommendations
-                    }
-                else:
-                    error_msg = f"OpenAI API Error: {response.status_code} - {response.text}"
-                    print(error_msg)
-                    raise Exception(f"OpenAI API failed with status {response.status_code}")
+                    parsed_json = json.loads(clean_response)
+                    daily_plan = parsed_json.get("daily_plan", [])
+                    recommendations = parsed_json.get("recommendations", [])
+                    print("Successfully parsed JSON response")
+                except json.JSONDecodeError:
+                    print("JSON parsing failed, using text parsing")
+                    daily_plan = self._parse_text_response(ai_response, duration, destination, interests)
+                    recommendations = self._extract_recommendations_from_text(ai_response)
+                
+                print(f"Generated {len(daily_plan)} days of activities")
+                
+                return {
+                    "itinerary_generated": True,
+                    "api_source": "DeepSeek Chat v3.1 via OpenRouter",
+                    "destination": destination,
+                    "duration": duration,
+                    "ai_content": ai_response,
+                    "daily_plan": daily_plan,
+                    "total_estimated_cost": sum(day.get("estimated_cost", 100) for day in daily_plan),
+                    "recommendations": recommendations
+                }
                     
             except Exception as api_error:
-                print(f"OpenAI API Request Error: {api_error}")
-                raise Exception(f"Failed to get OpenAI response: {api_error}")
+                print(f"OpenRouter API Request Error: {api_error}")
+                raise Exception(f"Failed to get DeepSeek response: {api_error}")
                 
         except Exception as e:
-            print(f"OpenAI Service Error: {e}")
-            # Force use of OpenAI - no fallback to mock data
-            raise Exception(f"OpenAI API is required but failed: {e}")
+            print(f"OpenRouter Service Error: {e}")
+            # Force use of DeepSeek - no fallback to mock data
+            raise Exception(f"DeepSeek API is required but failed: {e}")
     
     def _parse_ai_content(self, content: str, duration: int) -> List[Dict[str, Any]]:
         """Parse AI-generated content into structured daily activities"""

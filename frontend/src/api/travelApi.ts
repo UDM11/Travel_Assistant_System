@@ -129,8 +129,12 @@ const transformTripResponse = (response: any, formData?: TripFormData): TripData
       if (dailyPlan && dailyPlan.length > 0) {
         return dailyPlan.map((day: any, index: number) => ({
           day: day.day || index + 1,
-          activity: day.morning || day.activity || `Day ${index + 1} Activities`,
-          description: `Morning: ${day.morning || 'Planned activities'} | Afternoon: ${day.afternoon || 'Exploration'} | Evening: ${day.evening || 'Local experiences'} | Cost: $${day.estimated_cost || 90}`
+          activity: day.activity || `Day ${day.day || index + 1} Activities`,
+          description: day.description || `Explore ${formData?.destination || research.destination || 'your destination'} on day ${day.day || index + 1}`,
+          morning: day.morning,
+          afternoon: day.afternoon,
+          evening: day.evening,
+          estimated_cost: day.estimated_cost
         }));
       }
       

@@ -183,31 +183,37 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                           <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-3">{day.description}</p>
                         )}
                         
-                        {day.morning && (
+                        {(day.morning || day.afternoon || day.evening) && (
                           <div className="space-y-3">
-                            <div className="p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border-l-4 border-orange-400">
-                              <div className="flex items-center mb-1">
-                                <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
-                                <span className="font-semibold text-orange-700 text-sm">Morning (9:00 AM - 12:00 PM)</span>
+                            {day.morning && (
+                              <div className="p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border-l-4 border-orange-400">
+                                <div className="flex items-center mb-1">
+                                  <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
+                                  <span className="font-semibold text-orange-700 text-sm">Morning (9:00 AM - 12:00 PM)</span>
+                                </div>
+                                <p className="text-gray-700 ml-5 text-sm">{day.morning}</p>
                               </div>
-                              <p className="text-gray-700 ml-5 text-sm">{day.morning}</p>
-                            </div>
+                            )}
                             
-                            <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-400">
-                              <div className="flex items-center mb-1">
-                                <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                                <span className="font-semibold text-blue-700 text-sm">Afternoon (1:00 PM - 5:00 PM)</span>
+                            {day.afternoon && (
+                              <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-400">
+                                <div className="flex items-center mb-1">
+                                  <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                                  <span className="font-semibold text-blue-700 text-sm">Afternoon (1:00 PM - 5:00 PM)</span>
+                                </div>
+                                <p className="text-gray-700 ml-5 text-sm">{day.afternoon}</p>
                               </div>
-                              <p className="text-gray-700 ml-5 text-sm">{day.afternoon}</p>
-                            </div>
+                            )}
                             
-                            <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-400">
-                              <div className="flex items-center mb-1">
-                                <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-                                <span className="font-semibold text-purple-700 text-sm">Evening (6:00 PM - 9:00 PM)</span>
+                            {day.evening && (
+                              <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-400">
+                                <div className="flex items-center mb-1">
+                                  <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                                  <span className="font-semibold text-purple-700 text-sm">Evening (6:00 PM - 9:00 PM)</span>
+                                </div>
+                                <p className="text-gray-700 ml-5 text-sm">{day.evening}</p>
                               </div>
-                              <p className="text-gray-700 ml-5 text-sm">{day.evening}</p>
-                            </div>
+                            )}
                             
                             {day.estimated_cost && (
                               <div className="p-2 bg-green-50 rounded-lg border border-green-200">
