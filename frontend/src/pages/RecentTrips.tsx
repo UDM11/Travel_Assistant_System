@@ -203,7 +203,7 @@ export default function RecentTrips() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-16"
           >
             {tripStats.map((stat, index) => {
               const Icon = stat.icon;
@@ -213,13 +213,13 @@ export default function RecentTrips() {
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
-                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20"
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 lg:p-6 shadow-lg border border-white/20"
                 >
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center mb-4`}>
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center mb-3 lg:mb-4`}>
+                    <Icon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
                   </div>
-                  <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                  <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
+                  <div className="text-xl lg:text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                  <div className="text-gray-600 text-xs lg:text-sm font-medium">{stat.label}</div>
                 </motion.div>
               );
             })}
@@ -237,9 +237,9 @@ export default function RecentTrips() {
             transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8"
           >
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            <div className="flex flex-col gap-4">
               {/* Search */}
-              <div className="relative flex-1 max-w-md">
+              <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
@@ -251,7 +251,7 @@ export default function RecentTrips() {
               </div>
 
               {/* Controls */}
-              <div className="flex items-center space-x-4">
+              <div className="flex flex-wrap items-center gap-3">
                 {/* Filter */}
                 <div className="relative">
                   <motion.button
@@ -271,7 +271,7 @@ export default function RecentTrips() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-10 min-w-48"
+                        className="absolute top-full mt-2 right-0 lg:right-0 left-0 lg:left-auto bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-10 w-full lg:min-w-48 lg:w-auto"
                       >
                         <div className="space-y-2">
                           {filterOptions.map(option => (
@@ -298,7 +298,7 @@ export default function RecentTrips() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="px-3 lg:px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm lg:text-base"
                 >
                   {sortOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -330,7 +330,7 @@ export default function RecentTrips() {
                   onClick={handleRefresh}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium shadow-lg hover:bg-blue-700 transition-all"
+                  className="bg-blue-600 text-white px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium shadow-lg hover:bg-blue-700 transition-all"
                 >
                   Refresh
                 </motion.button>
@@ -407,7 +407,7 @@ export default function RecentTrips() {
             </motion.a>
           </motion.div>
         ) : (
-          <div className={viewMode === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8' : 'space-y-6'}>
+          <div className={viewMode === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-8' : 'space-y-4 lg:space-y-6'}>
             {filteredTrips.map((trip, index) => {
               const duration = Math.ceil((new Date(trip.endDate).getTime() - new Date(trip.startDate).getTime()) / (1000 * 60 * 60 * 24));
               const budgetStatus = trip.costEstimate <= trip.budget ? 'within' : 'over';

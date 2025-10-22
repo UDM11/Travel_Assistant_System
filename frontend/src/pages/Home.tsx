@@ -136,9 +136,9 @@ export default function Home() {
       <Hero />
 
       {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-700">
+      <section className="py-12 lg:py-16 bg-gradient-to-r from-blue-600 to-indigo-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -150,9 +150,9 @@ export default function Home() {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="text-center text-white"
                 >
-                  <Icon className="w-8 h-8 mx-auto mb-3 text-blue-200" />
-                  <div className="text-3xl md:text-4xl font-bold mb-1">{stat.number}</div>
-                  <div className="text-blue-200 text-sm font-medium">{stat.label}</div>
+                  <Icon className="w-6 h-6 lg:w-8 lg:h-8 mx-auto mb-2 lg:mb-3 text-blue-200" />
+                  <div className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-1">{stat.number}</div>
+                  <div className="text-blue-200 text-xs lg:text-sm font-medium">{stat.label}</div>
                 </motion.div>
               );
             })}
@@ -161,24 +161,24 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 lg:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-8 lg:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Powered by Advanced AI Technology
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Experience next-generation travel planning with cutting-edge artificial intelligence and machine learning
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -189,15 +189,15 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100 group"
+                  className="bg-white p-6 lg:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100 group"
                 >
-                  <div className={`bg-gradient-to-r ${feature.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  <div className={`bg-gradient-to-r ${feature.color} w-12 h-12 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-4 lg:mb-6 group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 lg:mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm lg:text-base text-gray-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -375,18 +375,18 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 lg:mb-6">
               Ready to Transform Your Travel?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+            <p className="text-base lg:text-xl text-blue-100 mb-6 lg:mb-8 max-w-3xl mx-auto px-4">
               Join over 2 million travelers who've discovered the future of trip planning. Start your AI-powered journey today.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center px-4">
               <motion.a
                 href="/plan"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-2xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all group"
+                className="inline-flex items-center justify-center bg-white text-blue-600 px-6 lg:px-8 py-3 lg:py-4 rounded-2xl text-base lg:text-lg font-semibold shadow-lg hover:shadow-xl transition-all group"
               >
                 <Plane className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                 Start Planning Now
@@ -394,7 +394,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all group"
+                className="inline-flex items-center justify-center border-2 border-white text-white px-6 lg:px-8 py-3 lg:py-4 rounded-2xl text-base lg:text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all group"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo

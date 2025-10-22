@@ -90,12 +90,12 @@ export default function PlanTrip() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 lg:py-20 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute top-10 lg:top-20 left-5 lg:left-10 w-48 lg:w-72 h-48 lg:h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute top-20 lg:top-40 right-5 lg:right-10 w-48 lg:w-72 h-48 lg:h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-4 lg:-bottom-8 left-10 lg:left-20 w-48 lg:w-72 h-48 lg:h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,11 +115,11 @@ export default function PlanTrip() {
               <span className="text-sm font-semibold">AI-Powered Trip Planning</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 lg:mb-6 leading-tight">
               Plan Your
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"> Perfect Trip</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
               Experience the future of travel planning with our advanced AI assistant. Get personalized itineraries, discover hidden gems, and create unforgettable memories.
             </p>
           </motion.div>
@@ -129,15 +129,15 @@ export default function PlanTrip() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mb-8 lg:mb-16"
           >
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <div key={stat.label} className="text-center">
-                  <Icon className="w-8 h-8 mx-auto mb-3 text-blue-600" />
-                  <div className="text-3xl font-bold text-gray-900 mb-1">{stat.number}</div>
-                  <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
+                  <Icon className="w-6 h-6 lg:w-8 lg:h-8 mx-auto mb-2 lg:mb-3 text-blue-600" />
+                  <div className="text-xl lg:text-3xl font-bold text-gray-900 mb-1">{stat.number}</div>
+                  <div className="text-gray-600 text-xs lg:text-sm font-medium">{stat.label}</div>
                 </div>
               );
             })}

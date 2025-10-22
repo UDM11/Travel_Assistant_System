@@ -367,7 +367,7 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
                 <Heart className="w-4 h-4 mr-2 text-blue-600" />
                 Travel Interests (Select at least one)
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 lg:gap-3">
                 {interestOptions.map((interest) => (
                   <motion.button
                     key={interest}
@@ -375,7 +375,7 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
                     onClick={() => toggleInterest(interest)}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-2 lg:px-4 py-2 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-sm font-medium transition-all text-center ${
                       formData.interests.includes(interest)
                         ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -413,31 +413,31 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl mx-auto border border-gray-100"
+      className="bg-white rounded-2xl lg:rounded-3xl shadow-2xl p-4 lg:p-8 max-w-4xl mx-auto border border-gray-100"
     >
       {/* Progress Steps */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 overflow-x-auto pb-2">
           {steps.map((step, index) => {
             const Icon = step.icon;
             const isActive = index === currentStep;
             const isCompleted = completedSteps.includes(index);
             
             return (
-              <div key={index} className="flex items-center">
-                <div className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all ${
+              <div key={index} className="flex items-center flex-shrink-0">
+                <div className={`relative flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full transition-all ${
                   isActive ? 'bg-blue-600 text-white shadow-lg' :
                   isCompleted ? 'bg-green-500 text-white' :
                   'bg-gray-200 text-gray-500'
                 }`}>
                   {isCompleted ? (
-                    <CheckCircle className="w-6 h-6" />
+                    <CheckCircle className="w-4 h-4 lg:w-6 lg:h-6" />
                   ) : (
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-4 h-4 lg:w-6 lg:h-6" />
                   )}
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`w-16 h-1 mx-2 transition-all ${
+                  <div className={`w-8 lg:w-16 h-1 mx-1 lg:mx-2 transition-all ${
                     isCompleted ? 'bg-green-500' : 'bg-gray-200'
                   }`} />
                 )}
@@ -469,13 +469,13 @@ export default function TripPlanner({ onSubmit, isLoading = false }: TripPlanner
         </motion.div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between pt-6 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between gap-3 pt-6 border-t border-gray-200">
           <motion.button
             type="button"
             onClick={prevStep}
             disabled={currentStep === 0}
             whileHover={{ scale: currentStep === 0 ? 1 : 1.02 }}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-4 lg:px-6 py-2 lg:py-3 rounded-xl text-sm lg:text-base font-semibold transition-all ${
               currentStep === 0
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
