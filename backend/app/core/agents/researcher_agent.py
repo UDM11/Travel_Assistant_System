@@ -10,9 +10,16 @@ class ResearcherAgent:
         self.hotel_tool = HotelTool()
     
     async def research_destination(self, destination: str) -> Dict[str, Any]:
+        print(f"🔍 Researching destination: {destination}")
+        
         weather = await self.weather_tool.get_weather(destination)
+        print(f"✅ Weather data: {len(str(weather))} chars")
+        
         flights = await self.flight_tool.search_flights(destination)
+        print(f"✅ Flights data: {len(flights)} flights")
+        
         hotels = await self.hotel_tool.search_hotels(destination)
+        print(f"🏨 Hotels data: {len(hotels)} hotels found")
         
         return {
             "destination": destination,

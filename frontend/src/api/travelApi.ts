@@ -282,6 +282,23 @@ export const deleteTrip = async (tripId: string): Promise<void> => {
   }
 };
 
+export const getHotels = async (location: string, checkIn?: string, checkOut?: string) => {
+  try {
+    const params = new URLSearchParams();
+    if (checkIn) params.append('check_in', checkIn);
+    if (checkOut) params.append('check_out', checkOut);
+    
+    const response = await fetch(`${API_BASE_URL}/hotels/${encodeURIComponent(location)}?${params}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching hotels:', error);
+    throw error;
+  }
+};
+
 export const healthCheck = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/health`);

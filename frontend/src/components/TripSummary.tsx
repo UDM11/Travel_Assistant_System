@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, DollarSign, Cloud, CheckCircle, Plane, Building, Users, Star, Clock, Thermometer, Wind, Eye, Droplets, Camera, Utensils, ShoppingBag, Landmark, TrendingUp, Award, Globe } from 'lucide-react';
 import { TripData } from '../types';
+import HotelCard from './HotelCard';
 
 interface TripSummaryProps {
   trip: TripData;
@@ -262,39 +263,15 @@ export default function TripSummary({ trip }: TripSummaryProps) {
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
                   <Building className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-purple-600" />
                   Accommodation Options
+                  {trip.hotels[0]?.api_source && (
+                    <span className="ml-3 px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                      {trip.hotels[0].api_source}
+                    </span>
+                  )}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   {trip.hotels.slice(0, 4).map((hotel: any, index: number) => (
-                    <div key={index} className="border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <div className="font-bold text-base sm:text-lg text-gray-900">{hotel.name}</div>
-                          <div className="text-sm text-gray-600 flex items-center mt-1">
-                            <Star className="w-4 h-4 text-yellow-500 mr-1" />
-                            {hotel.rating} {hotel.reviews_count && `(${hotel.reviews_count.toLocaleString()} reviews)`}
-                          </div>
-                        </div>
-                        <div className="text-xl sm:text-2xl font-bold text-purple-600">${hotel.price_per_night}/night</div>
-                      </div>
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <div>{hotel.location} • {hotel.room_type}</div>
-                        {hotel.room_size && <div>Room Size: {hotel.room_size}</div>}
-                        {hotel.amenities && hotel.amenities.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {hotel.amenities.slice(0, 3).map((amenity: string, i: number) => (
-                              <span key={i} className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">
-                                {amenity}
-                              </span>
-                            ))}
-                            {hotel.amenities.length > 3 && (
-                              <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">
-                                +{hotel.amenities.length - 3} more
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    <HotelCard key={index} hotel={hotel} />
                   ))}
                 </div>
               </div>

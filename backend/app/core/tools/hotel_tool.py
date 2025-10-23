@@ -8,90 +8,127 @@ load_dotenv()
 class HotelTool:
     def __init__(self):
         self.api_key = os.getenv("HOTELS_API_KEY")
-        self.base_url = "https://test.api.amadeus.com/v3"
+        self.client_secret = os.getenv("HOTELS_CLIENT_SECRET", self.api_key)  # Fallback to same key
+        self.base_url = "https://test.api.amadeus.com/v1"
+        self.token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
+        self.access_token = None
+    
+    async def _get_access_token(self) -> str:
+        """Get OAuth2 access token for Amadeus API"""
+        if self.access_token:
+            return self.access_token
+            
+        try:
+            # For Amadeus, you need separate client_id and client_secret
+            # Using the same key as both for now - you may need separate keys
+            async with aiohttp.ClientSession() as session:
+                data = {
+                    'grant_type': 'client_credentials',
+                    'client_id': self.api_key,
+                    'client_secret': self.client_secret
+                }
+                
+                async with session.post(self.token_url, data=data) as response:
+                    response_text = await response.text()
+                    print(f"Token response: {response.status} - {response_text}")
+                    
+                    if response.status == 200:
+                        result = await response.json()
+                        self.access_token = result.get('access_token')
+                        print(f"Got access token: {self.access_token[:20]}...")
+                        return self.access_token
+        except Exception as e:
+            print(f"Token error: {e}")
+        return None
     
     async def search_hotels(self, location: str, check_in: str = None, check_out: str = None) -> List[Dict[str, Any]]:
+        print(f"🏨 Searching hotels for {location}")
+        
+        if not self.api_key:
+            print("❌ No API key - cannot get real data")
+            return []
+        
+        token = await self._get_access_token()
+        if not token:
+            print("❌ Authentication failed - cannot get real data")
+            return []
+        
         try:
-            if not self.api_key:
-                return self._get_mock_hotels(location)
-            
-            # Comprehensive hotel data with detailed information
             async with aiohttp.ClientSession() as session:
-                hotels_data = [
-                    {
-                        "name": "Luxury Grand Hotel",
-                        "price_per_night": 180,
-                        "rating": 4.8,
-                        "reviews_count": 2847,
-                        "amenities": ["WiFi", "Pool", "Spa", "Gym", "Restaurant", "Room Service", "Concierge"],
-                        "location": "City Center",
-                        "address": "123 Main Street, Downtown",
-                        "room_type": "Deluxe Suite",
-                        "room_size": "45 sqm",
-                        "bed_type": "King Size Bed",
-                        "view": "City View",
-                        "breakfast": "Continental breakfast included",
-                        "cancellation": "Free cancellation until 6 PM",
-                        "check_in": "3:00 PM",
-                        "check_out": "11:00 AM",
-                        "distance_to_center": "0.2 km",
-                        "nearby_attractions": ["Central Park", "Museum", "Shopping District"]
-                    },
-                    {
-                        "name": "Business Plaza Hotel",
-                        "price_per_night": 120,
-                        "rating": 4.3,
-                        "reviews_count": 1523,
-                        "amenities": ["WiFi", "Business Center", "Gym", "Restaurant", "Meeting Rooms"],
-                        "location": "Business District",
-                        "address": "456 Corporate Ave",
-                        "room_type": "Executive Room",
-                        "room_size": "35 sqm",
-                        "bed_type": "Queen Size Bed",
-                        "view": "Business District View",
-                        "breakfast": "Business breakfast buffet",
-                        "cancellation": "Free cancellation until 24h",
-                        "airport_shuttle": "Complimentary airport shuttle",
-                        "distance_to_center": "1.5 km"
-                    },
-                    {
-                        "name": "Boutique Heritage Inn",
-                        "price_per_night": 85,
-                        "rating": 4.1,
-                        "reviews_count": 892,
-                        "amenities": ["WiFi", "Breakfast", "Pet Friendly", "Historic Charm"],
-                        "location": "Historic Quarter",
-                        "address": "789 Heritage Lane",
-                        "room_type": "Classic Room",
-                        "room_size": "25 sqm",
-                        "bed_type": "Double Bed",
-                        "view": "Historic Courtyard",
-                        "breakfast": "Local specialty breakfast",
-                        "special_features": "18th century building",
-                        "distance_to_center": "0.8 km",
-                        "nearby_attractions": ["Historic Cathedral", "Art Gallery", "Old Town Square"]
-                    }
-                ]
+                headers = {'Authorization': f'Bearer {token}'}
                 
-                return hotels_data
+                # Get city coordinates first
+                city_params = {
+                    'keyword': location,
+                    'subType': 'CITY'
+                }
+                
+                # Try direct hotel search by city name first
+                hotel_params = {
+                    'cityCode': self._get_city_code(location)
+                }
+                
+                if check_in:
+                    hotel_params['checkInDate'] = check_in
+                if check_out:
+                    hotel_params['checkOutDate'] = check_out
+                
+                async with session.get(f"{self.base_url}/shopping/hotel-offers", 
+                                     headers=headers, params=hotel_params) as response:
+                    response_text = await response.text()
+                    print(f"Hotel search response: {response.status} - {response_text[:200]}...")
+                    
+                    if response.status == 200:
+                        data = await response.json()
+                        hotels = self._format_real_hotels(data.get('data', []))
+                        print(f"Found {len(hotels)} hotels")
+                        return hotels
+                    
         except Exception as e:
-            return self._get_mock_hotels(location)
+            print(f"Hotel API error: {e}")
+        
+        print("❌ Hotel API failed - no real data available")
+        return []
     
-    def _get_mock_hotels(self, location: str) -> List[Dict[str, Any]]:
-        return [
-            {
-                "name": "Grand Plaza Hotel",
-                "price_per_night": 120,
-                "rating": 4.5,
-                "reviews_count": 1200,
-                "amenities": ["WiFi", "Pool", "Gym"],
-                "location": "City Center",
-                "room_type": "Standard Room",
-                "bed_type": "Queen Bed",
-                "breakfast": "Continental breakfast available"
+    def _format_real_hotels(self, hotels_data: List[Dict]) -> List[Dict[str, Any]]:
+        """Format real Amadeus API response"""
+        formatted_hotels = []
+        
+        for hotel_offer in hotels_data[:5]:
+            hotel = hotel_offer.get('hotel', {})
+            offers = hotel_offer.get('offers', [{}])
+            offer = offers[0] if offers else {}
+            
+            price_info = offer.get('price', {})
+            room_info = offer.get('room', {})
+            
+            formatted_hotel = {
+                "id": hotel.get('hotelId'),
+                "name": hotel.get('name'),
+                "price_per_night": float(price_info.get('total', 0)),
+                "rating": hotel.get('rating', 0),
+                "location": hotel.get('address', {}).get('cityName', ''),
+                "address": ', '.join(hotel.get('address', {}).get('lines', [])),
+                "room_type": room_info.get('typeEstimated', {}).get('category', 'Standard'),
+                "amenities": [amenity.get('description') for amenity in hotel.get('amenities', [])],
+                "cancellation": offer.get('policies', {}).get('cancellation', {}).get('description', ''),
+                "api_source": "Amadeus Hotels API - Live Data"
             }
-        ]
+            formatted_hotels.append(formatted_hotel)
+        
+        return formatted_hotels
     
+
+    
+    def _get_city_code(self, location: str) -> str:
+        """Map location to IATA city code"""
+        city_codes = {
+            'paris': 'PAR', 'london': 'LON', 'new york': 'NYC', 'tokyo': 'TYO',
+            'rome': 'ROM', 'barcelona': 'BCN', 'amsterdam': 'AMS', 'berlin': 'BER',
+            'madrid': 'MAD', 'vienna': 'VIE', 'prague': 'PRG', 'budapest': 'BUD'
+        }
+        return city_codes.get(location.lower(), 'PAR')
+
     async def book_hotel(self, hotel_id: str, nights: int) -> Dict[str, Any]:
         return {
             "status": "booked", 

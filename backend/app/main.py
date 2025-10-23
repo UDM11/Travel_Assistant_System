@@ -130,10 +130,17 @@ async def plan_trip(trip_request: dict):
         trips.append(trip_data)
         save_trips(trips)
         
-        # Get weather data directly
+        # Get weather and hotel data directly
         from app.core.tools.weather_tool import WeatherTool
+        from app.core.tools.hotel_tool import HotelTool
         weather_tool = WeatherTool()
+        hotel_tool = HotelTool()
         weather_data = await weather_tool.get_weather(trip_request.get("destination", ""))
+        hotel_data = await hotel_tool.search_hotels(
+            backend_request.get("destination", ""),
+            backend_request.get("start_date"),
+            backend_request.get("end_date")
+        )
         
         # Enhanced response with API source information
         enhanced_result = {
@@ -152,7 +159,8 @@ async def plan_trip(trip_request: dict):
                 "hotels": bool(os.getenv("HOTELS_API_KEY"))
             },
             "data_sources": trip_data["api_sources"],
-            "weather_data": weather_data
+            "weather_data": weather_data,
+            "hotel_data": hotel_data
         }
         
         return {"success": True, "data": enhanced_result}
@@ -170,6 +178,26 @@ async def delete_trip(trip_id: int):
         trips = [trip for trip in trips if trip["id"] != trip_id]
         save_trips(trips)
         return {"success": True, "message": "Trip deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/v1/hotels/{location}")
+async def get_hotels(location: str, check_in: str = None, check_out: str = None):
+    """Get hotel data for a specific location"""
+    try:
+        from app.core.tools.hotel_tool import HotelTool
+        hotel_tool = HotelTool()
+        hotels = await hotel_tool.search_hotels(location, check_in, check_out)
+        
+        return {
+            "success": True,
+            "data": {
+                "location": location,
+                "hotels": hotels,
+                "total_hotels": len(hotels),
+                "api_source": "Amadeus Hotels API" if os.getenv("HOTELS_API_KEY") else "Mock Data"
+            }
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
