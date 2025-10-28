@@ -1,52 +1,64 @@
 import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
-import { Sparkles, Zap, Heart, Globe, Shield, Clock, Users, Star, MapPin, Camera, Plane, Calendar, TrendingUp, Award, CheckCircle, ArrowRight, Play, MessageCircle } from 'lucide-react';
-import { useState } from 'react';
+import { Sparkles, Zap, Heart, Globe, Shield, Clock, Users, Star, MapPin, Camera, Plane, Calendar, TrendingUp, Award, CheckCircle, ArrowRight, Play, MessageCircle, BarChart3, Briefcase, Coffee, Headphones, Smartphone, Wifi, CreditCard, Lock } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const features = [
   {
     icon: Zap,
     title: 'AI-Powered Planning',
-    description: 'Advanced machine learning creates perfect itineraries in under 30 seconds.',
-    color: 'from-yellow-400 to-orange-500'
+    description: 'Advanced machine learning creates perfect itineraries in under 30 seconds with 99.7% accuracy.',
+    color: 'from-yellow-400 to-orange-500',
+    metric: '30s',
+    metricLabel: 'Planning Time'
   },
   {
     icon: Sparkles,
     title: 'Smart Recommendations',
-    description: 'Personalized suggestions based on 50M+ traveler data points and preferences.',
-    color: 'from-purple-400 to-pink-500'
+    description: 'Personalized suggestions based on 50M+ traveler data points and real-time preferences.',
+    color: 'from-purple-400 to-pink-500',
+    metric: '50M+',
+    metricLabel: 'Data Points'
   },
   {
     icon: Heart,
     title: 'Curated Experiences',
-    description: 'Hand-picked local experiences and hidden gems from travel experts.',
-    color: 'from-red-400 to-pink-500'
+    description: 'Hand-picked local experiences and hidden gems verified by travel experts.',
+    color: 'from-red-400 to-pink-500',
+    metric: '10K+',
+    metricLabel: 'Experiences'
   },
   {
     icon: Globe,
-    title: '200+ Destinations',
-    description: 'Comprehensive coverage of global destinations with real-time insights.',
-    color: 'from-blue-400 to-cyan-500'
+    title: 'Global Coverage',
+    description: 'Comprehensive coverage of 250+ destinations with real-time insights and local expertise.',
+    color: 'from-blue-400 to-cyan-500',
+    metric: '250+',
+    metricLabel: 'Destinations'
   },
   {
     icon: Shield,
-    title: 'Travel Insurance',
-    description: 'Integrated travel protection and 24/7 emergency assistance worldwide.',
-    color: 'from-green-400 to-emerald-500'
+    title: 'Travel Protection',
+    description: 'Integrated travel insurance and 24/7 emergency assistance with global coverage.',
+    color: 'from-green-400 to-emerald-500',
+    metric: '24/7',
+    metricLabel: 'Support'
   },
   {
     icon: Clock,
     title: 'Real-time Updates',
-    description: 'Live flight tracking, weather alerts, and destination updates.',
-    color: 'from-indigo-400 to-purple-500'
+    description: 'Live flight tracking, weather alerts, and destination updates with instant notifications.',
+    color: 'from-indigo-400 to-purple-500',
+    metric: 'Live',
+    metricLabel: 'Updates'
   }
 ];
 
 const stats = [
-  { number: '2M+', label: 'Happy Travelers', icon: Users },
-  { number: '50K+', label: 'Trips Planned', icon: MapPin },
-  { number: '4.9/5', label: 'User Rating', icon: Star },
-  { number: '200+', label: 'Destinations', icon: Globe }
+  { number: '2.5M+', label: 'Happy Travelers', icon: Users, description: 'Satisfied customers worldwide' },
+  { number: '75K+', label: 'Trips Planned', icon: MapPin, description: 'AI-generated itineraries' },
+  { number: '4.9/5', label: 'User Rating', icon: Star, description: 'Average customer satisfaction' },
+  { number: '250+', label: 'Destinations', icon: Globe, description: 'Countries and cities covered' }
 ];
 
 const testimonials = [
@@ -128,18 +140,99 @@ const howItWorks = [
   }
 ];
 
+const companyLogos = [
+  { name: 'TechCrunch', logo: 'https://via.placeholder.com/120x40/000000/FFFFFF?text=TechCrunch' },
+  { name: 'Forbes', logo: 'https://via.placeholder.com/120x40/000000/FFFFFF?text=Forbes' },
+  { name: 'CNN Travel', logo: 'https://via.placeholder.com/120x40/000000/FFFFFF?text=CNN+Travel' },
+  { name: 'Wired', logo: 'https://via.placeholder.com/120x40/000000/FFFFFF?text=Wired' },
+  { name: 'BBC', logo: 'https://via.placeholder.com/120x40/000000/FFFFFF?text=BBC' }
+];
+
+const enterpriseFeatures = [
+  { icon: Briefcase, title: 'Enterprise Solutions', description: 'Custom travel management for businesses' },
+  { icon: BarChart3, title: 'Analytics Dashboard', description: 'Detailed insights and reporting tools' },
+  { icon: Headphones, title: 'Priority Support', description: 'Dedicated account management' },
+  { icon: Lock, title: 'Enterprise Security', description: 'SOC 2 compliant with advanced encryption' }
+];
+
 export default function Home() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [currentStats, setCurrentStats] = useState(stats.map(stat => ({ ...stat, animatedNumber: 0 })));
+
+  useEffect(() => {
+    const animateStats = () => {
+      stats.forEach((stat, index) => {
+        const target = parseInt(stat.number.replace(/[^0-9.]/g, ''));
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          setCurrentStats(prev => {
+            const newStats = [...prev];
+            newStats[index] = { ...newStats[index], animatedNumber: Math.floor(current) };
+            return newStats;
+          });
+        }, 30);
+      });
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateStats();
+        observer.disconnect();
+      }
+    });
+    
+    const statsElement = document.getElementById('stats-section');
+    if (statsElement) observer.observe(statsElement);
+    
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen">
       <Hero />
 
-      {/* Stats Section */}
-      <section className="py-12 lg:py-16 bg-gradient-to-r from-blue-600 to-indigo-700">
+      {/* Company Logos */}
+      <section className="py-8 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-            {stats.map((stat, index) => {
+          <p className="text-center text-gray-500 text-sm mb-6">Trusted by leading companies and featured in</p>
+          <div className="flex justify-center items-center space-x-8 opacity-60">
+            {companyLogos.map((company, index) => (
+              <motion.img
+                key={company.name}
+                src={company.logo}
+                alt={company.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 0.6, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="h-8 grayscale hover:grayscale-0 transition-all"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section id="stats-section" className="py-16 lg:py-20 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Trusted by Millions Worldwide</h2>
+            <p className="text-blue-100 text-lg max-w-2xl mx-auto">Join the revolution in AI-powered travel planning</p>
+          </motion.div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {currentStats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <motion.div
@@ -148,11 +241,14 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="text-center text-white"
+                  className="text-center text-white bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
                 >
-                  <Icon className="w-6 h-6 lg:w-8 lg:h-8 mx-auto mb-2 lg:mb-3 text-blue-200" />
-                  <div className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-1">{stat.number}</div>
-                  <div className="text-blue-200 text-xs lg:text-sm font-medium">{stat.label}</div>
+                  <Icon className="w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-4 text-blue-200" />
+                  <div className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-2">
+                    {stat.number.includes('.') ? stat.number : `${stat.animatedNumber}${stat.number.replace(/[0-9]/g, '')}`}
+                  </div>
+                  <div className="text-blue-100 text-sm lg:text-base font-semibold mb-1">{stat.label}</div>
+                  <div className="text-blue-200 text-xs">{stat.description}</div>
                 </motion.div>
               );
             })}
@@ -168,13 +264,17 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-8 lg:mb-16"
+            className="text-center mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Powered by Advanced AI Technology
+            <div className="inline-flex items-center bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Powered by Advanced AI
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Next-Generation Travel Technology
             </h2>
-            <p className="text-base lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Experience next-generation travel planning with cutting-edge artificial intelligence and machine learning
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience the future of travel planning with cutting-edge artificial intelligence, machine learning, and real-time data processing
             </p>
           </motion.div>
 
@@ -191,8 +291,14 @@ export default function Home() {
                   whileHover={{ y: -8, scale: 1.02 }}
                   className="bg-white p-6 lg:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100 group"
                 >
-                  <div className={`bg-gradient-to-r ${feature.color} w-12 h-12 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mb-4 lg:mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`bg-gradient-to-r ${feature.color} w-12 h-12 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-gray-900">{feature.metric}</div>
+                      <div className="text-xs text-gray-500">{feature.metricLabel}</div>
+                    </div>
                   </div>
                   <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 lg:mb-3">
                     {feature.title}
@@ -365,9 +471,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Enterprise Features */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise-Grade Solutions</h2>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">Scalable travel management for businesses of all sizes</p>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {enterpriseFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-center p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-500 transition-colors"
+                >
+                  <Icon className="w-10 h-10 mx-auto mb-4 text-blue-400" />
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-gray-400 text-sm">{feature.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -375,30 +519,45 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Ready to Transform Your Travel?
             </h2>
-            <p className="text-base lg:text-xl text-blue-100 mb-6 lg:mb-8 max-w-3xl mx-auto px-4">
-              Join over 2 million travelers who've discovered the future of trip planning. Start your AI-powered journey today.
+            <p className="text-lg lg:text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Join over 2.5 million travelers who've discovered the future of trip planning. Start your AI-powered journey today.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center px-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <motion.a
                 href="/plan"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center bg-white text-blue-600 px-6 lg:px-8 py-3 lg:py-4 rounded-2xl text-base lg:text-lg font-semibold shadow-lg hover:shadow-xl transition-all group"
+                className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-2xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all group"
               >
                 <Plane className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                 Start Planning Now
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center border-2 border-white text-white px-6 lg:px-8 py-3 lg:py-4 rounded-2xl text-base lg:text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all group"
+                className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all group backdrop-blur-sm"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo
               </motion.button>
+            </div>
+            <div className="flex items-center justify-center space-x-6 text-blue-100 text-sm">
+              <div className="flex items-center">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>Free to start</span>
+              </div>
+              <div className="flex items-center">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>Cancel anytime</span>
+              </div>
             </div>
           </motion.div>
         </div>
