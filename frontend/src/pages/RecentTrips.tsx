@@ -46,6 +46,20 @@ export default function RecentTrips() {
     fetchTrips();
   }, []);
 
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (selectedTrip) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedTrip]);
+
   useEffect(() => {
     filterAndSortTrips();
     calculateStats();
@@ -646,7 +660,7 @@ export default function RecentTrips() {
       {/* Trip Details Modal */}
       <AnimatePresence>
         {selectedTrip && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
