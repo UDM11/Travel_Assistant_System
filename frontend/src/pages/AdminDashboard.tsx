@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MessageSquare, 
   Users, 
@@ -52,13 +52,16 @@ interface ContactMessage {
   status: string;
 }
 
-const MessagesComponent = () => {
+const MessagesComponent = ({ onMessageCountUpdate }: { onMessageCountUpdate?: (count: number) => void }) => {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMessages();
+    // Auto-refresh messages every 10 seconds
+    const interval = setInterval(fetchMessages, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchMessages = async () => {
@@ -66,7 +69,12 @@ const MessagesComponent = () => {
       const response = await fetch("http://127.0.0.1:8000/api/v1/contact/messages");
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      setMessages(data.success && data.data ? data.data.messages || [] : data.messages || []);
+      const messagesList = data.success && data.data ? data.data.messages || [] : data.messages || [];
+      setMessages(messagesList);
+      // Update parent component with message count
+      if (onMessageCountUpdate) {
+        onMessageCountUpdate(messagesList.length);
+      }
     } catch (err) {
       setError("Failed to fetch messages. Make sure the backend server is running.");
     } finally {
@@ -103,9 +111,16 @@ const MessagesComponent = () => {
   return (
     <div className="bg-white rounded-xl shadow-lg p-4 lg:p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Contact Messages</h2>
-        <button onClick={fetchMessages} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Refresh
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Contact Messages</h2>
+          <p className="text-sm text-gray-600 mt-1">Real-time updates every 10 seconds</p>
+        </div>
+        <button 
+          onClick={fetchMessages} 
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2 transition-colors"
+        >
+          <RefreshCw className="w-4 h-4" />
+          <span>Refresh</span>
         </button>
       </div>
       {messages.length === 0 ? (
@@ -162,16 +177,306 @@ const MessagesComponent = () => {
   );
 };
 
+const UsersComponent = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ total: 0, active: 0, premium: 0 });
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/v1/users");
+      if (response.ok) {
+        const data = await response.json();
+        const usersList = data.success ? data.data.users : [];
+        setUsers(usersList);
+        setStats({
+          total: usersList.length,
+          active: usersList.filter(u => u.status === 'active').length,
+          premium: usersList.filter(u => u.plan === 'premium').length
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-lg p-6 flex items-center justify-center min-h-96">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-lg">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
+        <button onClick={fetchUsers} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Refresh
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="text-2xl font-bold text-blue-600">{stats.total}</p>
+          <p className="text-sm text-blue-700">Total Users</p>
+        </div>
+        <div className="bg-green-50 p-4 rounded-lg">
+          <p className="text-2xl font-bold text-green-600">{stats.active}</p>
+          <p className="text-sm text-green-700">Active Users</p>
+        </div>
+        <div className="bg-orange-50 p-4 rounded-lg">
+          <p className="text-2xl font-bold text-orange-600">{stats.premium}</p>
+          <p className="text-sm text-orange-700">Premium Users</p>
+        </div>
+      </div>
+      {users.length === 0 ? (
+        <div className="text-center py-8">
+          <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-600">No users found.</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {users.map((user) => (
+            <div key={user.id} className="border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-bold text-lg">{user.name}</h3>
+                  <p className="text-gray-600">{user.email}</p>
+                </div>
+                <div className="flex space-x-2">
+                  <span className={`px-2 py-1 rounded text-sm ${
+                    user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {user.status}
+                  </span>
+                  <span className={`px-2 py-1 rounded text-sm ${
+                    user.plan === 'premium' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {user.plan}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const TripsComponent = () => {
+  const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTrips();
+  }, []);
+
+  const fetchTrips = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/v1/trips");
+      if (response.ok) {
+        const data = await response.json();
+        setTrips(data.success ? data.data.trips : []);
+      }
+    } catch (error) {
+      console.error('Error fetching trips:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-lg p-6 flex items-center justify-center min-h-96">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-lg">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Trip Management</h2>
+        <button onClick={fetchTrips} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Refresh
+        </button>
+      </div>
+      {trips.length === 0 ? (
+        <div className="text-center py-8">
+          <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-600">No trips found.</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {trips.slice(0, 10).map((trip, index) => (
+            <div key={trip.id || index} className="border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-bold text-lg">{trip.destination}</h3>
+                  <p className="text-gray-600">{trip.start_date} - {trip.end_date}</p>
+                  <p className="text-sm text-gray-500">Budget: ${trip.budget}</p>
+                </div>
+                <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
+                  {trip.travelers} travelers
+                </span>
+              </div>
+            </div>
+          ))}
+          <div className="text-center text-sm text-gray-500">
+            Total trips: {trips.length}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const BookingsComponent = () => {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ total: 0, revenue: 0 });
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/v1/trips");
+      if (response.ok) {
+        const data = await response.json();
+        const tripsList = data.success ? data.data.trips : [];
+        setBookings(tripsList);
+        
+        const revenue = tripsList.reduce((sum, trip) => sum + (trip.cost_breakdown?.total || trip.budget || 0), 0);
+        setStats({ total: tripsList.length, revenue });
+      }
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-lg p-6 flex items-center justify-center min-h-96">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-lg">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Booking Management</h2>
+        <button onClick={fetchBookings} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Refresh
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="bg-green-50 p-4 rounded-lg">
+          <p className="text-2xl font-bold text-green-600">{stats.total}</p>
+          <p className="text-sm text-green-700">Total Bookings</p>
+        </div>
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <p className="text-2xl font-bold text-purple-600">${stats.revenue.toLocaleString()}</p>
+          <p className="text-sm text-purple-700">Total Revenue</p>
+        </div>
+      </div>
+      {bookings.length === 0 ? (
+        <div className="text-center py-8">
+          <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-600">No bookings found.</p>
+        </div>
+      ) : (
+        <div className="text-center text-sm text-gray-500">
+          Total bookings: {bookings.length}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+  const [tripsCount, setTripsCount] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
+  const [previousMessageCount, setPreviousMessageCount] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+
+  // Fetch real-time data
+  const fetchDashboardData = async () => {
+    try {
+      // Fetch messages count
+      const messagesResponse = await fetch("http://127.0.0.1:8000/api/v1/contact/messages");
+      if (messagesResponse.ok) {
+        const messagesData = await messagesResponse.json();
+        const totalMessages = messagesData.success && messagesData.data ? messagesData.data.total || 0 : 0;
+        
+        // Show notification if message count increased
+        if (totalMessages > previousMessageCount && previousMessageCount > 0) {
+          setShowNotification(true);
+          setTimeout(() => setShowNotification(false), 5000);
+        }
+        
+        setPreviousMessageCount(messageCount);
+        setMessageCount(totalMessages);
+        setLastUpdated(new Date().toLocaleTimeString());
+      }
+
+      // Fetch trips count (from trips.json)
+      try {
+        const tripsResponse = await fetch('/trips.json');
+        if (tripsResponse.ok) {
+          const tripsData = await tripsResponse.json();
+          setTripsCount(Array.isArray(tripsData) ? tripsData.length : 0);
+        }
+      } catch (error) {
+        // If trips.json is not accessible, use default
+        setTripsCount(5);
+      }
+
+      // Fetch users count (from users.json)
+      try {
+        const usersResponse = await fetch('/users.json');
+        if (usersResponse.ok) {
+          const usersData = await usersResponse.json();
+          setUsersCount(Array.isArray(usersData) ? usersData.length : 0);
+        }
+      } catch (error) {
+        // If users.json is not accessible, use default
+        setUsersCount(3247);
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    }
+  };
+
+  // Auto-refresh data every 30 seconds
+  useEffect(() => {
+    fetchDashboardData();
+    const interval = setInterval(fetchDashboardData, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const menuItems = [
     { id: 'overview', label: 'Dashboard', icon: BarChart3, badge: null },
-    { id: 'messages', label: 'Messages', icon: MessageSquare, badge: '12' },
+    { id: 'messages', label: 'Messages', icon: MessageSquare, badge: messageCount > 0 ? messageCount.toString() : null },
     { id: 'users', label: 'User Management', icon: Users, badge: null },
-    { id: 'trips', label: 'Trip Management', icon: MapPin, badge: '5' },
-    { id: 'bookings', label: 'Bookings', icon: Calendar, badge: '23' },
+    { id: 'trips', label: 'Trip Management', icon: MapPin, badge: tripsCount > 0 ? tripsCount.toString() : null },
+    { id: 'bookings', label: 'Bookings', icon: Calendar, badge: tripsCount > 0 ? tripsCount.toString() : null },
     { id: 'payments', label: 'Payments', icon: DollarSign, badge: null },
     { id: 'analytics', label: 'Analytics', icon: TrendingUp, badge: null },
     { id: 'reports', label: 'Reports', icon: FileText, badge: null },
@@ -184,12 +489,24 @@ const AdminDashboard = () => {
 
   const [stats, setStats] = useState([
     { label: 'Total Revenue', value: '$127,450', change: '+23.5%', trend: 'up', icon: DollarSign, color: 'green' },
-    { label: 'Active Users', value: '3,247', change: '+12.3%', trend: 'up', icon: Users, color: 'blue' },
-    { label: 'Trips Booked', value: '1,856', change: '+18.7%', trend: 'up', icon: MapPin, color: 'purple' },
-    { label: 'Messages', value: '234', change: '-5.2%', trend: 'down', icon: MessageSquare, color: 'orange' },
+    { label: 'Active Users', value: usersCount.toLocaleString(), change: '+12.3%', trend: 'up', icon: Users, color: 'blue' },
+    { label: 'Trips Booked', value: tripsCount.toLocaleString(), change: '+18.7%', trend: 'up', icon: MapPin, color: 'purple' },
+    { label: 'Messages', value: messageCount.toLocaleString(), change: messageCount > 0 ? '+100%' : '0%', trend: messageCount > 0 ? 'up' : 'neutral', icon: MessageSquare, color: 'orange' },
     { label: 'Conversion Rate', value: '4.2%', change: '+0.8%', trend: 'up', icon: Target, color: 'indigo' },
     { label: 'Avg. Trip Value', value: '$2,340', change: '+15.2%', trend: 'up', icon: Star, color: 'pink' },
   ]);
+
+  // Update stats when counts change
+  useEffect(() => {
+    setStats([
+      { label: 'Total Revenue', value: '$127,450', change: '+23.5%', trend: 'up', icon: DollarSign, color: 'green' },
+      { label: 'Active Users', value: usersCount.toLocaleString(), change: '+12.3%', trend: 'up', icon: Users, color: 'blue' },
+      { label: 'Trips Booked', value: tripsCount.toLocaleString(), change: '+18.7%', trend: 'up', icon: MapPin, color: 'purple' },
+      { label: 'Messages', value: messageCount.toLocaleString(), change: messageCount > 0 ? '+100%' : '0%', trend: messageCount > 0 ? 'up' : 'neutral', icon: MessageSquare, color: 'orange' },
+      { label: 'Conversion Rate', value: '4.2%', change: '+0.8%', trend: 'up', icon: Target, color: 'indigo' },
+      { label: 'Avg. Trip Value', value: '$2,340', change: '+15.2%', trend: 'up', icon: Star, color: 'pink' },
+    ]);
+  }, [messageCount, tripsCount, usersCount]);
 
   const [systemHealth, setSystemHealth] = useState({
     status: 'healthy',
@@ -208,9 +525,18 @@ const AdminDashboard = () => {
     { type: 'alert', content: 'High server load detected on API-02', time: '18 min ago', status: 'warning' },
     { type: 'trip', content: 'Trip to Bali completed by Mike Johnson', time: '25 min ago', status: 'success' },
     { type: 'security', content: 'Failed login attempt blocked', time: '32 min ago', status: 'error' },
-    { type: 'message', content: 'Priority support ticket from VIP customer', time: '45 min ago', status: 'warning' },
+    { type: 'message', content: `${messageCount} contact messages received`, time: 'Live data', status: 'info' },
     { type: 'system', content: 'Database backup completed successfully', time: '1 hour ago', status: 'success' },
   ]);
+
+  // Update recent activity when message count changes
+  useEffect(() => {
+    setRecentActivity(prev => [
+      ...prev.slice(0, 6),
+      { type: 'message', content: `${messageCount} contact messages received`, time: 'Live data', status: 'info' },
+      ...prev.slice(7)
+    ]);
+  }, [messageCount]);
 
   const [quickActions] = useState([
     { id: 'new-user', label: 'Add User', icon: Plus, color: 'blue', action: () => {} },
@@ -305,7 +631,10 @@ const AdminDashboard = () => {
         <div className="bg-white rounded-xl p-4 lg:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-bold text-gray-900">Recent Activity</h3>
-            <button className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center space-x-1">
+            <button 
+              onClick={fetchDashboardData}
+              className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center space-x-1 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+            >
               <RefreshCw className="w-4 h-4" />
               <span>Refresh</span>
             </button>
@@ -396,86 +725,13 @@ const AdminDashboard = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'messages':
-        return <MessagesComponent />;
+        return <MessagesComponent onMessageCountUpdate={setMessageCount} />;
       case 'users':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
-                <div className="flex space-x-3">
-                  <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    <Plus className="w-4 h-4" />
-                    <span>Add User</span>
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                    <Download className="w-4 h-4" />
-                    <span>Export</span>
-                  </button>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">3,247</p>
-                  <p className="text-sm text-blue-700">Total Users</p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">2,891</p>
-                  <p className="text-sm text-green-700">Active Users</p>
-                </div>
-                <div className="bg-orange-50 p-4 rounded-lg">
-                  <p className="text-2xl font-bold text-orange-600">356</p>
-                  <p className="text-sm text-orange-700">Premium Users</p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">89%</p>
-                  <p className="text-sm text-purple-700">Retention Rate</p>
-                </div>
-              </div>
-              <p className="text-gray-600">Advanced user management features coming soon...</p>
-            </div>
-          </div>
-        );
+        return <UsersComponent />;
       case 'bookings':
-        return (
-          <div className="bg-white rounded-xl p-6 shadow-lg">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Booking Management</h2>
-              <div className="flex space-x-3">
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  <Filter className="w-4 h-4" />
-                  <span>Filter</span>
-                </button>
-                <button className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                  <Download className="w-4 h-4" />
-                  <span>Export</span>
-                </button>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-green-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-green-600">1,856</p>
-                <p className="text-sm text-green-700">Total Bookings</p>
-              </div>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-blue-600">234</p>
-                <p className="text-sm text-blue-700">Pending</p>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-purple-600">$2.4M</p>
-                <p className="text-sm text-purple-700">Total Value</p>
-              </div>
-            </div>
-            <p className="text-gray-600">Advanced booking management features coming soon...</p>
-          </div>
-        );
+        return <BookingsComponent />;
       case 'trips':
-        return (
-          <div className="bg-white rounded-xl p-6 shadow-lg">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Trip Management</h2>
-            <p className="text-gray-600">Trip management functionality coming soon...</p>
-          </div>
-        );
+        return <TripsComponent />;
       case 'payments':
         return (
           <div className="bg-white rounded-xl p-6 shadow-lg">
@@ -723,12 +979,38 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Notification Toast */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div
+            initial={{ opacity: 0, y: -100, x: '-50%' }}
+            animate={{ opacity: 1, y: 20, x: '-50%' }}
+            exit={{ opacity: 0, y: -100, x: '-50%' }}
+            className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2"
+          >
+            <Bell className="w-5 h-5" />
+            <span className="font-medium">New message received!</span>
+            <button 
+              onClick={() => setShowNotification(false)}
+              className="ml-2 text-white hover:text-gray-200"
+            >
+              ×
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-14 lg:h-16">
             <div className="flex items-center space-x-2 lg:space-x-4">
               <h1 className="text-lg lg:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+              {lastUpdated && (
+                <div className="hidden sm:flex items-center space-x-1 text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span>Last updated: {lastUpdated}</span>
+                </div>
+              )}
             </div>
             <div className="flex items-center space-x-2 lg:space-x-4">
               <div className="relative hidden sm:block">
@@ -741,7 +1023,11 @@ const AdminDashboard = () => {
               </div>
               <button className="relative p-1.5 lg:p-2 text-gray-400 hover:text-gray-600">
                 <Bell className="w-5 h-5 lg:w-6 lg:h-6" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                {messageCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+                    {messageCount > 99 ? '99+' : messageCount}
+                  </span>
+                )}
               </button>
               <div className="w-7 h-7 lg:w-8 lg:h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs lg:text-sm font-medium">A</span>

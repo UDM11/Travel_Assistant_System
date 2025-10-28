@@ -58,6 +58,32 @@ async def get_contact_messages():
     _, contact_messages, _ = load_data()
     return {"success": True, "data": {"messages": contact_messages, "total": len(contact_messages)}}
 
+@app.get("/api/v1/users")
+async def get_users():
+    _, _, users = load_data()
+    return {"success": True, "data": {"users": users, "total": len(users)}}
+
+@app.get("/api/v1/trips")
+async def get_trips():
+    trips, _, _ = load_data()
+    return {"success": True, "data": {"trips": trips, "total": len(trips)}}
+
+@app.get("/api/v1/dashboard/stats")
+async def get_dashboard_stats():
+    trips, contact_messages, users = load_data()
+    total_revenue = sum(trip.get('cost_breakdown', {}).get('total', 0) for trip in trips)
+    return {
+        "success": True,
+        "data": {
+            "total_revenue": total_revenue,
+            "total_users": len(users),
+            "total_trips": len(trips),
+            "total_messages": len(contact_messages),
+            "completed_bookings": len(trips),
+            "pending_bookings": 0
+        }
+    }
+
 # Authentication endpoints are now handled by auth_routes.py
 
 @app.post("/api/v1/plan-trip")
