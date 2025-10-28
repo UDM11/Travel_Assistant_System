@@ -23,17 +23,27 @@ class CostCalculator:
         
         # Use real flight data if available
         flights = trip_data.get("flights", [])
-        if flights:
-            flight_cost = min(flight["price"] for flight in flights) * travelers
-        else:
-            flight_cost = self.base_costs["flight"] * multiplier * travelers
+        flight_cost = self.base_costs["flight"] * multiplier * travelers
+        
+        if isinstance(flights, list) and flights:
+            valid_flights = [f for f in flights if isinstance(f, dict) and f.get("price", 0) > 0]
+            if valid_flights:
+                flight_cost = min(flight["price"] for flight in valid_flights) * travelers
         
         # Use real hotel data if available
-        hotels = trip_data.get("hotels", [])
-        if hotels:
-            hotel_cost = min(hotel["price_per_night"] for hotel in hotels) * duration
-        else:
-            hotel_cost = self.base_costs["hotel_per_night"] * multiplier * duration
+        hotels_data = trip_data.get("hotels", {})
+        hotel_cost = self.base_costs["hotel_per_night"] * multiplier * duration
+        
+        # Check if hotels data is available and has pricing
+        if isinstance(hotels_data, dict) and hotels_data.get("available"):
+            price_range = hotels_data.get("price_range", {})
+            if price_range.get("min"):
+                hotel_cost = price_range["min"] * duration
+        elif isinstance(hotels_data, list) and hotels_data:
+            # Handle hotel_details list format
+            valid_hotels = [h for h in hotels_data if isinstance(h, dict) and h.get("price_per_night", 0) > 0]
+            if valid_hotels:
+                hotel_cost = min(hotel["price_per_night"] for hotel in valid_hotels) * duration
         
         food_cost = self.base_costs["food_per_day"] * multiplier * duration * travelers
         activities_cost = self.base_costs["activities_per_day"] * multiplier * duration * travelers

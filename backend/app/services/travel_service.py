@@ -21,7 +21,10 @@ class TravelService:
             # Enhanced Research phase with all APIs
             self.logger.info("Starting comprehensive destination research...")
             research_data = await self.researcher.research_destination(
-                trip_request["destination"]
+                destination=trip_request["destination"],
+                check_in=trip_request.get("start_date"),
+                check_out=trip_request.get("end_date"),
+                travelers=trip_request.get("travelers", 2)
             )
             
             # Add flight search with origin if provided
@@ -48,12 +51,22 @@ class TravelService:
                 }
             }
             
-            itinerary = await self.planner.create_itinerary(trip_data)
+            try:
+                itinerary = await self.planner.create_itinerary(trip_data)
+                self.logger.info("Itinerary created successfully")
+            except Exception as e:
+                self.logger.error(f"Itinerary creation failed: {e}")
+                raise e
             
             # Enhanced Summary phase with AI insights
             self.logger.info("Generating AI-powered trip summary...")
-            summary_data = {**trip_data, **itinerary}
-            summary = await self.summarizer.summarize_trip(summary_data)
+            try:
+                summary_data = {**trip_data, **itinerary}
+                summary = await self.summarizer.summarize_trip(summary_data)
+                self.logger.info("Summary created successfully")
+            except Exception as e:
+                self.logger.error(f"Summary creation failed: {e}")
+                raise e
             
             # Compile comprehensive result
             result = {
@@ -62,10 +75,12 @@ class TravelService:
                 "research": research_data,
                 "itinerary": itinerary,
                 "summary": summary,
+                "hotel_recommendations": research_data.get("hotel_details", [])[:5],  # Top 5 hotels for frontend
                 "api_integration": {
                     "weather_api": bool(research_data.get("weather")),
                     "flights_api": bool(research_data.get("flights")),
                     "hotels_api": bool(research_data.get("hotels")),
+                    "rapidapi_hotels": bool(research_data.get("hotel_details")),
                     "openai_api": itinerary.get("ai_generated", False)
                 },
                 "enhanced_features": {

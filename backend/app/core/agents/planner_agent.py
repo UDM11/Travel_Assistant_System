@@ -24,8 +24,12 @@ class PlannerAgent:
         # Calculate costs
         total_cost = self.cost_calculator.calculate_total_cost(trip_data)
         
+        # Safely extract daily_plan from AI response
+        daily_plan = []
+        if isinstance(ai_itinerary, dict):
+            daily_plan = ai_itinerary.get("daily_plan", [])
+        
         # Ensure daily_plan is always populated
-        daily_plan = ai_itinerary.get("daily_plan", [])
         if not daily_plan:
             # Create default daily plan
             for day in range(1, duration + 1):
@@ -37,18 +41,31 @@ class PlannerAgent:
                     "estimated_cost": 90 + (day * 15)
                 })
         
+        # Safely get recommendations
+        recommendations = []
+        if isinstance(ai_itinerary, dict):
+            recommendations = ai_itinerary.get("recommendations", [])
+        
+        if not recommendations:
+            recommendations = [
+                "Book accommodations early for better rates",
+                "Try local cuisine and specialties",
+                "Learn basic local phrases",
+                "Respect local customs and traditions"
+            ]
+        
         itinerary = {
             "destination": trip_data.get("destination"),
             "duration": duration,
-            "activities": self._extract_activities(ai_itinerary),
+            "activities": self._extract_activities_safe(daily_plan),
             "estimated_cost": total_cost,
-            "recommendations": ai_itinerary.get("recommendations", []),
+            "recommendations": recommendations,
             "daily_plan": daily_plan,
             "ai_generated": True,
             "api_sources": {
-                "itinerary": ai_itinerary.get("api_source", "Enhanced Mock Data"),
+                "itinerary": ai_itinerary.get("api_source", "Enhanced Mock Data") if isinstance(ai_itinerary, dict) else "Enhanced Mock Data",
                 "flights": "Amadeus API" if trip_data.get("flights") else "Enhanced Mock Data",
-                "hotels": "Amadeus API" if trip_data.get("hotels") else "Enhanced Mock Data",
+                "hotels": "RapidAPI Booking.com" if trip_data.get("hotels") else "Enhanced Mock Data",
                 "weather": "OpenWeatherMap API"
             }
         }
@@ -71,8 +88,7 @@ class PlannerAgent:
         
         return trip_data.get("duration", 3)
     
-    def _extract_activities(self, ai_itinerary: Dict[str, Any]) -> List[str]:
-        daily_plan = ai_itinerary.get("daily_plan", [])
+    def _extract_activities_safe(self, daily_plan: List[Dict[str, Any]]) -> List[str]:
         activities = []
         
         for day in daily_plan:
@@ -99,6 +115,13 @@ class PlannerAgent:
             ]
         
         return activities
+    
+    def _extract_activities(self, ai_itinerary: Dict[str, Any]) -> List[str]:
+        """Legacy method for backward compatibility"""
+        if isinstance(ai_itinerary, dict):
+            daily_plan = ai_itinerary.get("daily_plan", [])
+            return self._extract_activities_safe(daily_plan)
+        return []
     
     def _get_recommendations(self, trip_data: Dict[str, Any]) -> List[str]:
         return ["Book early for better prices", "Check weather forecast"]

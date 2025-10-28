@@ -104,6 +104,7 @@ class OpenAIService:
                 
                 # Try to parse JSON first
                 import json
+                import re
                 try:
                     # Clean the response by removing markdown code blocks
                     clean_response = ai_response.strip()
@@ -113,11 +114,20 @@ class OpenAIService:
                         clean_response = clean_response[:-3]
                     clean_response = clean_response.strip()
                     
+                    # Try to extract JSON from the response using regex
+                    json_match = re.search(r'\{[^{}]*"daily_plan"[^{}]*\}', clean_response, re.DOTALL)
+                    if json_match:
+                        clean_response = json_match.group(0)
+                    
+                    # Fix common JSON issues
+                    clean_response = re.sub(r',\s*}', '}', clean_response)  # Remove trailing commas
+                    clean_response = re.sub(r',\s*]', ']', clean_response)  # Remove trailing commas in arrays
+                    
                     parsed_json = json.loads(clean_response)
                     daily_plan = parsed_json.get("daily_plan", [])
                     recommendations = parsed_json.get("recommendations", [])
                     print("Successfully parsed JSON response")
-                except json.JSONDecodeError:
+                except (json.JSONDecodeError, AttributeError):
                     print("JSON parsing failed, using text parsing")
                     daily_plan = self._parse_text_response(ai_response, duration, destination, interests)
                     recommendations = self._extract_recommendations_from_text(ai_response)

@@ -11,6 +11,7 @@ from app.services.travel_service import TravelService
 from app.core.utils.helpers import generate_trip_id, calculate_trip_duration
 from app.api.routes.trip_routes import router as trip_router
 from app.api.routes.auth_routes import router as auth_router
+from app.api.routes.hotel_routes import router as hotel_router
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
@@ -27,6 +28,7 @@ app.add_middleware(
 
 app.include_router(trip_router, prefix=settings.API_V1_STR)
 app.include_router(auth_router, prefix=settings.API_V1_STR)
+app.include_router(hotel_router)
 
 @app.get("/")
 async def root():
@@ -83,6 +85,9 @@ async def plan_trip(trip_request: dict):
         # Plan the trip using travel service
         result = await travel_service.plan_trip(backend_request)
         
+        # Extract hotel recommendations from result
+        hotel_recommendations = result.get('hotel_recommendations', [])
+        
         # Extract API sources information
         itinerary = result.get("itinerary", {})
         summary = result.get("summary", {})
@@ -115,10 +120,11 @@ async def plan_trip(trip_request: dict):
                 "food": itinerary.get("estimated_cost", backend_request.get("budget", 1000)) * 0.1,
                 "total": itinerary.get("estimated_cost", backend_request.get("budget", 1000))
             }),
+            "hotel_recommendations": hotel_recommendations,
             "api_sources": {
                 "weather": "OpenWeatherMap API",
                 "flights": "Amadeus API", 
-                "hotels": "Amadeus API",
+                "hotels": "RapidAPI Booking.com",
                 "ai_content": "OpenAI GPT",
                 "itinerary_generation": itinerary.get("api_sources", {}),
                 "summary_generation": summary.get("api_sources_used", {})
@@ -160,7 +166,8 @@ async def plan_trip(trip_request: dict):
             },
             "data_sources": trip_data["api_sources"],
             "weather_data": weather_data,
-            "hotel_data": hotel_data
+            "hotel_data": hotel_data,
+            "hotel_recommendations": hotel_recommendations
         }
         
         return {"success": True, "data": enhanced_result}
@@ -183,7 +190,7 @@ async def delete_trip(trip_id: int):
 
 @app.get("/api/v1/hotels/{location}")
 async def get_hotels(location: str, check_in: str = None, check_out: str = None):
-    """Get hotel data for a specific location"""
+    """Get hotel data for a specific location using RapidAPI"""
     try:
         from app.core.tools.hotel_tool import HotelTool
         hotel_tool = HotelTool()
@@ -195,7 +202,7 @@ async def get_hotels(location: str, check_in: str = None, check_out: str = None)
                 "location": location,
                 "hotels": hotels,
                 "total_hotels": len(hotels),
-                "api_source": "Amadeus Hotels API" if os.getenv("HOTELS_API_KEY") else "Mock Data"
+                "api_source": "RapidAPI Booking.com" if os.getenv("HOTELS_API_KEY") else "Mock Data"
             }
         }
     except Exception as e:
@@ -215,7 +222,7 @@ async def api_status():
         "OpenAI GPT": "AI-powered itinerary generation" if api_keys["openai"] else "Mock itinerary generation",
         "OpenWeatherMap": "Real-time weather data" if api_keys["weather"] else "Mock weather data",
         "Amadeus Flights": "Live flight pricing" if api_keys["flights"] else "Sample flight data",
-        "Amadeus Hotels": "Real hotel availability" if api_keys["hotels"] else "Demo hotel data"
+        "RapidAPI Hotels": "Real hotel availability via Booking.com" if api_keys["hotels"] else "Demo hotel data"
     }
     
     return {

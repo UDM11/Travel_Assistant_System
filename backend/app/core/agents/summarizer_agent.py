@@ -41,10 +41,16 @@ class SummarizerAgent:
             highlights.append(f"Best flight deal: {best_flight.get('airline')} - ${best_flight.get('price')}")
         
         # Extract from hotels data
-        hotels = trip_data.get("hotels", [])
-        if hotels:
-            top_hotel = max(hotels, key=lambda x: x.get("rating", 0))
-            highlights.append(f"Top-rated hotel: {top_hotel.get('name')} ({top_hotel.get('rating')}★)")
+        hotels_data = trip_data.get("hotels", {})
+        if isinstance(hotels_data, dict) and hotels_data.get("available"):
+            best_hotel = hotels_data.get("best_hotel", {})
+            if best_hotel.get("name"):
+                highlights.append(f"Top hotel: {best_hotel.get('name')} ({best_hotel.get('rating')}/10)")
+        elif isinstance(hotels_data, list) and hotels_data:
+            # Handle list format (hotel_details)
+            top_hotel = max(hotels_data, key=lambda x: x.get("rating", 0) if isinstance(x, dict) else 0)
+            if isinstance(top_hotel, dict) and top_hotel.get("name"):
+                highlights.append(f"Top hotel: {top_hotel.get('name')} ({top_hotel.get('rating')}/10)")
         
         # Extract from weather
         weather = trip_data.get("weather", {})
@@ -102,7 +108,7 @@ class SummarizerAgent:
         return {
             "weather": "OpenWeatherMap API",
             "flights": "Amadeus API",
-            "hotels": "Amadeus API",
+            "hotels": "RapidAPI Booking.com",
             "ai_content": "OpenAI GPT",
             "summary_generation": "AI-Powered"
         }

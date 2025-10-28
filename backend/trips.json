@@ -133,7 +133,7 @@
       "trip_overview": "\n            Welcome to Kathmandu - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 24\u00b0C, \n            this is an ideal time to explore everything Kathmandu has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Kathmandu truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
       "key_highlights": [
         "Best flight deal: Delta Airlines - $485",
-        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
+        "Top hotel: Test Hotel Paris (8.5/10)",
         "Weather forecast: Clouds 24\u00b0C"
       ],
       "budget_summary": {
@@ -203,7 +203,7 @@
     "api_sources": {
       "weather": "OpenWeatherMap API",
       "flights": "Amadeus API",
-      "hotels": "Amadeus API",
+      "hotels": "RapidAPI Booking.com",
       "ai_content": "OpenAI GPT",
       "itinerary_generation": {
         "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
@@ -220,168 +220,142 @@
       }
     },
     "ai_enhanced": true,
-    "created_at": "2025-10-21T05:39:00.747417"
+    "created_at": "2025-10-21T05:39:00.747417",
+    "hotel_recommendations": [
+      {
+        "id": "test123",
+        "name": "Test Hotel Paris",
+        "price_per_night": 150.0,
+        "rating": 8.5,
+        "location": "Paris",
+        "api_source": "RapidAPI Booking.com"
+      }
+    ],
+    "hotel_summary": {
+      "available": true,
+      "best_hotel": {
+        "name": "Test Hotel Paris",
+        "rating": 8.5,
+        "price": 150.0,
+        "currency": "USD"
+      }
+    }
   },
   {
-    "id": 3,
-    "from": "Korea",
-    "destination": "Nepal",
-    "start_date": "2025-10-22",
-    "end_date": "2025-10-31",
+    "id": 2,
+    "from": "Paris",
+    "destination": "Tokyo",
+    "start_date": "2025-10-29",
+    "end_date": "2025-11-03",
     "budget": 10000,
-    "travelers": 3,
+    "travelers": 2,
     "travel_style": "luxury",
     "accommodation": "hotel",
     "transportation": "flight",
     "meal_preference": "all",
     "activity_level": "moderate",
-    "special_requests": "",
+    "special_requests": "we need best with budget friendly.",
     "interests": [
-      "culture",
       "adventure",
-      "shopping",
-      "photography",
+      "culture",
+      "food",
       "relaxation",
       "history",
+      "photography",
+      "shopping",
       "nightlife",
-      "food",
-      "nature",
-      "wellness"
+      "wellness",
+      "nature"
     ],
-    "plan": "\n            Welcome to Nepal - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 26\u00b0C, \n            this is an ideal time to explore everything Nepal has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Nepal truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+    "plan": "\n            Welcome to Tokyo - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 15\u00b0C, \n            this is an ideal time to explore everything Tokyo has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Tokyo truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
     "itinerary": {
-      "destination": "Nepal",
-      "duration": 9,
+      "destination": "Tokyo",
+      "duration": 5,
       "activities": [
-        "Morning: Private arrival transfer to Dwarika's Hotel with welcome drinks. Settle into luxury suite with Himalayan views ($0 - included in accommodation)",
-        "Afternoon: Private guided tour of Patan Durbar Square with expert art historian. Visit Golden Temple and Patan Museum ($150 for guide and entrance fees)",
-        "Evening: Welcome dinner at Krishnarpan Restaurant with 6-course traditional Newari feast and cultural performance ($120 per person)",
-        "Morning: Sunrise visit to Swayambhunath Stupa (Monkey Temple) with private guide. Photography session with professional local photographer ($200 for guide and photographer)",
-        "Afternoon: Private shopping tour in Asan Bazaar with personal shopper. Visit traditional handicraft workshops and Thamel boutiques ($300 shopping budget)",
-        "Evening: Cocktails at Royal Singi Hotel's rooftop bar followed by modern Nepali cuisine at OR2K restaurant in Thamel ($90 per person)",
-        "Morning: Helicopter flight to Nagarkot for breathtaking Himalayan panorama breakfast ($600 per person for private helicopter)",
-        "Afternoon: Luxury spa treatment at Dwarika's Resort with traditional Ayurvedic massage and yoga session ($150 per person)",
-        "Evening: Private cooking class with celebrity Nepali chef learning to prepare momos and dal bhat, followed by dinner ($180 per person)",
-        "Morning: Private charter flight to Pokhara. Transfer to Temple Tree Resort & Spa luxury villas ($400 for charter flight for group)",
-        "Afternoon: Lakeside luxury boat cruise on Phewa Lake with champagne and canap\u00e9s. Visit Tal Barahi Temple ($120 for private boat and refreshments)",
-        "Evening: Sunset paragliding experience from Sarangkot with professional pilots and photography package ($150 per person)",
-        "Morning: Guided hike to World Peace Pagoda through rhododendron forests with naturalist guide ($100 for guide and transportation)",
-        "Afternoon: Lunch at The Old Inn followed by exploration of Gupteshwor Cave and David's Fall ($50 entrance fees)",
-        "Evening: Lakeside fine dining at Moondance Restaurant with live jazz music and international cuisine ($80 per person)",
-        "Morning: Private helicopter tour to Annapurna Base Camp for sunrise views and breakfast amidst Himalayas ($700 per person)",
-        "Afternoon: Relaxation at resort infinity pool with mountain views. Private yoga and meditation session ($60 per person)",
-        "Evening: Traditional Nepali thali dinner at Busy Bee Cafe with live folk music performance ($50 per person)",
-        "Morning: Scenic drive to Chitwan National Park. Check into Tigerland Safari Resort luxury jungle villas ($0 - included in accommodation)",
-        "Afternoon: Private elephant safari through national park with expert naturalist guide ($150 per person)",
-        "Evening: Candlelit dinner at resort with Tharu cultural dance performance and jungle storytelling ($80 per person)",
-        "Morning: Canoe ride on Rapti River for bird watching and wildlife spotting with binoculars provided ($60 per person)",
-        "Afternoon: Visit Elephant Breeding Center and Tharu village cultural tour with local guide ($40 per person)",
-        "Evening: Sunset cocktails at riverside bar followed by gourmet jungle-to-table dining experience ($90 per person)",
-        "Morning: Private return flight to Kathmandu. Last-minute souvenir shopping at Cottage Industries ($200 shopping budget)",
-        "Afternoon: Farewell lunch at Boudha Stupa rooftop restaurant with stunning monastery views ($60 per person)",
-        "Evening: Private transfer to Tribhuvan International Airport for departure ($50 for luxury van transfer)"
+        "Morning: Private guided tour of Senso-ji Temple in Asakusa, exploring Nakamise Shopping Street for traditional snacks and souvenirs (2 hours). Cost: $150 for guide",
+        "Afternoon: Luxury shopping at Ginza Six with premium boutiques, followed by tea at Salon de Th\u00e9 Rond at Chanel Ginza. Cost: Shopping variable, tea $60",
+        "Evening: Michelin-starred sushi experience at Sukiyabashi Jiro Roppongi with omakase course. Cost: $800 for two with sake pairing",
+        "Morning: Private helicopter tour over Tokyo Skyline including views of Mount Fuji (weather permitting). Cost: $1200 for private charter",
+        "Afternoon: Cultural immersion at Meiji Shrine and traditional tea ceremony experience at Happo-en Garden. Cost: $200 for private ceremony",
+        "Evening: Exclusive cocktail experience at The Bellwood in Shibuya followed by omakase dinner at Narisawa. Cost: Cocktails $120, dinner $600",
+        "Morning: Private car transfer to Mount Takao for guided hiking adventure through ancient trails and cable car descent. Cost: $300 including guide and transfers",
+        "Afternoon: Traditional kaiseki lunch at Takao Sanroku Restaurant followed by onsen experience at Keio Takaosan Onsen Gokurakuyu. Cost: Lunch $200, onsen $80",
+        "Evening: Private photography tour of Shinjuku's neon district with professional photographer guide. Cost: $400 including equipment",
+        "Morning: Luxury shopping experience at Omotesando Hills and Cat Street with personal shopper. Cost: $300 for shopper service",
+        "Afternoon: Private sushi-making class with master chef at Tsukiji Outer Market followed by market exploration. Cost: $350 including ingredients",
+        "Evening: Exclusive nightlife experience with VIP access to clubs in Roppongi including cover and bottle service. Cost: $600",
+        "Morning: Private wellness retreat at Aman Tokyo Spa with traditional Japanese treatments and infinity pool access. Cost: $500 for couples package",
+        "Afternoon: Final luxury shopping at Tokyo Midtown and traditional lunch at Kozue restaurant with panoramic city views. Cost: Lunch $250",
+        "Evening: Farewell dinner helicopter tour over Tokyo night lights with champagne service. Cost: $1500 including gourmet bento"
       ],
-      "estimated_cost": 8295.0,
+      "estimated_cost": 3595.0,
       "recommendations": [
-        "Book domestic flights and helicopter tours at least 2 months in advance",
-        "Carry USD cash for local markets and smaller establishments",
-        "Respect religious sites by dressing modestly and removing shoes",
-        "Hire private guides for enhanced cultural experiences",
-        "Try local delicacies like momos, dal bhat, and Newari cuisine",
-        "Pack layers as temperatures can vary significantly",
-        "Purchase travel insurance covering adventure activities",
-        "Learn basic Nepali phrases for enhanced cultural connection",
-        "Carry altitude medication if sensitive to high elevations",
-        "Negotiate prices in markets but be respectful about bargaining"
+        "Book all premium experiences 2-3 months in advance",
+        "Carry cash for traditional markets and smaller establishments",
+        "Respect temple and shrine etiquette by washing hands and bowing before entering",
+        "Consider purchasing a Suica card for convenient transportation between luxury destinations",
+        "Make restaurant reservations through your hotel concierge for best access to exclusive venues"
       ],
       "daily_plan": [
         {
           "day": 1,
-          "morning": "Private arrival transfer to Dwarika's Hotel with welcome drinks. Settle into luxury suite with Himalayan views ($0 - included in accommodation)",
-          "afternoon": "Private guided tour of Patan Durbar Square with expert art historian. Visit Golden Temple and Patan Museum ($150 for guide and entrance fees)",
-          "evening": "Welcome dinner at Krishnarpan Restaurant with 6-course traditional Newari feast and cultural performance ($120 per person)",
-          "estimated_cost": 570
+          "morning": "Private guided tour of Senso-ji Temple in Asakusa, exploring Nakamise Shopping Street for traditional snacks and souvenirs (2 hours). Cost: $150 for guide",
+          "afternoon": "Luxury shopping at Ginza Six with premium boutiques, followed by tea at Salon de Th\u00e9 Rond at Chanel Ginza. Cost: Shopping variable, tea $60",
+          "evening": "Michelin-starred sushi experience at Sukiyabashi Jiro Roppongi with omakase course. Cost: $800 for two with sake pairing",
+          "estimated_cost": 1010
         },
         {
           "day": 2,
-          "morning": "Sunrise visit to Swayambhunath Stupa (Monkey Temple) with private guide. Photography session with professional local photographer ($200 for guide and photographer)",
-          "afternoon": "Private shopping tour in Asan Bazaar with personal shopper. Visit traditional handicraft workshops and Thamel boutiques ($300 shopping budget)",
-          "evening": "Cocktails at Royal Singi Hotel's rooftop bar followed by modern Nepali cuisine at OR2K restaurant in Thamel ($90 per person)",
-          "estimated_cost": 770
+          "morning": "Private helicopter tour over Tokyo Skyline including views of Mount Fuji (weather permitting). Cost: $1200 for private charter",
+          "afternoon": "Cultural immersion at Meiji Shrine and traditional tea ceremony experience at Happo-en Garden. Cost: $200 for private ceremony",
+          "evening": "Exclusive cocktail experience at The Bellwood in Shibuya followed by omakase dinner at Narisawa. Cost: Cocktails $120, dinner $600",
+          "estimated_cost": 2120
         },
         {
           "day": 3,
-          "morning": "Helicopter flight to Nagarkot for breathtaking Himalayan panorama breakfast ($600 per person for private helicopter)",
-          "afternoon": "Luxury spa treatment at Dwarika's Resort with traditional Ayurvedic massage and yoga session ($150 per person)",
-          "evening": "Private cooking class with celebrity Nepali chef learning to prepare momos and dal bhat, followed by dinner ($180 per person)",
-          "estimated_cost": 2790
+          "morning": "Private car transfer to Mount Takao for guided hiking adventure through ancient trails and cable car descent. Cost: $300 including guide and transfers",
+          "afternoon": "Traditional kaiseki lunch at Takao Sanroku Restaurant followed by onsen experience at Keio Takaosan Onsen Gokurakuyu. Cost: Lunch $200, onsen $80",
+          "evening": "Private photography tour of Shinjuku's neon district with professional photographer guide. Cost: $400 including equipment",
+          "estimated_cost": 980
         },
         {
           "day": 4,
-          "morning": "Private charter flight to Pokhara. Transfer to Temple Tree Resort & Spa luxury villas ($400 for charter flight for group)",
-          "afternoon": "Lakeside luxury boat cruise on Phewa Lake with champagne and canap\u00e9s. Visit Tal Barahi Temple ($120 for private boat and refreshments)",
-          "evening": "Sunset paragliding experience from Sarangkot with professional pilots and photography package ($150 per person)",
-          "estimated_cost": 970
+          "morning": "Luxury shopping experience at Omotesando Hills and Cat Street with personal shopper. Cost: $300 for shopper service",
+          "afternoon": "Private sushi-making class with master chef at Tsukiji Outer Market followed by market exploration. Cost: $350 including ingredients",
+          "evening": "Exclusive nightlife experience with VIP access to clubs in Roppongi including cover and bottle service. Cost: $600",
+          "estimated_cost": 1250
         },
         {
           "day": 5,
-          "morning": "Guided hike to World Peace Pagoda through rhododendron forests with naturalist guide ($100 for guide and transportation)",
-          "afternoon": "Lunch at The Old Inn followed by exploration of Gupteshwor Cave and David's Fall ($50 entrance fees)",
-          "evening": "Lakeside fine dining at Moondance Restaurant with live jazz music and international cuisine ($80 per person)",
-          "estimated_cost": 410
-        },
-        {
-          "day": 6,
-          "morning": "Private helicopter tour to Annapurna Base Camp for sunrise views and breakfast amidst Himalayas ($700 per person)",
-          "afternoon": "Relaxation at resort infinity pool with mountain views. Private yoga and meditation session ($60 per person)",
-          "evening": "Traditional Nepali thali dinner at Busy Bee Cafe with live folk music performance ($50 per person)",
-          "estimated_cost": 2430
-        },
-        {
-          "day": 7,
-          "morning": "Scenic drive to Chitwan National Park. Check into Tigerland Safari Resort luxury jungle villas ($0 - included in accommodation)",
-          "afternoon": "Private elephant safari through national park with expert naturalist guide ($150 per person)",
-          "evening": "Candlelit dinner at resort with Tharu cultural dance performance and jungle storytelling ($80 per person)",
-          "estimated_cost": 690
-        },
-        {
-          "day": 8,
-          "morning": "Canoe ride on Rapti River for bird watching and wildlife spotting with binoculars provided ($60 per person)",
-          "afternoon": "Visit Elephant Breeding Center and Tharu village cultural tour with local guide ($40 per person)",
-          "evening": "Sunset cocktails at riverside bar followed by gourmet jungle-to-table dining experience ($90 per person)",
-          "estimated_cost": 570
-        },
-        {
-          "day": 9,
-          "morning": "Private return flight to Kathmandu. Last-minute souvenir shopping at Cottage Industries ($200 shopping budget)",
-          "afternoon": "Farewell lunch at Boudha Stupa rooftop restaurant with stunning monastery views ($60 per person)",
-          "evening": "Private transfer to Tribhuvan International Airport for departure ($50 for luxury van transfer)",
-          "estimated_cost": 430
+          "morning": "Private wellness retreat at Aman Tokyo Spa with traditional Japanese treatments and infinity pool access. Cost: $500 for couples package",
+          "afternoon": "Final luxury shopping at Tokyo Midtown and traditional lunch at Kozue restaurant with panoramic city views. Cost: Lunch $250",
+          "evening": "Farewell dinner helicopter tour over Tokyo night lights with champagne service. Cost: $1500 including gourmet bento",
+          "estimated_cost": 2250
         }
       ],
       "ai_generated": true,
       "api_sources": {
         "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "weather": "OpenWeatherMap API"
       },
-      "timestamp": "2025-10-21T11:35:23.869543"
+      "timestamp": "2025-10-28T18:55:31.093900"
     },
     "summary": {
-      "trip_overview": "\n            Welcome to Nepal - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 26\u00b0C, \n            this is an ideal time to explore everything Nepal has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Nepal truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+      "trip_overview": "\n            Welcome to Tokyo - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 15\u00b0C, \n            this is an ideal time to explore everything Tokyo has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Tokyo truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
       "key_highlights": [
         "Best flight deal: Delta Airlines - $485",
-        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
-        "Weather forecast: Clear 26\u00b0C"
+        "Top hotel: Luxury Resort Tokyo (9.2/10)",
+        "Weather forecast: Clear 15\u00b0C"
       ],
       "budget_summary": {
-        "total_estimated": 8295.0,
+        "total_estimated": 3595.0,
         "breakdown": {
-          "flights": 3318,
-          "hotels": 2488,
-          "activities": 1659,
-          "food": 830
+          "flights": 1438,
+          "hotels": 1078,
+          "activities": 719,
+          "food": 360
         },
         "currency": "USD"
       },
@@ -395,79 +369,134 @@
       "api_sources_used": {
         "weather": "OpenWeatherMap API",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "ai_content": "OpenAI GPT",
         "summary_generation": "AI-Powered"
       },
       "ai_generated": true,
-      "timestamp": "2025-10-21T11:35:23.870013"
+      "timestamp": "2025-10-28T18:55:31.094599"
     },
     "trip_request": {
-      "destination": "Nepal",
-      "start_date": "2025-10-22",
-      "end_date": "2025-10-31",
+      "destination": "Tokyo",
+      "start_date": "2025-10-29",
+      "end_date": "2025-11-03",
       "budget": 10000,
-      "travelers": 3,
+      "travelers": 2,
       "interests": [
-        "culture",
         "adventure",
-        "shopping",
-        "photography",
+        "culture",
+        "food",
         "relaxation",
         "history",
+        "photography",
+        "shopping",
         "nightlife",
-        "food",
-        "nature",
-        "wellness"
+        "wellness",
+        "nature"
       ],
-      "from": "Korea",
+      "from": "Paris",
       "travel_style": "luxury",
       "accommodation": "hotel",
       "transportation": "flight",
       "meal_preference": "all",
       "activity_level": "moderate",
-      "special_requests": "",
-      "timestamp": "2025-10-21T05:50:11.625142"
+      "special_requests": "we need best with budget friendly.",
+      "timestamp": "2025-10-28T13:10:09.839842"
     },
     "cost_breakdown": {
-      "total_estimated": 8295.0,
+      "total_estimated": 3595.0,
       "breakdown": {
-        "flights": 3318,
-        "hotels": 2488,
-        "activities": 1659,
-        "food": 830
+        "flights": 1438,
+        "hotels": 1078,
+        "activities": 719,
+        "food": 360
       },
       "currency": "USD"
     },
+    "hotel_recommendations": [
+      {
+        "id": "mock_001",
+        "name": "Grand Hotel Tokyo",
+        "price_per_night": 120.0,
+        "currency": "USD",
+        "rating": 8.5,
+        "location": "Tokyo",
+        "address": "123 Main Street, Tokyo",
+        "amenities": [
+          "WiFi",
+          "Pool",
+          "Restaurant",
+          "Gym"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T18:55:12.647150"
+      },
+      {
+        "id": "mock_002",
+        "name": "Luxury Resort Tokyo",
+        "price_per_night": 200.0,
+        "currency": "USD",
+        "rating": 9.2,
+        "location": "Tokyo",
+        "address": "456 Resort Avenue, Tokyo",
+        "amenities": [
+          "WiFi",
+          "Spa",
+          "Restaurant",
+          "Bar",
+          "Pool"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T18:55:12.647165"
+      },
+      {
+        "id": "mock_003",
+        "name": "Budget Inn Tokyo",
+        "price_per_night": 75.0,
+        "currency": "USD",
+        "rating": 7.8,
+        "location": "Tokyo",
+        "address": "789 Budget Street, Tokyo",
+        "amenities": [
+          "WiFi",
+          "Breakfast"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T18:55:12.647170"
+      }
+    ],
     "api_sources": {
       "weather": "OpenWeatherMap API",
       "flights": "Amadeus API",
-      "hotels": "Amadeus API",
+      "hotels": "RapidAPI Booking.com",
       "ai_content": "OpenAI GPT",
       "itinerary_generation": {
         "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "weather": "OpenWeatherMap API"
       },
       "summary_generation": {
         "weather": "OpenWeatherMap API",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "ai_content": "OpenAI GPT",
         "summary_generation": "AI-Powered"
       }
     },
     "ai_enhanced": true,
-    "created_at": "2025-10-21T05:50:23.872577"
+    "created_at": "2025-10-28T13:10:31.096565"
   },
   {
-    "id": 5,
-    "from": "New Work",
-    "destination": "Paris",
-    "start_date": "2025-10-22",
-    "end_date": "2025-10-31",
-    "budget": 10000,
+    "id": 3,
+    "from": "Kathmandu",
+    "destination": "Dharan",
+    "start_date": "2025-10-29",
+    "end_date": "2025-11-03",
+    "budget": 20000,
     "travelers": 2,
     "travel_style": "luxury",
     "accommodation": "hotel",
@@ -477,148 +506,108 @@
     "special_requests": "",
     "interests": [
       "adventure",
-      "culture",
       "relaxation",
-      "nature",
+      "culture",
       "food",
-      "nightlife",
+      "nature",
       "wellness",
+      "nightlife",
       "history",
       "photography",
       "shopping"
     ],
-    "plan": "\n            Welcome to Paris - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 12\u00b0C, \n            this is an ideal time to explore everything Paris has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Paris truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+    "plan": "\n            Welcome to Dharan - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 22\u00b0C, \n            this is an ideal time to explore everything Dharan has to offer.\n            \n            Your $20000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Dharan truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
     "itinerary": {
-      "destination": "Paris",
-      "duration": 9,
+      "destination": "Dharan",
+      "duration": 5,
       "activities": [
-        "Morning: Private guided tour of the Louvre Museum with early access to see Mona Lisa and Venus de Milo (3 hours). Cost: $300 for two (includes private guide and skip-the-line tickets)",
-        "Afternoon: Lunch at Le Meurice Alain Ducasse (Michelin 3-star) followed by shopping at Galeries Lafayette luxury department store. Cost: Lunch $400, Shopping budget $1000",
-        "Evening: Eiffel Tower dinner experience at Le Jules Verne (Michelin star) with champagne toast at summit. Cost: $600 for dinner and tower access",
-        "Morning: Hot air balloon ride over Versailles with champagne breakfast (departure from Ch\u00e2teau de Versailles grounds). Cost: $800 for two",
-        "Afternoon: Private tour of Palace of Versailles including Hall of Mirrors and Marie Antoinette's Estate with luxury van transport. Cost: $500 (includes guide, tickets, and transport)",
-        "Evening: Michelin-star dinner at Gordon Ramsay au Trianon followed by night photography session at Versailles Gardens. Cost: $450",
-        "Morning: Private Seine River helicopter tour over Paris landmarks followed by visit to Sainte-Chapelle stained glass windows. Cost: $900 for helicopter, $50 for chapel tickets",
-        "Afternoon: Cooking class at Le Cordon Bleu with renowned chef, followed by lunch of prepared dishes. Cost: $600 for two",
-        "Evening: Cabaret show at Moulin Rouge with premium seating and champagne service, then late-night cocktails at Bar Hemingway. Cost: $400",
-        "Morning: Private vintage car tour of Montmartre including Sacr\u00e9-C\u0153ur Basilica and artist's square with personal photographer. Cost: $700 (includes car, driver, and photographer for 3 hours)",
-        "Afternoon: Lunch at La Maison Rose then private shopping experience in Saint-Germain-des-Pr\u00e9s luxury boutiques. Cost: Lunch $200, Shopping budget $800",
-        "Evening: Wellness retreat at Four Seasons Hotel Spa with couples massage and thermal facilities. Cost: $500",
-        "Morning: Day trip to Giverny for private tour of Monet's House and Gardens with art historian guide. Cost: $400 (includes private car transport and exclusive access)",
-        "Afternoon: Gourmet picnic in the gardens followed by visit to Mus\u00e9e des Impressionnismes. Cost: $300 for picnic and museum tickets",
-        "Evening: Return to Paris for dinner at L'Ami Louis (classic French bistro experience). Cost: $350",
-        "Morning: Private photography workshop at Luxembourg Gardens and Panth\u00e9on with professional photographer. Cost: $600 for 3-hour session",
-        "Afternoon: Lunch at Le Comptoir du Relais then antique shopping at Louvre des Antiquaires. Cost: Lunch $250, Shopping budget $500",
-        "Evening: Secret food tour through Marais district with 7-course tasting menu at hidden locations. Cost: $400",
-        "Morning: Adventure day: Private rock climbing session in Fontainebleau forest with expert guide and equipment. Cost: $450",
-        "Afternoon: Lunch at forest-edge gourmet restaurant then exploration of Ch\u00e2teau de Fontainebleau. Cost: Lunch $200, Castle tour $100",
-        "Evening: Wine tasting experience at Lavinia Paris with sommelier-led selection of rare French wines. Cost: $300",
-        "Morning: Private behind-the-scenes tour of Op\u00e9ra Garnier including costume archives and private boxes. Cost: $350",
-        "Afternoon: Lunch at Caf\u00e9 de la Paix then luxury shopping on Avenue Montaigne (Dior, Chanel, Louis Vuitton). Cost: Lunch $300, Shopping budget $1500",
-        "Evening: Farewell dinner at Epicure at Bristol Paris (3 Michelin stars) with wine pairing. Cost: $1200",
-        "Morning: Final relaxation: Private yoga session at hotel with views of Eiffel Tower, followed by last-minute souvenir shopping at La Grande \u00c9picerie. Cost: Yoga $200, Shopping $300",
-        "Afternoon: Leisurely lunch at Les Ombres restaurant with panoramic views, then private car transfer to airport. Cost: Lunch $400, Transport $150",
-        "Evening: Departure from Paris CDG with VIP airport service. Cost: $200 for fast-track and lounge access"
+        "Morning: Private guided tour of Dharan Clock Tower and surrounding local markets with cultural immersion experience at Rs 1,000 per person",
+        "Afternoon: Luxury spa treatments and wellness session at The Fern - An Ecotel Hotel's premium spa ($75 per person), followed by gourmet lunch at their fine dining restaurant ($40 per person)",
+        "Evening: Private traditional Nepali thali dinner with live cultural performances at a curated local venue with personal chef experience ($120 per couple)",
+        "Morning: Adventure trek to Dharan View Tower with private guide and photographer ($150 for guide and photography service), enjoying panoramic views of Himalayas",
+        "Afternoon: Exclusive cooking class with master Nepali chef focusing on local Khas cuisine at luxury resort ($180 per couple), including premium ingredients and wine pairing",
+        "Evening: Private sunset cocktail experience at elevated viewpoint with personal bartender and gourmet canap\u00e9s ($200 per couple)",
+        "Morning: Helicopter tour to nearby Himalayan foothills with champagne breakfast landing ($2,000 per couple for private charter)",
+        "Afternoon: Luxury shopping experience with personal shopper at Dharan's premium handicraft stores and jewelry boutiques ($500 shopping budget)",
+        "Evening: Five-course gourmet dinner at The Fern's signature restaurant with wine pairing ($250 per couple)",
+        "Morning: Private yoga and meditation session with renowned local guru at scenic outdoor location ($120 per couple), followed by organic breakfast",
+        "Afternoon: Exclusive nature walk through nearby tea gardens with naturalist guide ($100 per couple), including premium tea tasting experience",
+        "Evening: Luxury nightlife experience with private DJ and cocktails at premium lounge ($300 per couple for exclusive booking)",
+        "Morning: Photography tour to local villages and temples with professional photographer guide ($200 per couple), capturing authentic cultural moments",
+        "Afternoon: Private traditional Nepali feast preparation with local family experience ($150 per couple), including hands-on cooking and cultural exchange",
+        "Evening: Farewell luxury dinner at mountain-view restaurant with personalized menu and live traditional music ($180 per couple)"
       ],
-      "estimated_cost": 5785.0,
+      "estimated_cost": 3595.0,
       "recommendations": [
-        "Book all Michelin-star restaurants 2-3 months in advance",
-        "Private tours and experiences should be reserved early",
-        "Carry both cash and cards - many luxury shops prefer credit cards",
-        "Pack layers for the 12\u00b0C weather with rain protection",
-        "Download Uber and G7 taxi apps for premium car service",
-        "Consider hiring a private concierge for last-minute arrangements",
-        "Purchase museum passes for flexibility in scheduling",
-        "Learn basic French phrases for enhanced cultural experience"
+        "Hire private car with driver for entire stay ($100/day)",
+        "Book all premium experiences in advance through luxury concierge",
+        "Carry local currency for artisan purchases",
+        "Respect local customs during temple visits",
+        "Dress modestly for cultural sites",
+        "Try local delicacies like momos and thukpa",
+        "Bargain politely at local markets",
+        "Stay hydrated at higher altitudes"
       ],
       "daily_plan": [
         {
           "day": 1,
-          "morning": "Private guided tour of the Louvre Museum with early access to see Mona Lisa and Venus de Milo (3 hours). Cost: $300 for two (includes private guide and skip-the-line tickets)",
-          "afternoon": "Lunch at Le Meurice Alain Ducasse (Michelin 3-star) followed by shopping at Galeries Lafayette luxury department store. Cost: Lunch $400, Shopping budget $1000",
-          "evening": "Eiffel Tower dinner experience at Le Jules Verne (Michelin star) with champagne toast at summit. Cost: $600 for dinner and tower access",
-          "estimated_cost": 2300
+          "morning": "Private guided tour of Dharan Clock Tower and surrounding local markets with cultural immersion experience at Rs 1,000 per person",
+          "afternoon": "Luxury spa treatments and wellness session at The Fern - An Ecotel Hotel's premium spa ($75 per person), followed by gourmet lunch at their fine dining restaurant ($40 per person)",
+          "evening": "Private traditional Nepali thali dinner with live cultural performances at a curated local venue with personal chef experience ($120 per couple)",
+          "estimated_cost": 330
         },
         {
           "day": 2,
-          "morning": "Hot air balloon ride over Versailles with champagne breakfast (departure from Ch\u00e2teau de Versailles grounds). Cost: $800 for two",
-          "afternoon": "Private tour of Palace of Versailles including Hall of Mirrors and Marie Antoinette's Estate with luxury van transport. Cost: $500 (includes guide, tickets, and transport)",
-          "evening": "Michelin-star dinner at Gordon Ramsay au Trianon followed by night photography session at Versailles Gardens. Cost: $450",
-          "estimated_cost": 1750
+          "morning": "Adventure trek to Dharan View Tower with private guide and photographer ($150 for guide and photography service), enjoying panoramic views of Himalayas",
+          "afternoon": "Exclusive cooking class with master Nepali chef focusing on local Khas cuisine at luxury resort ($180 per couple), including premium ingredients and wine pairing",
+          "evening": "Private sunset cocktail experience at elevated viewpoint with personal bartender and gourmet canap\u00e9s ($200 per couple)",
+          "estimated_cost": 530
         },
         {
           "day": 3,
-          "morning": "Private Seine River helicopter tour over Paris landmarks followed by visit to Sainte-Chapelle stained glass windows. Cost: $900 for helicopter, $50 for chapel tickets",
-          "afternoon": "Cooking class at Le Cordon Bleu with renowned chef, followed by lunch of prepared dishes. Cost: $600 for two",
-          "evening": "Cabaret show at Moulin Rouge with premium seating and champagne service, then late-night cocktails at Bar Hemingway. Cost: $400",
-          "estimated_cost": 1950
+          "morning": "Helicopter tour to nearby Himalayan foothills with champagne breakfast landing ($2,000 per couple for private charter)",
+          "afternoon": "Luxury shopping experience with personal shopper at Dharan's premium handicraft stores and jewelry boutiques ($500 shopping budget)",
+          "evening": "Five-course gourmet dinner at The Fern's signature restaurant with wine pairing ($250 per couple)",
+          "estimated_cost": 2750
         },
         {
           "day": 4,
-          "morning": "Private vintage car tour of Montmartre including Sacr\u00e9-C\u0153ur Basilica and artist's square with personal photographer. Cost: $700 (includes car, driver, and photographer for 3 hours)",
-          "afternoon": "Lunch at La Maison Rose then private shopping experience in Saint-Germain-des-Pr\u00e9s luxury boutiques. Cost: Lunch $200, Shopping budget $800",
-          "evening": "Wellness retreat at Four Seasons Hotel Spa with couples massage and thermal facilities. Cost: $500",
-          "estimated_cost": 2200
+          "morning": "Private yoga and meditation session with renowned local guru at scenic outdoor location ($120 per couple), followed by organic breakfast",
+          "afternoon": "Exclusive nature walk through nearby tea gardens with naturalist guide ($100 per couple), including premium tea tasting experience",
+          "evening": "Luxury nightlife experience with private DJ and cocktails at premium lounge ($300 per couple for exclusive booking)",
+          "estimated_cost": 520
         },
         {
           "day": 5,
-          "morning": "Day trip to Giverny for private tour of Monet's House and Gardens with art historian guide. Cost: $400 (includes private car transport and exclusive access)",
-          "afternoon": "Gourmet picnic in the gardens followed by visit to Mus\u00e9e des Impressionnismes. Cost: $300 for picnic and museum tickets",
-          "evening": "Return to Paris for dinner at L'Ami Louis (classic French bistro experience). Cost: $350",
-          "estimated_cost": 1050
-        },
-        {
-          "day": 6,
-          "morning": "Private photography workshop at Luxembourg Gardens and Panth\u00e9on with professional photographer. Cost: $600 for 3-hour session",
-          "afternoon": "Lunch at Le Comptoir du Relais then antique shopping at Louvre des Antiquaires. Cost: Lunch $250, Shopping budget $500",
-          "evening": "Secret food tour through Marais district with 7-course tasting menu at hidden locations. Cost: $400",
-          "estimated_cost": 1750
-        },
-        {
-          "day": 7,
-          "morning": "Adventure day: Private rock climbing session in Fontainebleau forest with expert guide and equipment. Cost: $450",
-          "afternoon": "Lunch at forest-edge gourmet restaurant then exploration of Ch\u00e2teau de Fontainebleau. Cost: Lunch $200, Castle tour $100",
-          "evening": "Wine tasting experience at Lavinia Paris with sommelier-led selection of rare French wines. Cost: $300",
-          "estimated_cost": 1050
-        },
-        {
-          "day": 8,
-          "morning": "Private behind-the-scenes tour of Op\u00e9ra Garnier including costume archives and private boxes. Cost: $350",
-          "afternoon": "Lunch at Caf\u00e9 de la Paix then luxury shopping on Avenue Montaigne (Dior, Chanel, Louis Vuitton). Cost: Lunch $300, Shopping budget $1500",
-          "evening": "Farewell dinner at Epicure at Bristol Paris (3 Michelin stars) with wine pairing. Cost: $1200",
-          "estimated_cost": 3350
-        },
-        {
-          "day": 9,
-          "morning": "Final relaxation: Private yoga session at hotel with views of Eiffel Tower, followed by last-minute souvenir shopping at La Grande \u00c9picerie. Cost: Yoga $200, Shopping $300",
-          "afternoon": "Leisurely lunch at Les Ombres restaurant with panoramic views, then private car transfer to airport. Cost: Lunch $400, Transport $150",
-          "evening": "Departure from Paris CDG with VIP airport service. Cost: $200 for fast-track and lounge access",
-          "estimated_cost": 1250
+          "morning": "Photography tour to local villages and temples with professional photographer guide ($200 per couple), capturing authentic cultural moments",
+          "afternoon": "Private traditional Nepali feast preparation with local family experience ($150 per couple), including hands-on cooking and cultural exchange",
+          "evening": "Farewell luxury dinner at mountain-view restaurant with personalized menu and live traditional music ($180 per couple)",
+          "estimated_cost": 530
         }
       ],
       "ai_generated": true,
       "api_sources": {
         "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "weather": "OpenWeatherMap API"
       },
-      "timestamp": "2025-10-21T13:18:12.223379"
+      "timestamp": "2025-10-28T19:01:01.532684"
     },
     "summary": {
-      "trip_overview": "\n            Welcome to Paris - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 12\u00b0C, \n            this is an ideal time to explore everything Paris has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Paris truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+      "trip_overview": "\n            Welcome to Dharan - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 22\u00b0C, \n            this is an ideal time to explore everything Dharan has to offer.\n            \n            Your $20000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Dharan truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
       "key_highlights": [
         "Best flight deal: Delta Airlines - $485",
-        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
-        "Weather forecast: Clouds 12\u00b0C"
+        "Top hotel: Luxury Resort Dharan (9.2/10)",
+        "Weather forecast: Clouds 22\u00b0C"
       ],
       "budget_summary": {
-        "total_estimated": 5785.0,
+        "total_estimated": 3595.0,
         "breakdown": {
-          "flights": 2314,
-          "hotels": 1736,
-          "activities": 1157,
-          "food": 578
+          "flights": 1438,
+          "hotels": 1078,
+          "activities": 719,
+          "food": 360
         },
         "currency": "USD"
       },
@@ -632,443 +621,23 @@
       "api_sources_used": {
         "weather": "OpenWeatherMap API",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "ai_content": "OpenAI GPT",
         "summary_generation": "AI-Powered"
       },
       "ai_generated": true,
-      "timestamp": "2025-10-21T13:18:12.223966"
+      "timestamp": "2025-10-28T19:01:01.533408"
     },
     "trip_request": {
-      "destination": "Paris",
-      "start_date": "2025-10-22",
-      "end_date": "2025-10-31",
-      "budget": 10000,
+      "destination": "Dharan",
+      "start_date": "2025-10-29",
+      "end_date": "2025-11-03",
+      "budget": 20000,
       "travelers": 2,
       "interests": [
         "adventure",
-        "culture",
         "relaxation",
-        "nature",
-        "food",
-        "nightlife",
-        "wellness",
-        "history",
-        "photography",
-        "shopping"
-      ],
-      "from": "New Work",
-      "travel_style": "luxury",
-      "accommodation": "hotel",
-      "transportation": "flight",
-      "meal_preference": "all",
-      "activity_level": "moderate",
-      "special_requests": "",
-      "timestamp": "2025-10-21T07:32:01.643275"
-    },
-    "cost_breakdown": {
-      "total_estimated": 5785.0,
-      "breakdown": {
-        "flights": 2314,
-        "hotels": 1736,
-        "activities": 1157,
-        "food": 578
-      },
-      "currency": "USD"
-    },
-    "api_sources": {
-      "weather": "OpenWeatherMap API",
-      "flights": "Amadeus API",
-      "hotels": "Amadeus API",
-      "ai_content": "OpenAI GPT",
-      "itinerary_generation": {
-        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "weather": "OpenWeatherMap API"
-      },
-      "summary_generation": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      }
-    },
-    "ai_enhanced": true,
-    "created_at": "2025-10-21T07:33:12.226667"
-  },
-  {
-    "id": 6,
-    "from": "Dharan",
-    "destination": "Sindhuli",
-    "start_date": "2025-10-23",
-    "end_date": "2025-10-30",
-    "budget": 1000,
-    "travelers": 1,
-    "travel_style": "luxury",
-    "accommodation": "hotel",
-    "transportation": "flight",
-    "meal_preference": "all",
-    "activity_level": "moderate",
-    "special_requests": "",
-    "interests": [
-      "adventure",
-      "culture",
-      "relaxation",
-      "food",
-      "nature"
-    ],
-    "plan": "\n            Welcome to Sindhuli - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 22\u00b0C, \n            this is an ideal time to explore everything Sindhuli has to offer.\n            \n            Your $1000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Sindhuli truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
-    "itinerary": {
-      "destination": "Sindhuli",
-      "duration": 7,
-      "activities": [
-        "Morning: Arrival at Sindhuli Gadhi via private car from Kathmandu (3-hour scenic drive). Check into Sindhuli Gadhi Luxury Resort with welcome drinks and traditional garland ceremony",
-        "Afternoon: Guided tour of Sindhuli Gadhi Fort - historical site of the 1767 battle between Nepali and British forces. Visit the victory monument and ancient cannons",
-        "Evening: Sunset viewing from resort's panoramic terrace followed by authentic Newari dinner at Fort View Restaurant",
-        "Morning: White water rafting on Sun Koshi River (Grade III-IV rapids) with professional guides and safety equipment. Includes riverside breakfast",
-        "Afternoon: Visit Kamalamai Temple complex - ancient Hindu shrine with intricate wood carvings. Participate in traditional puja ceremony",
-        "Evening: Cooking class with local chef learning to prepare momos and sel roti at Sindhuli Heritage Kitchen",
-        "Morning: Private guided hike through Tinpatan Forest with bird watching and nature photography. Spot rare Himalayan species and medicinal plants",
-        "Afternoon: Luxury picnic lunch at Rupakot Viewpoint overlooking Himalayan ranges. Visit local cheese factory for artisanal product tasting",
-        "Evening: Traditional Tharu cultural performance with fire dance and folk music at Cultural Heritage Center",
-        "Morning: Adventure zip-lining across Mahabharat Range with professional instructors and safety gear. Includes photography package",
-        "Afternoon: Visit Siddha Cave - one of Nepal's largest caves with stunning limestone formations. Guided exploration with headlamps provided",
-        "Evening: Private bonfire dinner at resort with live Nepali folk music performance",
-        "Morning: Yoga and meditation session with Himalayan guru at Sunrise Hill retreat. Includes Ayurvedic tea tasting",
-        "Afternoon: Luxury spa treatment at resort using local herbs and traditional techniques. Full body massage and herbal bath",
-        "Evening: Fine dining experience at The Orchid Restaurant featuring 7-course Nepali fusion cuisine with wine pairing",
-        "Morning: Private helicopter tour to Langtang Himalayan range with champagne breakfast at high altitude viewpoint",
-        "Afternoon: Visit local organic farm for agricultural experience and farm-to-table lunch. Learn about traditional farming methods",
-        "Evening: Stargazing session with astronomer guide using high-powered telescope at Dark Sky Observatory",
-        "Morning: Last-minute souvenir shopping at Sindhuli Handicraft Market for handmade textiles and local crafts",
-        "Afternoon: Farewell lunch at Mountain Peak Restaurant with panoramic views. Traditional Nepali thali with special desserts",
-        "Evening: Private car transfer back to Kathmandu with stop at scenic viewpoints for final photography"
-      ],
-      "estimated_cost": 2655.0,
-      "recommendations": [
-        "Hire local guides for cultural insights",
-        "Carry Nepali rupees for local markets",
-        "Respect temple customs and remove shoes",
-        "Book adventure activities in advance during peak season",
-        "Try local specialties like yomari and gundruk",
-        "Carry light layers for changing mountain weather",
-        "Learn basic Nepali phrases for better interaction with locals"
-      ],
-      "daily_plan": [
-        {
-          "day": 1,
-          "morning": "Arrival at Sindhuli Gadhi via private car from Kathmandu (3-hour scenic drive). Check into Sindhuli Gadhi Luxury Resort with welcome drinks and traditional garland ceremony",
-          "afternoon": "Guided tour of Sindhuli Gadhi Fort - historical site of the 1767 battle between Nepali and British forces. Visit the victory monument and ancient cannons",
-          "evening": "Sunset viewing from resort's panoramic terrace followed by authentic Newari dinner at Fort View Restaurant",
-          "estimated_cost": 180
-        },
-        {
-          "day": 2,
-          "morning": "White water rafting on Sun Koshi River (Grade III-IV rapids) with professional guides and safety equipment. Includes riverside breakfast",
-          "afternoon": "Visit Kamalamai Temple complex - ancient Hindu shrine with intricate wood carvings. Participate in traditional puja ceremony",
-          "evening": "Cooking class with local chef learning to prepare momos and sel roti at Sindhuli Heritage Kitchen",
-          "estimated_cost": 145
-        },
-        {
-          "day": 3,
-          "morning": "Private guided hike through Tinpatan Forest with bird watching and nature photography. Spot rare Himalayan species and medicinal plants",
-          "afternoon": "Luxury picnic lunch at Rupakot Viewpoint overlooking Himalayan ranges. Visit local cheese factory for artisanal product tasting",
-          "evening": "Traditional Tharu cultural performance with fire dance and folk music at Cultural Heritage Center",
-          "estimated_cost": 130
-        },
-        {
-          "day": 4,
-          "morning": "Adventure zip-lining across Mahabharat Range with professional instructors and safety gear. Includes photography package",
-          "afternoon": "Visit Siddha Cave - one of Nepal's largest caves with stunning limestone formations. Guided exploration with headlamps provided",
-          "evening": "Private bonfire dinner at resort with live Nepali folk music performance",
-          "estimated_cost": 155
-        },
-        {
-          "day": 5,
-          "morning": "Yoga and meditation session with Himalayan guru at Sunrise Hill retreat. Includes Ayurvedic tea tasting",
-          "afternoon": "Luxury spa treatment at resort using local herbs and traditional techniques. Full body massage and herbal bath",
-          "evening": "Fine dining experience at The Orchid Restaurant featuring 7-course Nepali fusion cuisine with wine pairing",
-          "estimated_cost": 165
-        },
-        {
-          "day": 6,
-          "morning": "Private helicopter tour to Langtang Himalayan range with champagne breakfast at high altitude viewpoint",
-          "afternoon": "Visit local organic farm for agricultural experience and farm-to-table lunch. Learn about traditional farming methods",
-          "evening": "Stargazing session with astronomer guide using high-powered telescope at Dark Sky Observatory",
-          "estimated_cost": 135
-        },
-        {
-          "day": 7,
-          "morning": "Last-minute souvenir shopping at Sindhuli Handicraft Market for handmade textiles and local crafts",
-          "afternoon": "Farewell lunch at Mountain Peak Restaurant with panoramic views. Traditional Nepali thali with special desserts",
-          "evening": "Private car transfer back to Kathmandu with stop at scenic viewpoints for final photography",
-          "estimated_cost": 90
-        }
-      ],
-      "ai_generated": true,
-      "api_sources": {
-        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "weather": "OpenWeatherMap API"
-      },
-      "timestamp": "2025-10-22T13:16:03.320972"
-    },
-    "summary": {
-      "trip_overview": "\n            Welcome to Sindhuli - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 22\u00b0C, \n            this is an ideal time to explore everything Sindhuli has to offer.\n            \n            Your $1000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Sindhuli truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
-      "key_highlights": [
-        "Best flight deal: Delta Airlines - $485",
-        "Top-rated hotel: Luxury Grand Hotel (4.8\u2605)",
-        "Weather forecast: Clear 22\u00b0C"
-      ],
-      "budget_summary": {
-        "total_estimated": 2655.0,
-        "breakdown": {
-          "flights": 1062,
-          "hotels": 796,
-          "activities": 531,
-          "food": 266
-        },
-        "currency": "USD"
-      },
-      "recommendations": [
-        "Book accommodations early for better rates",
-        "Check visa requirements",
-        "Get travel insurance",
-        "Download offline maps"
-      ],
-      "api_sources_used": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      },
-      "ai_generated": true,
-      "timestamp": "2025-10-22T13:16:03.321573"
-    },
-    "trip_request": {
-      "destination": "Sindhuli",
-      "start_date": "2025-10-23",
-      "end_date": "2025-10-30",
-      "budget": 1000,
-      "travelers": 1,
-      "interests": [
-        "adventure",
         "culture",
-        "relaxation",
-        "food",
-        "nature"
-      ],
-      "from": "Dharan",
-      "travel_style": "luxury",
-      "accommodation": "hotel",
-      "transportation": "flight",
-      "meal_preference": "all",
-      "activity_level": "moderate",
-      "special_requests": "",
-      "timestamp": "2025-10-22T07:30:18.723145"
-    },
-    "cost_breakdown": {
-      "total_estimated": 2655.0,
-      "breakdown": {
-        "flights": 1062,
-        "hotels": 796,
-        "activities": 531,
-        "food": 266
-      },
-      "currency": "USD"
-    },
-    "api_sources": {
-      "weather": "OpenWeatherMap API",
-      "flights": "Amadeus API",
-      "hotels": "Amadeus API",
-      "ai_content": "OpenAI GPT",
-      "itinerary_generation": {
-        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "weather": "OpenWeatherMap API"
-      },
-      "summary_generation": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      }
-    },
-    "ai_enhanced": true,
-    "created_at": "2025-10-22T07:31:03.360393"
-  },
-  {
-    "id": 5,
-    "from": "New Work",
-    "destination": "Kathmandu",
-    "start_date": "2025-10-23",
-    "end_date": "2025-10-30",
-    "budget": 50000,
-    "travelers": 5,
-    "travel_style": "luxury",
-    "accommodation": "hotel",
-    "transportation": "flight",
-    "meal_preference": "all",
-    "activity_level": "moderate",
-    "special_requests": "",
-    "interests": [
-      "adventure",
-      "culture",
-      "relaxation",
-      "food",
-      "nature",
-      "wellness",
-      "nightlife",
-      "history",
-      "photography",
-      "shopping"
-    ],
-    "plan": "\n            Welcome to Kathmandu - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 27\u00b0C, \n            this is an ideal time to explore everything Kathmandu has to offer.\n            \n            Your $50000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Kathmandu truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
-    "itinerary": {
-      "destination": "Kathmandu",
-      "duration": 7,
-      "activities": [
-        "Morning: Private guided tour of Swayambhunath Stupa (Monkey Temple) with spiritual blessings from local monks, includes panoramic photography opportunities of Kathmandu Valley",
-        "Afternoon: Luxury shopping experience in Thamel with personal shopper, visiting specialty stores for pashminas, handicrafts, and Tibetan artifacts",
-        "Evening: Welcome dinner at Bhojan Griha with private cultural dance performance and authentic Nepali thali feast",
-        "Morning: Private helicopter tour to Everest Base Camp with champagne breakfast at 18,000 feet, includes professional photography session",
-        "Afternoon: Exclusive spa treatment at Dwarika's Resort with traditional Ayurvedic massages and Himalayan salt therapy",
-        "Evening: Gourmet dining at Krishnarpan Restaurant with 6-course traditional Newari tasting menu and wine pairing",
-        "Morning: Private guided exploration of Patan Durbar Square with art historian, including Golden Temple and Patan Museum with special access to restricted areas",
-        "Afternoon: Hands-on cooking class with master chef at Nepal Cooking School focusing on Newari cuisine, followed by lunch",
-        "Evening: Rooftop cocktails and fine dining at Kaiser Caf\u00e9 in Garden of Dreams with live jazz performance",
-        "Morning: White water rafting on Trishuli River with luxury camp setup, private guides, and gourmet riverside lunch",
-        "Afternoon: Visit to Bhaktapur Durbar Square with private art conservationist guide, including pottery square demonstration and wood carving workshops",
-        "Evening: Private dinner at Ancient Garden Restaurant in Bhaktapur with traditional Newari architecture setting",
-        "Morning: Sunrise yoga session at Kopan Monastery with Buddhist monks, followed by meditation and spiritual discussion",
-        "Afternoon: Private helicopter transfer to Nagarkot for mountain viewing, champagne picnic with 180-degree Himalayan views",
-        "Evening: Luxury stargazing experience with astronomer guide and telescope setup at Club Himalaya resort",
-        "Morning: Private tour of Pashupatinath Temple and Boudhanath Stupa with spiritual guide, including butter lamp offering and prayer wheel ceremony",
-        "Afternoon: Adventure zip-lining experience at The Last Resort with VIP safety briefing and professional photography package",
-        "Evening: Exclusive nightlife experience at Club D\u00e9j\u00e0 Vu with private booth, bottle service, and traditional Nepali band performance",
-        "Morning: Final luxury shopping at Babar Mahal Revisited complex for high-end handicrafts and artwork with personal curator",
-        "Afternoon: Farewell lunch at Raithaane Restaurant with modern Nepali cuisine tasting menu and craft cocktail pairing",
-        "Evening: Private cultural performance and farewell dinner at Hotel Yak & Yeti with traditional music and dance showcase"
-      ],
-      "estimated_cost": 11560.0,
-      "recommendations": [
-        "Book helicopter tours through reputable operators like Fishtail Air",
-        "Carry local currency for temple offerings and small purchases",
-        "Dress modestly when visiting religious sites",
-        "Arrange private luxury transportation through hotel concierge",
-        "Try local delicacies like momos, dal bhat, and Newari cuisine",
-        "Respect photography restrictions at religious sites",
-        "Stay hydrated and acclimatize properly to altitude"
-      ],
-      "daily_plan": [
-        {
-          "day": 1,
-          "morning": "Private guided tour of Swayambhunath Stupa (Monkey Temple) with spiritual blessings from local monks, includes panoramic photography opportunities of Kathmandu Valley",
-          "afternoon": "Luxury shopping experience in Thamel with personal shopper, visiting specialty stores for pashminas, handicrafts, and Tibetan artifacts",
-          "evening": "Welcome dinner at Bhojan Griha with private cultural dance performance and authentic Nepali thali feast",
-          "estimated_cost": 450
-        },
-        {
-          "day": 2,
-          "morning": "Private helicopter tour to Everest Base Camp with champagne breakfast at 18,000 feet, includes professional photography session",
-          "afternoon": "Exclusive spa treatment at Dwarika's Resort with traditional Ayurvedic massages and Himalayan salt therapy",
-          "evening": "Gourmet dining at Krishnarpan Restaurant with 6-course traditional Newari tasting menu and wine pairing",
-          "estimated_cost": 12000
-        },
-        {
-          "day": 3,
-          "morning": "Private guided exploration of Patan Durbar Square with art historian, including Golden Temple and Patan Museum with special access to restricted areas",
-          "afternoon": "Hands-on cooking class with master chef at Nepal Cooking School focusing on Newari cuisine, followed by lunch",
-          "evening": "Rooftop cocktails and fine dining at Kaiser Caf\u00e9 in Garden of Dreams with live jazz performance",
-          "estimated_cost": 850
-        },
-        {
-          "day": 4,
-          "morning": "White water rafting on Trishuli River with luxury camp setup, private guides, and gourmet riverside lunch",
-          "afternoon": "Visit to Bhaktapur Durbar Square with private art conservationist guide, including pottery square demonstration and wood carving workshops",
-          "evening": "Private dinner at Ancient Garden Restaurant in Bhaktapur with traditional Newari architecture setting",
-          "estimated_cost": 1200
-        },
-        {
-          "day": 5,
-          "morning": "Sunrise yoga session at Kopan Monastery with Buddhist monks, followed by meditation and spiritual discussion",
-          "afternoon": "Private helicopter transfer to Nagarkot for mountain viewing, champagne picnic with 180-degree Himalayan views",
-          "evening": "Luxury stargazing experience with astronomer guide and telescope setup at Club Himalaya resort",
-          "estimated_cost": 8500
-        },
-        {
-          "day": 6,
-          "morning": "Private tour of Pashupatinath Temple and Boudhanath Stupa with spiritual guide, including butter lamp offering and prayer wheel ceremony",
-          "afternoon": "Adventure zip-lining experience at The Last Resort with VIP safety briefing and professional photography package",
-          "evening": "Exclusive nightlife experience at Club D\u00e9j\u00e0 Vu with private booth, bottle service, and traditional Nepali band performance",
-          "estimated_cost": 2800
-        },
-        {
-          "day": 7,
-          "morning": "Final luxury shopping at Babar Mahal Revisited complex for high-end handicrafts and artwork with personal curator",
-          "afternoon": "Farewell lunch at Raithaane Restaurant with modern Nepali cuisine tasting menu and craft cocktail pairing",
-          "evening": "Private cultural performance and farewell dinner at Hotel Yak & Yeti with traditional music and dance showcase",
-          "estimated_cost": 2200
-        }
-      ],
-      "ai_generated": true,
-      "api_sources": {
-        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
-        "flights": "Amadeus API",
-        "hotels": "Enhanced Mock Data",
-        "weather": "OpenWeatherMap API"
-      },
-      "timestamp": "2025-10-22T15:18:55.113262"
-    },
-    "summary": {
-      "trip_overview": "\n            Welcome to Kathmandu - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 27\u00b0C, \n            this is an ideal time to explore everything Kathmandu has to offer.\n            \n            Your $50000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Kathmandu truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
-      "key_highlights": [
-        "Best flight deal: Delta Airlines - $485",
-        "Weather forecast: Clouds 27\u00b0C"
-      ],
-      "budget_summary": {
-        "total_estimated": 11560.0,
-        "breakdown": {
-          "flights": 4624,
-          "hotels": 3468,
-          "activities": 2312,
-          "food": 1156
-        },
-        "currency": "USD"
-      },
-      "recommendations": [
-        "Explore premium experiences and fine dining",
-        "Book accommodations early for better rates",
-        "Check visa requirements",
-        "Get travel insurance",
-        "Download offline maps"
-      ],
-      "api_sources_used": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      },
-      "ai_generated": true,
-      "timestamp": "2025-10-22T15:18:55.113772"
-    },
-    "trip_request": {
-      "destination": "Kathmandu",
-      "start_date": "2025-10-23",
-      "end_date": "2025-10-30",
-      "budget": 50000,
-      "travelers": 5,
-      "interests": [
-        "adventure",
-        "culture",
-        "relaxation",
         "food",
         "nature",
         "wellness",
@@ -1077,179 +646,100 @@
         "photography",
         "shopping"
       ],
-      "from": "New Work",
+      "from": "Kathmandu",
       "travel_style": "luxury",
       "accommodation": "hotel",
       "transportation": "flight",
       "meal_preference": "all",
       "activity_level": "moderate",
       "special_requests": "",
-      "timestamp": "2025-10-22T09:33:18.889444"
+      "timestamp": "2025-10-28T13:15:42.983249"
     },
     "cost_breakdown": {
-      "total_estimated": 11560.0,
+      "total_estimated": 3595.0,
       "breakdown": {
-        "flights": 4624,
-        "hotels": 3468,
-        "activities": 2312,
-        "food": 1156
+        "flights": 1438,
+        "hotels": 1078,
+        "activities": 719,
+        "food": 360
       },
       "currency": "USD"
     },
+    "hotel_recommendations": [
+      {
+        "id": "mock_001",
+        "name": "Grand Hotel Dharan",
+        "price_per_night": 120.0,
+        "currency": "USD",
+        "rating": 8.5,
+        "location": "Dharan",
+        "address": "123 Main Street, Dharan",
+        "amenities": [
+          "WiFi",
+          "Pool",
+          "Restaurant",
+          "Gym"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T19:00:45.659029"
+      },
+      {
+        "id": "mock_002",
+        "name": "Luxury Resort Dharan",
+        "price_per_night": 200.0,
+        "currency": "USD",
+        "rating": 9.2,
+        "location": "Dharan",
+        "address": "456 Resort Avenue, Dharan",
+        "amenities": [
+          "WiFi",
+          "Spa",
+          "Restaurant",
+          "Bar",
+          "Pool"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T19:00:45.659046"
+      },
+      {
+        "id": "mock_003",
+        "name": "Budget Inn Dharan",
+        "price_per_night": 75.0,
+        "currency": "USD",
+        "rating": 7.8,
+        "location": "Dharan",
+        "address": "789 Budget Street, Dharan",
+        "amenities": [
+          "WiFi",
+          "Breakfast"
+        ],
+        "image_url": "",
+        "api_source": "Mock Data (RapidAPI unavailable)",
+        "search_timestamp": "2025-10-28T19:00:45.659054"
+      }
+    ],
     "api_sources": {
       "weather": "OpenWeatherMap API",
       "flights": "Amadeus API",
-      "hotels": "Amadeus API",
+      "hotels": "RapidAPI Booking.com",
       "ai_content": "OpenAI GPT",
       "itinerary_generation": {
         "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
         "flights": "Amadeus API",
-        "hotels": "Enhanced Mock Data",
+        "hotels": "RapidAPI Booking.com",
         "weather": "OpenWeatherMap API"
       },
       "summary_generation": {
         "weather": "OpenWeatherMap API",
         "flights": "Amadeus API",
-        "hotels": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
         "ai_content": "OpenAI GPT",
         "summary_generation": "AI-Powered"
       }
     },
     "ai_enhanced": true,
-    "created_at": "2025-10-22T09:33:55.115886"
-  },
-  {
-    "id": 6,
-    "from": "e",
-    "destination": "e",
-    "start_date": "2025-10-22",
-    "end_date": "2025-10-23",
-    "budget": 1000,
-    "travelers": 1,
-    "travel_style": "mid-range",
-    "accommodation": "hotel",
-    "transportation": "flight",
-    "meal_preference": "all",
-    "activity_level": "moderate",
-    "special_requests": "",
-    "interests": [
-      "nightlife"
-    ],
-    "plan": "Welcome to e! Your personalized travel plan is ready.",
-    "itinerary": {
-      "destination": "e",
-      "duration": 1,
-      "activities": [
-        "Morning: Arrive in e, check-in, and explore the city center",
-        "Afternoon: Walking tour of e's main attractions",
-        "Evening: Welcome dinner at a traditional restaurant in e"
-      ],
-      "estimated_cost": 710.0,
-      "recommendations": [
-        "Explore e's unique attractions",
-        "Try authentic local cuisine",
-        "Engage with local culture and traditions",
-        "Visit during optimal times to avoid crowds",
-        "Take plenty of photos at scenic spots"
-      ],
-      "daily_plan": [
-        {
-          "day": 1,
-          "morning": "Arrive in e, check-in, and explore the city center",
-          "afternoon": "Walking tour of e's main attractions",
-          "evening": "Welcome dinner at a traditional restaurant in e",
-          "estimated_cost": 100
-        }
-      ],
-      "ai_generated": true,
-      "api_sources": {
-        "itinerary": "Enhanced Dynamic Generation",
-        "flights": "Amadeus API",
-        "hotels": "Enhanced Mock Data",
-        "weather": "OpenWeatherMap API"
-      },
-      "timestamp": "2025-10-22T16:05:40.988032"
-    },
-    "summary": {
-      "trip_overview": "Welcome to e! Your personalized travel plan is ready.",
-      "key_highlights": [
-        "Best flight deal: Delta Airlines - $485",
-        "Weather forecast: Clear 22\u00b0C"
-      ],
-      "budget_summary": {
-        "total_estimated": 710.0,
-        "breakdown": {
-          "flights": 284,
-          "hotels": 213,
-          "activities": 142,
-          "food": 71
-        },
-        "currency": "USD"
-      },
-      "recommendations": [
-        "Book accommodations early for better rates",
-        "Check visa requirements",
-        "Get travel insurance",
-        "Download offline maps"
-      ],
-      "api_sources_used": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      },
-      "ai_generated": true,
-      "timestamp": "2025-10-22T16:05:40.988402"
-    },
-    "trip_request": {
-      "destination": "e",
-      "start_date": "2025-10-22",
-      "end_date": "2025-10-23",
-      "budget": 1000,
-      "travelers": 1,
-      "interests": [
-        "nightlife"
-      ],
-      "from": "e",
-      "travel_style": "mid-range",
-      "accommodation": "hotel",
-      "transportation": "flight",
-      "meal_preference": "all",
-      "activity_level": "moderate",
-      "special_requests": "",
-      "timestamp": "2025-10-22T10:20:39.425665"
-    },
-    "cost_breakdown": {
-      "total_estimated": 710.0,
-      "breakdown": {
-        "flights": 284,
-        "hotels": 213,
-        "activities": 142,
-        "food": 71
-      },
-      "currency": "USD"
-    },
-    "api_sources": {
-      "weather": "OpenWeatherMap API",
-      "flights": "Amadeus API",
-      "hotels": "Amadeus API",
-      "ai_content": "OpenAI GPT",
-      "itinerary_generation": {
-        "itinerary": "Enhanced Dynamic Generation",
-        "flights": "Amadeus API",
-        "hotels": "Enhanced Mock Data",
-        "weather": "OpenWeatherMap API"
-      },
-      "summary_generation": {
-        "weather": "OpenWeatherMap API",
-        "flights": "Amadeus API",
-        "hotels": "Amadeus API",
-        "ai_content": "OpenAI GPT",
-        "summary_generation": "AI-Powered"
-      }
-    },
-    "ai_enhanced": true,
-    "created_at": "2025-10-22T10:20:40.991498"
+    "created_at": "2025-10-28T13:16:01.536195"
   }
 ]
