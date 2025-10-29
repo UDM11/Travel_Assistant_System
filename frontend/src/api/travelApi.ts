@@ -86,7 +86,9 @@ export const planTrip = async (formData: TripFormData): Promise<TripData> => {
 const transformTripResponse = (response: any, formData?: TripFormData): TripData => {
   // Transform the backend response to match frontend TripData interface
   console.log('Full response:', response);
+  console.log('Hotel recommendations in response:', response.hotel_recommendations);
   const research = response.research || {};
+  console.log('Hotels in research:', research.hotels);
   const weather = research.weather || {};
   const itinerary = response.itinerary || {};
   const summary = response.summary || {};
@@ -156,9 +158,14 @@ const transformTripResponse = (response: any, formData?: TripFormData): TripData
       }));
     })(),
     createdAt: new Date().toISOString(),
-    // Add real API data
-    flights: research.flights || [],
-    hotels: research.hotels || [],
+    // Add real API data - with detailed logging
+    flights: research.flights || response.flights || [],
+    hotels: (() => {
+      const hotelData = response.hotel_recommendations || response.hotel_data || research.hotels || [];
+      console.log('Final hotel data being set:', hotelData);
+      return hotelData;
+    })(),
+    hotel_recommendations: response.hotel_recommendations || response.hotel_data || research.hotels || [],
     weatherDetails: response.weather_data || weather || null,
     research: research,
     apiSources: apiSources,
@@ -240,7 +247,8 @@ export const getAllTrips = async (): Promise<TripData[]> => {
               })),
           createdAt: trip.created_at || new Date().toISOString(),
           flights: summaryData.key_highlights?.filter((h: string) => h.includes('flight')) || [],
-          hotels: summaryData.key_highlights?.filter((h: string) => h.includes('hotel')) || [],
+          hotels: trip.hotel_recommendations || summaryData.key_highlights?.filter((h: string) => h.includes('hotel')) || [],
+          hotel_recommendations: trip.hotel_recommendations || [],
           weatherDetails: {
             temperature: summaryData.key_highlights?.[2]?.match(/\d+°C/)?.[0] || '22°C',
             condition: summaryData.key_highlights?.[2]?.split(' ')[2] || 'Clear',

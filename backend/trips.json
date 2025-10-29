@@ -741,5 +741,521 @@
     },
     "ai_enhanced": true,
     "created_at": "2025-10-28T13:16:01.536195"
+  },
+  {
+    "id": 5,
+    "from": "New York",
+    "destination": "Paris",
+    "start_date": "2024-01-15",
+    "end_date": "2024-01-18",
+    "budget": 2000,
+    "travelers": 2,
+    "travel_style": "mid-range",
+    "accommodation": "hotel",
+    "transportation": "flight",
+    "meal_preference": "all",
+    "activity_level": "moderate",
+    "special_requests": "",
+    "interests": [
+      "culture",
+      "food"
+    ],
+    "plan": "\n            Welcome to Paris - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 15\u00b0C, \n            this is an ideal time to explore everything Paris has to offer.\n            \n            Your $2000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Paris truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+    "itinerary": {
+      "destination": "Paris",
+      "duration": 3,
+      "activities": [
+        "Morning: Visit Louvre Museum (9 AM - 12 PM) - Explore masterpieces including Mona Lisa and Venus de Milo. Cost: $38 per person for timed entry tickets",
+        "Afternoon: Stroll through Tuileries Garden and visit Mus\u00e9e de l'Orangerie (1 PM - 5 PM) - Admire Monet's Water Lilies. Cost: $15 per person. Take Metro Line 1 between locations",
+        "Evening: Dinner at Le Comptoir du Relais in Saint-Germain (6 PM - 9 PM) - Classic French bistro experience. Cost: $120 for two with wine. Walk along Seine River afterward",
+        "Morning: Climb Eiffel Tower (9 AM - 12 PM) - Summit access with panoramic views. Cost: $53 per person. Arrive early to avoid crowds",
+        "Afternoon: Seine River Cruise and visit Mus\u00e9e d'Orsay (1 PM - 5 PM) - 1-hour boat tour $22 per person, museum $19 per person. Take Batobus between stops",
+        "Evening: Dinner at Les Ombres restaurant with Eiffel Tower views (6 PM - 9 PM) - Modern French cuisine. Cost: $180 for two. Watch tower sparkle at top of the hour",
+        "Morning: Explore Montmartre and Sacr\u00e9-C\u0153ur Basilica (9 AM - 12 PM) - Free basilica entry, $12 for dome climb. Ride funicular to save energy",
+        "Afternoon: Visit Centre Pompidou and Marais district walking tour (1 PM - 5 PM) - Museum $18 per person. Explore historic Jewish quarter and vintage shops",
+        "Evening: Farewell dinner at Bouillon Chartier (6 PM - 9 PM) - Historic Parisian brasserie since 1896. Cost: $70 for two. Final stroll through illuminated streets"
+      ],
+      "estimated_cost": 1945.0,
+      "recommendations": [
+        "Purchase Paris Museum Pass if visiting multiple museums",
+        "Learn basic French phrases like 'bonjour' and 'merci'",
+        "Comfortable walking shoes essential for cobblestone streets",
+        "Make dinner reservations in advance for popular restaurants",
+        "Validate metro tickets before boarding to avoid fines"
+      ],
+      "daily_plan": [
+        {
+          "day": 1,
+          "morning": "Visit Louvre Museum (9 AM - 12 PM) - Explore masterpieces including Mona Lisa and Venus de Milo. Cost: $38 per person for timed entry tickets",
+          "afternoon": "Stroll through Tuileries Garden and visit Mus\u00e9e de l'Orangerie (1 PM - 5 PM) - Admire Monet's Water Lilies. Cost: $15 per person. Take Metro Line 1 between locations",
+          "evening": "Dinner at Le Comptoir du Relais in Saint-Germain (6 PM - 9 PM) - Classic French bistro experience. Cost: $120 for two with wine. Walk along Seine River afterward",
+          "estimated_cost": 346,
+          "cultural_tips": "Book Louvre tickets online to skip lines. French meals are leisurely - expect dinner to take 2+ hours. Dress smart-casual for nicer restaurants"
+        },
+        {
+          "day": 2,
+          "morning": "Climb Eiffel Tower (9 AM - 12 PM) - Summit access with panoramic views. Cost: $53 per person. Arrive early to avoid crowds",
+          "afternoon": "Seine River Cruise and visit Mus\u00e9e d'Orsay (1 PM - 5 PM) - 1-hour boat tour $22 per person, museum $19 per person. Take Batobus between stops",
+          "evening": "Dinner at Les Ombres restaurant with Eiffel Tower views (6 PM - 9 PM) - Modern French cuisine. Cost: $180 for two. Watch tower sparkle at top of the hour",
+          "estimated_cost": 327,
+          "cultural_tips": "Eiffel Tower summit tickets sell out quickly - book weeks in advance. Museum d'Orsay houses magnificent Impressionist collection in beautiful former railway station"
+        },
+        {
+          "day": 3,
+          "morning": "Explore Montmartre and Sacr\u00e9-C\u0153ur Basilica (9 AM - 12 PM) - Free basilica entry, $12 for dome climb. Ride funicular to save energy",
+          "afternoon": "Visit Centre Pompidou and Marais district walking tour (1 PM - 5 PM) - Museum $18 per person. Explore historic Jewish quarter and vintage shops",
+          "evening": "Farewell dinner at Bouillon Chartier (6 PM - 9 PM) - Historic Parisian brasserie since 1896. Cost: $70 for two. Final stroll through illuminated streets",
+          "estimated_cost": 218,
+          "cultural_tips": "Montmartre artists may offer quick portraits - negotiate price first. Bouillon Chartier maintains traditional French service - cash preferred. Save metro tickets as they're valid for transfers within 2 hours"
+        }
+      ],
+      "ai_generated": true,
+      "api_sources": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "weather": "OpenWeatherMap API"
+      },
+      "timestamp": "2025-10-29T19:05:47.439714"
+    },
+    "summary": {
+      "trip_overview": "\n            Welcome to Paris - your perfect getaway awaits!\n            \n            With Clear weather and temperatures around 15\u00b0C, \n            this is an ideal time to explore everything Paris has to offer.\n            \n            Your $2000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Paris truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+      "key_highlights": [
+        "Best flight deal: Delta Airlines - $485",
+        "Top hotel: Luxury Resort Paris (9.2/10)",
+        "Weather forecast: Clear 15\u00b0C"
+      ],
+      "budget_summary": {
+        "total_estimated": 1945.0,
+        "breakdown": {
+          "flights": 778,
+          "hotels": 584,
+          "activities": 389,
+          "food": 194
+        },
+        "currency": "USD"
+      },
+      "recommendations": [
+        "Book accommodations early for better rates",
+        "Check visa requirements",
+        "Get travel insurance",
+        "Download offline maps"
+      ],
+      "api_sources_used": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      },
+      "ai_generated": true,
+      "timestamp": "2025-10-29T19:05:47.440071"
+    },
+    "trip_request": {
+      "destination": "Paris",
+      "start_date": "2024-01-15",
+      "end_date": "2024-01-18",
+      "budget": 2000,
+      "travelers": 2,
+      "interests": [
+        "culture",
+        "food"
+      ],
+      "from": "New York",
+      "travel_style": "mid-range",
+      "accommodation": "hotel",
+      "transportation": "flight",
+      "meal_preference": "all",
+      "activity_level": "moderate",
+      "special_requests": "",
+      "timestamp": "2025-10-29T13:20:19.523475"
+    },
+    "cost_breakdown": {
+      "total_estimated": 1945.0,
+      "breakdown": {
+        "flights": 778,
+        "hotels": 584,
+        "activities": 389,
+        "food": 194
+      },
+      "currency": "USD"
+    },
+    "hotel_recommendations": [
+      {
+        "id": "cached_001",
+        "name": "Grand Hotel Paris",
+        "price_per_night": 120.0,
+        "currency": "USD",
+        "rating": 8.5,
+        "review_count": 1250,
+        "location": "Paris",
+        "address": "123 Main Street, Paris",
+        "room_type": "Deluxe Room",
+        "bed_type": "King Bed",
+        "view": "City View",
+        "breakfast": "Continental Breakfast Included",
+        "cancellation": "Free Cancellation",
+        "distance_to_center": "0.5 km",
+        "amenities": [
+          "WiFi",
+          "Pool",
+          "Restaurant",
+          "Gym",
+          "Concierge",
+          "Room Service"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:05:29.024854"
+      },
+      {
+        "id": "cached_002",
+        "name": "Luxury Resort Paris",
+        "price_per_night": 200.0,
+        "currency": "USD",
+        "rating": 9.2,
+        "review_count": 890,
+        "location": "Paris",
+        "address": "456 Resort Avenue, Paris",
+        "room_type": "Suite",
+        "bed_type": "King Bed",
+        "view": "Ocean View",
+        "breakfast": "Full Breakfast Included",
+        "cancellation": "Free Cancellation up to 24h",
+        "distance_to_center": "2.1 km",
+        "amenities": [
+          "WiFi",
+          "Spa",
+          "Restaurant",
+          "Bar",
+          "Pool",
+          "Beach Access",
+          "Fitness Center"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:05:29.024868"
+      },
+      {
+        "id": "cached_003",
+        "name": "Budget Inn Paris",
+        "price_per_night": 75.0,
+        "currency": "USD",
+        "rating": 7.8,
+        "review_count": 456,
+        "location": "Paris",
+        "address": "789 Budget Street, Paris",
+        "room_type": "Standard Room",
+        "bed_type": "Double Bed",
+        "view": "Street View",
+        "breakfast": "Continental Breakfast Available",
+        "cancellation": "Non-refundable",
+        "distance_to_center": "1.2 km",
+        "amenities": [
+          "WiFi",
+          "Breakfast",
+          "24h Reception"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:05:29.024873"
+      }
+    ],
+    "api_sources": {
+      "weather": "OpenWeatherMap API",
+      "flights": "Amadeus API",
+      "hotels": "RapidAPI Booking.com",
+      "ai_content": "OpenAI GPT",
+      "itinerary_generation": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "weather": "OpenWeatherMap API"
+      },
+      "summary_generation": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      }
+    },
+    "ai_enhanced": true,
+    "created_at": "2025-10-29T13:20:47.455893"
+  },
+  {
+    "id": 6,
+    "from": "Mumbai ",
+    "destination": "Kathmandu",
+    "start_date": "2025-10-30",
+    "end_date": "2025-11-05",
+    "budget": 10000,
+    "travelers": 2,
+    "travel_style": "luxury",
+    "accommodation": "hotel",
+    "transportation": "flight",
+    "meal_preference": "all",
+    "activity_level": "moderate",
+    "special_requests": "",
+    "interests": [
+      "adventure",
+      "relaxation",
+      "photography",
+      "wellness"
+    ],
+    "plan": "\n            Welcome to Kathmandu - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 19\u00b0C, \n            this is an ideal time to explore everything Kathmandu has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Kathmandu truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+    "itinerary": {
+      "destination": "Kathmandu",
+      "duration": 6,
+      "activities": [
+        "Morning: Private guided tour of Swayambhunath Temple (Monkey Temple) with photography session of panoramic Kathmandu Valley views. Includes traditional prayer flag ceremony and monk blessing",
+        "Afternoon: Luxury lunch at Dwarika's Hotel followed by exclusive guided tour of Patan Durbar Square with access to preserved ancient courtyards and artisan workshops",
+        "Evening: Sunset cocktails at The Old House rooftop followed by 7-course Nepali tasting menu at Bhojan Griha with live cultural performances",
+        "Morning: Private helicopter flight to Nagarkot for sunrise photography over Himalayan range (Annapurna, Manaslu, Everest visibility permitting) with champagne breakfast at Club Himalaya",
+        "Afternoon: Return to Kathmandu for private Ayurvedic spa treatment at Dwarika's Resort including traditional massage and herbal therapies",
+        "Evening: Exclusive cooking class and dinner at Nepali Chulo learning to prepare authentic Newari cuisine with master chefs",
+        "Morning: Private guided hike through Shivapuri National Park with naturalist guide for bird watching and mountain photography. Includes gourmet picnic breakfast",
+        "Afternoon: Visit to Boudhanath Stupa with private meditation session with resident monks and traditional thangka painting workshop",
+        "Evening: Fine dining experience at Kaiser Caf\u00e9 in Garden of Dreams followed by private classical music performance",
+        "Morning: Scenic helicopter flight to Pokhara with aerial photography of Himalayan peaks. Private transfer to Temple Tree Resort",
+        "Afternoon: Luxury boating on Phewa Lake with professional photographer guide. Visit to Tal Barahi Temple and lakeside exploration",
+        "Evening: Private candlelit dinner at The French Restaurant with Annapurna mountain views and wine pairing",
+        "Morning: Sunrise paragliding adventure from Sarangkot with professional pilots and photography package. Includes champagne celebration landing",
+        "Afternoon: Private wellness retreat at Atmaya Spa with Himalayan salt therapy and hot stone massage. Lunch at The Harbor Restaurant",
+        "Evening: Cultural evening at Tibetan Refugee Camp with private guided tour and traditional dinner with local family",
+        "Morning: Helicopter return to Kathmandu with aerial tour of Gosaikunda lakes. Final shopping at Babar Mahal Revisited luxury boutiques",
+        "Afternoon: Private farewell lunch at Chez Caroline with French-Nepali fusion cuisine. Last-minute cultural souvenir shopping",
+        "Evening: Sunset farewell cocktails at Hyatt Regency rooftop bar with panoramic city views and personalized photo book presentation of the trip"
+      ],
+      "estimated_cost": 4120.0,
+      "recommendations": [
+        "Book helicopter tours in advance through reputable operators",
+        "Carry local currency for artisan purchases and tips",
+        "Respect temple customs - remove shoes and dress modestly",
+        "Hire private car with driver for all transportation (approx $100/day)",
+        "Acquire necessary permits for photography in religious sites",
+        "Stay hydrated and allow for altitude adjustment",
+        "Purchase travel insurance covering adventure activities"
+      ],
+      "daily_plan": [
+        {
+          "day": 1,
+          "morning": "Private guided tour of Swayambhunath Temple (Monkey Temple) with photography session of panoramic Kathmandu Valley views. Includes traditional prayer flag ceremony and monk blessing",
+          "afternoon": "Luxury lunch at Dwarika's Hotel followed by exclusive guided tour of Patan Durbar Square with access to preserved ancient courtyards and artisan workshops",
+          "evening": "Sunset cocktails at The Old House rooftop followed by 7-course Nepali tasting menu at Bhojan Griha with live cultural performances",
+          "estimated_cost": 450
+        },
+        {
+          "day": 2,
+          "morning": "Private helicopter flight to Nagarkot for sunrise photography over Himalayan range (Annapurna, Manaslu, Everest visibility permitting) with champagne breakfast at Club Himalaya",
+          "afternoon": "Return to Kathmandu for private Ayurvedic spa treatment at Dwarika's Resort including traditional massage and herbal therapies",
+          "evening": "Exclusive cooking class and dinner at Nepali Chulo learning to prepare authentic Newari cuisine with master chefs",
+          "estimated_cost": 1850
+        },
+        {
+          "day": 3,
+          "morning": "Private guided hike through Shivapuri National Park with naturalist guide for bird watching and mountain photography. Includes gourmet picnic breakfast",
+          "afternoon": "Visit to Boudhanath Stupa with private meditation session with resident monks and traditional thangka painting workshop",
+          "evening": "Fine dining experience at Kaiser Caf\u00e9 in Garden of Dreams followed by private classical music performance",
+          "estimated_cost": 680
+        },
+        {
+          "day": 4,
+          "morning": "Scenic helicopter flight to Pokhara with aerial photography of Himalayan peaks. Private transfer to Temple Tree Resort",
+          "afternoon": "Luxury boating on Phewa Lake with professional photographer guide. Visit to Tal Barahi Temple and lakeside exploration",
+          "evening": "Private candlelit dinner at The French Restaurant with Annapurna mountain views and wine pairing",
+          "estimated_cost": 2200
+        },
+        {
+          "day": 5,
+          "morning": "Sunrise paragliding adventure from Sarangkot with professional pilots and photography package. Includes champagne celebration landing",
+          "afternoon": "Private wellness retreat at Atmaya Spa with Himalayan salt therapy and hot stone massage. Lunch at The Harbor Restaurant",
+          "evening": "Cultural evening at Tibetan Refugee Camp with private guided tour and traditional dinner with local family",
+          "estimated_cost": 950
+        },
+        {
+          "day": 6,
+          "morning": "Helicopter return to Kathmandu with aerial tour of Gosaikunda lakes. Final shopping at Babar Mahal Revisited luxury boutiques",
+          "afternoon": "Private farewell lunch at Chez Caroline with French-Nepali fusion cuisine. Last-minute cultural souvenir shopping",
+          "evening": "Sunset farewell cocktails at Hyatt Regency rooftop bar with panoramic city views and personalized photo book presentation of the trip",
+          "estimated_cost": 1850
+        }
+      ],
+      "ai_generated": true,
+      "api_sources": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "weather": "OpenWeatherMap API"
+      },
+      "timestamp": "2025-10-29T19:10:41.341321"
+    },
+    "summary": {
+      "trip_overview": "\n            Welcome to Kathmandu - your perfect getaway awaits!\n            \n            With Clouds weather and temperatures around 19\u00b0C, \n            this is an ideal time to explore everything Kathmandu has to offer.\n            \n            Your $10000 budget allows for a comfortable mix of must-see attractions, \n            authentic local experiences, and hidden gems that make Kathmandu truly special. \n            \n            From world-class dining to cultural landmarks, every moment of your journey \n            has been thoughtfully planned to create unforgettable memories.\n            ",
+      "key_highlights": [
+        "Best flight deal: Delta Airlines - $485",
+        "Top hotel: Luxury Resort Kathmandu (9.2/10)",
+        "Weather forecast: Clouds 19\u00b0C"
+      ],
+      "budget_summary": {
+        "total_estimated": 4120.0,
+        "breakdown": {
+          "flights": 1648,
+          "hotels": 1236,
+          "activities": 824,
+          "food": 412
+        },
+        "currency": "USD"
+      },
+      "recommendations": [
+        "Explore premium experiences and fine dining",
+        "Book accommodations early for better rates",
+        "Check visa requirements",
+        "Get travel insurance",
+        "Download offline maps"
+      ],
+      "api_sources_used": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      },
+      "ai_generated": true,
+      "timestamp": "2025-10-29T19:10:41.341808"
+    },
+    "trip_request": {
+      "destination": "Kathmandu",
+      "start_date": "2025-10-30",
+      "end_date": "2025-11-05",
+      "budget": 10000,
+      "travelers": 2,
+      "interests": [
+        "adventure",
+        "relaxation",
+        "photography",
+        "wellness"
+      ],
+      "from": "Mumbai ",
+      "travel_style": "luxury",
+      "accommodation": "hotel",
+      "transportation": "flight",
+      "meal_preference": "all",
+      "activity_level": "moderate",
+      "special_requests": "",
+      "timestamp": "2025-10-29T13:25:04.187134"
+    },
+    "cost_breakdown": {
+      "total_estimated": 4120.0,
+      "breakdown": {
+        "flights": 1648,
+        "hotels": 1236,
+        "activities": 824,
+        "food": 412
+      },
+      "currency": "USD"
+    },
+    "hotel_recommendations": [
+      {
+        "id": "cached_001",
+        "name": "Grand Hotel Kathmandu",
+        "price_per_night": 120.0,
+        "currency": "USD",
+        "rating": 8.5,
+        "review_count": 1250,
+        "location": "Kathmandu",
+        "address": "123 Main Street, Kathmandu",
+        "room_type": "Deluxe Room",
+        "bed_type": "King Bed",
+        "view": "City View",
+        "breakfast": "Continental Breakfast Included",
+        "cancellation": "Free Cancellation",
+        "distance_to_center": "0.5 km",
+        "amenities": [
+          "WiFi",
+          "Pool",
+          "Restaurant",
+          "Gym",
+          "Concierge",
+          "Room Service"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:10:06.639305"
+      },
+      {
+        "id": "cached_002",
+        "name": "Luxury Resort Kathmandu",
+        "price_per_night": 200.0,
+        "currency": "USD",
+        "rating": 9.2,
+        "review_count": 890,
+        "location": "Kathmandu",
+        "address": "456 Resort Avenue, Kathmandu",
+        "room_type": "Suite",
+        "bed_type": "King Bed",
+        "view": "Ocean View",
+        "breakfast": "Full Breakfast Included",
+        "cancellation": "Free Cancellation up to 24h",
+        "distance_to_center": "2.1 km",
+        "amenities": [
+          "WiFi",
+          "Spa",
+          "Restaurant",
+          "Bar",
+          "Pool",
+          "Beach Access",
+          "Fitness Center"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:10:06.639317"
+      },
+      {
+        "id": "cached_003",
+        "name": "Budget Inn Kathmandu",
+        "price_per_night": 75.0,
+        "currency": "USD",
+        "rating": 7.8,
+        "review_count": 456,
+        "location": "Kathmandu",
+        "address": "789 Budget Street, Kathmandu",
+        "room_type": "Standard Room",
+        "bed_type": "Double Bed",
+        "view": "Street View",
+        "breakfast": "Continental Breakfast Available",
+        "cancellation": "Non-refundable",
+        "distance_to_center": "1.2 km",
+        "amenities": [
+          "WiFi",
+          "Breakfast",
+          "24h Reception"
+        ],
+        "image_url": "",
+        "api_source": "Cached Data (API rate limited)",
+        "search_timestamp": "2025-10-29T19:10:06.639321"
+      }
+    ],
+    "api_sources": {
+      "weather": "OpenWeatherMap API",
+      "flights": "Amadeus API",
+      "hotels": "RapidAPI Booking.com",
+      "ai_content": "OpenAI GPT",
+      "itinerary_generation": {
+        "itinerary": "DeepSeek Chat v3.1 via OpenRouter",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "weather": "OpenWeatherMap API"
+      },
+      "summary_generation": {
+        "weather": "OpenWeatherMap API",
+        "flights": "Amadeus API",
+        "hotels": "RapidAPI Booking.com",
+        "ai_content": "OpenAI GPT",
+        "summary_generation": "AI-Powered"
+      }
+    },
+    "ai_enhanced": true,
+    "created_at": "2025-10-29T13:25:41.343539"
   }
 ]

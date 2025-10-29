@@ -132,9 +132,14 @@ export default function TripSummary({ trip }: TripSummaryProps) {
             </div>
             <h3 className="font-semibold text-gray-900 mb-1">Hotels</h3>
             <p className="text-sm text-gray-600">
-              {trip.hotels && trip.hotels.length > 0 
-                ? `From $${Math.min(...trip.hotels.map((h: any) => h.price_per_night))}/night`
-                : 'Premium accommodations'}
+              {(() => {
+                const hotelData = trip.hotels || trip.hotel_recommendations || [];
+                if (Array.isArray(hotelData) && hotelData.length > 0) {
+                  const prices = hotelData.map((h: any) => h.price_per_night || 0).filter(p => p > 0);
+                  return prices.length > 0 ? `From $${Math.min(...prices)}/night` : 'Premium accommodations';
+                }
+                return 'Premium accommodations';
+              })()} 
             </p>
           </motion.div>
 
@@ -258,24 +263,52 @@ export default function TripSummary({ trip }: TripSummaryProps) {
               </div>
             )}
 
-            {trip.hotels && trip.hotels.length > 0 && (
-              <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
-                  <Building className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-purple-600" />
-                  Accommodation Options
-                  {trip.hotels[0]?.api_source && (
-                    <span className="ml-3 px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                      {trip.hotels[0].api_source}
-                    </span>
-                  )}
-                </h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                  {trip.hotels.slice(0, 4).map((hotel: any, index: number) => (
-                    <HotelCard key={index} hotel={hotel} />
-                  ))}
-                </div>
-              </div>
-            )}
+
+
+            {(() => {
+              const hotelData = trip.hotels || trip.hotel_recommendations || [];
+              const hasHotels = Array.isArray(hotelData) && hotelData.length > 0;
+              console.log('Hotel data check:', { 
+                hotels: trip.hotels, 
+                hotel_recommendations: trip.hotel_recommendations, 
+                hotelData, 
+                hasHotels,
+                hotelDataType: typeof hotelData,
+                isArray: Array.isArray(hotelData)
+              });
+              
+              if (hasHotels) {
+                return (
+                  <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                      <Building className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-purple-600" />
+                      Accommodation Options ({hotelData.length} hotels found)
+                      {hotelData[0]?.api_source && (
+                        <span className="ml-3 px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                          {hotelData[0].api_source}
+                        </span>
+                      )}
+                    </h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      {hotelData.slice(0, 4).map((hotel: any, index: number) => (
+                        <HotelCard key={index} hotel={hotel} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                    <h3 className="font-bold text-red-800">No Hotel Data Found</h3>
+                    <p className="text-red-700 text-sm">
+                      Hotels: {Array.isArray(trip.hotels) ? trip.hotels.length : 'not array'}, 
+                      Recommendations: {Array.isArray(trip.hotel_recommendations) ? trip.hotel_recommendations.length : 'not array'}
+                    </p>
+                    <p className="text-red-600 text-xs mt-2">Debug: {JSON.stringify({hotelData, hasHotels})}</p>
+                  </div>
+                );
+              }
+            })()}
 
             {/* Cost Breakdown */}
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8">

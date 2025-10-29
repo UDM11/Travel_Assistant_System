@@ -28,6 +28,7 @@ export interface TripData {
   };
   flights?: FlightSuggestion[];
   hotels?: AccommodationSuggestion[];
+  hotel_recommendations?: AccommodationSuggestion[];
   weatherDetails?: WeatherDetails;
   research?: ResearchData;
   costBreakdown?: {
